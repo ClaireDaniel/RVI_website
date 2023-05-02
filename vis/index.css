@@ -1,0 +1,67 @@
+html, body, #app, #map-container {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.maplibregl-ctrl-bottom-right {
+  display: none !important;
+}
+
+#side-panel {
+  position: absolute;
+  float: right;
+  right: 10px;
+  top: 10px;
+  font-family: Microsoft Sans Serif;
+  width: 33%;
+  max-width: 500px;
+  min-width: 250px;
+  text-align: right;
+}
+
+.containers {
+  padding: 10px;
+}
+
+#title {
+  font-size: 2em;
+  background: rgba(255, 255, 255, 0.56);
+  padding: 5px 15px;
+  margin-bottom: 10px;
+}
+
+#about {
+  font-size: 0.75em;
+  background: rgba(255, 255, 255, 0.56);
+  padding: 5px 15px;
+  margin-bottom: 10px;
+}
+
+#logos {
+  height: 25px;
+  background: rgba(255, 255, 255, 0.56);
+  padding: 5px 15px;
+}
+
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  font-size: 0.75em;
+}
+
+.input-select {
+  -webkit-appearance: none;
+  width: 59%;
+  border-radius: 0px;
+  padding: 5px;
+}
+
+.input-title {
+  width: 35%;
+  padding: 5px;
+}

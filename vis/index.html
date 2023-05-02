@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Vulnerability Index</title>
+    <link  href="favicon.ico" rel="shortcut icon" type="image/jpg" />
+    <script src="deck-gl.js"></script>
+    <script src="maplibre-gl.js"></script>
+    <link href="maplibre-gl.css" rel="stylesheet" />
+    <script src="chroma.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div id="map-container"></div>
+      <div id="side-panel">
+        <div id="info-container" class="containers">
+          <div id="title">Queensland Rental Vulnerabilty Index</div>
+          <div id="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+          <div id="logos">logos</div>
+        </div>
+        <div id="ui-container" class="containers">
+          <div class="input-row">
+            <div class="input-title">Colour the map by: </div>
+            <select class="input-select" id="color-by-input">
+              <option value="rental_vulnerability_index_2016">Rental Vulnerability Index 2016</option>
+              <option value="rental_vulnerability_index_2021" selected>Rental Vulnerability Index 2021</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="index.js"></script>
+  <link  href="index.css" rel="stylesheet"/>
+</html>
