@@ -30,7 +30,7 @@ function draw_map() {
   MAP = new deck.DeckGL({ 
     initialViewState: SETTINGS[STATE].view,
     container: 'map-container', 
-    mapStyle: 'base.json',
+    mapStyle: 'libs/base.json',
     controller: { touchRotate: false, dragRotate: false, doubleClickZoom: true, inertia: true },
     getTooltip: ({object}) => object && generate_tooltip(object),
     layers: get_layers()
