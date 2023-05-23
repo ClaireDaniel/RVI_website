@@ -32,17 +32,30 @@ html, body, #app, #map-container {
   margin-bottom: 10px;
 }
 
-#about {
+#about, #data-sources {
   font-size: 0.75em;
   background: rgba(255, 255, 255, 0.56);
   padding: 5px 15px;
   margin-bottom: 10px;
 }
 
+summary {
+  font-weight: bold;
+}
+
 #logos {
-  height: 25px;
+  height: 65px;
   background: rgba(255, 255, 255, 0.56);
-  padding: 5px 15px;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.logo {
+  max-height: 50px;
+  margin: 0px 5px;
 }
 
 
@@ -65,3 +78,35 @@ html, body, #app, #map-container {
   width: 35%;
   padding: 5px;
 }
+
+#overlay {
+display: flex;width: 100%;height: 100%;position: absolute;top: 0px;left: 0px;
+align-items: center;
+flex-direction: column;
+}
+
+.landing-state-logo {
+display: flex;flex-direction: column;margin: 20px;font-family: Microsoft Sans Serif;font-size: 0.9em;text-align: center;
+}
+
+.landing-state-logo>img {
+  width:100px;
+  height: 100px;
+}
+
+#landing-title {
+  margin-top: 100px;
+  font-family: Microsoft Sans Serif;
+  font-size: 2em;
+  max-width: 400px;
+  text-align: center;
+}
+
+#landing-sub-title {
+  margin-top: 20px;
+  font-family: Microsoft Sans Serif;
+  font-size: 1em;
+  max-width: 400px;
+  text-align: center;
+}
+
