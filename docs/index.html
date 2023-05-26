@@ -14,16 +14,11 @@
     <div id="app">
       <div id="map-container"></div>
       <div id="side-panel">
-        <div id="info-container" class="containers" style="display:none">
-          <div id="title"></div>
-          <div id="about"></div>
-          <div id="data-sources"></div>
-          <div id="logos"></div>
-        </div>
-        <div id="ui-container" class="containers" style="display:none">
-          <div class="input-row">
-            <div class="input-title">Year: </div>
-            <select class="input-select" id="year-input"> <option value="2016">2016</option><option value="2021" selected>2021</option> </select>
+        <div id="branding" class="containers" style="display:none"></div>
+        <div id="controls" class="containers" style="display:none">
+          <div class="year">
+            <input type="radio" name="year" value="2016" id="year_2016" /><label for="year_2016"> 2016 </label>
+            <input type="radio" name="year" value="2021" id="year_2021" checked /><label for="year_2021"> 2021 </label>
           </div>
         </div>
       </div>
