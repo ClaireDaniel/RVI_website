@@ -28,12 +28,7 @@ const URL_PARAMS = new URLSearchParams(window.location.search)
 const STATE = URL_PARAMS.get('state')
 const SETTING = STATE ? SETTINGS[STATE] : SETTINGS.default;
 
-document.querySelectorAll('.year>input').forEach(input => {
-  input.addEventListener('change', function() { 
-    YEAR = document.querySelector('input[name="year"]:checked').value;
-    MAP.setProps( { layers: get_layers() } );
-  });
-});
+
 
 let MAP = new deck.DeckGL({ 
   initialViewState: SETTING.view,
@@ -41,32 +36,10 @@ let MAP = new deck.DeckGL({
   mapStyle: 'libs/base.json',
   controller: { touchRotate: false, dragRotate: false, doubleClickZoom: true, inertia: true },
   getTooltip: ({object}) => object && generate_tooltip(object),
-  layers: STATE ? get_layers() : [
-    new deck.GeoJsonLayer({
-      id: 'states',
-      data: 'tiles/states.geojson',
-      pickable: true,
-      uniqueIdProperty: 'id', 
-      autoHighlight: true,
-      highlightColor: [255, 0, 0],
-      opacity: 0.5,
-      lineWidthUnits: 'pixels',
-      getLineWidth: 1,
-      getLineColor: [0, 0, 0, 50], 
-      getFillColor: COLOR_SCALE(1).rgb() ,
-      onClick: (i,e) => { window.location.href = `./?state=${i.object.properties.state}` },
-      getFilterValue: i => Object.keys(SETTINGS).indexOf(i.properties.state) > -1 ? 1 : 0, 
-      filterRange: [1, 1],
-      extensions: [new deck.DataFilterExtension({filterSize: 1})],
-    })
-  ]
+  layers: get_layers()
 })
-
 let BRANDING = draw_branding(SETTING);
-
-if(STATE) {
-  CONTROLS = draw_controls();
-}
+let CONTROLS = STATE ? draw_controls() : null;
 
 
 function draw_branding(state) {
@@ -76,6 +49,10 @@ function draw_branding(state) {
   (about = document.createElement('div')).setAttribute('id','branding-about');
   (data = document.createElement('div')).setAttribute('id','branding-data');
   (logos = document.createElement('div')).setAttribute('id','branding-logos');
+  title.setAttribute('class','side-panel-sections');
+  about.setAttribute('class','side-panel-sections');
+  data.setAttribute('class','side-panel-sections');
+  logos.setAttribute('class','side-panel-sections');
   title.innerHTML = state.title;
   about.innerHTML = `<details${STATE?'':'open'}><summary>About</summary><p>${state.about}</p></details>`;
   data.innerHTML = `<details${STATE?'':'open'}><summary>Data Sources</summary><p>${state.data}</p></details>`;
@@ -85,15 +62,59 @@ function draw_branding(state) {
   branding.appendChild(data);
   branding.appendChild(logos);
   branding.style.display = 'block';
+  if(STATE) {
+    let home
+    (home = document.createElement('a')).setAttribute('id','branding-home');
+    home.href = './'
+    title.appendChild(home);
+  }
   return(branding)
 }
 
 function draw_controls() {
-  document.querySelector('#controls').style.display = 'block' 
+  let controls = document.querySelector('#controls');
+  let controls_container;
+  (controls_container = document.createElement('div')).setAttribute('class','side-panel-sections');
+
+  let year;
+  (year = document.createElement('div')).setAttribute('class','year controls-row');
+  year.innerHTML += `<input type="radio" name="year" value="2016" id="year-2016" /><label for="year-2016"> 2016 </label>`;
+  year.innerHTML += `<input type="radio" name="year" value="2021" id="year-2021" checked /><label for="year-2021"> 2021 </label>`;
+  controls_container.appendChild(year);
+
+  let search, search_datalist, search_input;
+  (search = document.createElement('div')).setAttribute('class','search controls-row');
+  (search_datalist = document.createElement('datalist')).setAttribute('id','search-datalist');
+  (search_input = document.createElement('input')).setAttribute('id','search');
+  search_input.setAttribute('list','search-datalist'); 
+  search_input.setAttribute('name','search'); 
+  search_input.setAttribute('placeholder','Search Suburbs/Postcodes'); 
+  search_input.addEventListener('click',(e) => { e.target.value = '' });
+  search.appendChild(search_input);
+  (async () => {
+    const response = await fetch("tiles/names.json");
+    const options = await response.json();
+    options.filter(a => a.state == STATE).forEach((option,i) => {
+      search_datalist.innerHTML += `<option value=${option.postcode}>${option.suburbs}</option>`
+    });
+  })();
+  search.appendChild(search_datalist);
+  controls_container.appendChild(search);
+
+  controls.appendChild(controls_container);
+  document.querySelectorAll('.year>input').forEach(input => {
+    input.addEventListener('change', function() { 
+      YEAR = document.querySelector('input[name="year"]:checked').value;
+      MAP.setProps( { layers: get_layers() } );
+    });
+  });
+
+  controls.style.display = 'block';
+  return(document.querySelector('#controls'));
 }
 
 function get_layers() { 
-  return ([
+  return (STATE ? [
     new deck.MVTLayer({
       id: 'rental_vulnerability_index',
       data : `tiles/{z}/{x}/{y}.pbf`, 
@@ -116,11 +137,34 @@ function get_layers() {
         getFilterValue: [YEAR]
       }
     })
+  ] : [
+    new deck.GeoJsonLayer({
+      id: 'states',
+      data: 'tiles/states.geojson',
+      pickable: true,
+      uniqueIdProperty: 'id', 
+      autoHighlight: true,
+      highlightColor: COLOR_SCALE(1).rgb(),
+      lineWidthUnits: 'pixels',
+      getLineWidth: 1,
+      getLineColor: [0, 0, 0], 
+      getFillColor: COLOR_SCALE(1).rgb().concat(125) ,
+      onClick: (i,e) => { window.location.href = `./?state=${i.object.properties.state}` },
+      getFilterValue: i => Object.keys(SETTINGS).indexOf(i.properties.state) > -1 ? 1 : 0, 
+      filterRange: [1, 1],
+      extensions: [new deck.DataFilterExtension({filterSize: 1})],
+    })
   ]);
 }
 
 function generate_tooltip(object) {
-  let html = `Postcode: ${object.properties.postcode} <br> `;
-  let style = { color:'#fff', backgroundColor: '#000', fontSize: '0.7em', fontFamily: 'monospace' };
-  return {html: html, style: style };
+  if(STATE == null) {
+    let html = `${object.properties.STATE_NAME} <br> `;
+    let style = { color:'#fff', backgroundColor: '#000', fontSize: '1em', fontFamily: 'monospace' };
+    return {html: html, style: style };
+  } else {
+    let html = `Postcode: ${object.properties.postcode} <br> `;
+    let style = { color:'#fff', backgroundColor: '#000', fontSize: '0.7em', fontFamily: 'monospace' };
+    return {html: html, style: style };
+  }
 }

@@ -5,7 +5,9 @@
 library(tidyverse)
 library(sf)
 
-data <- read_csv("data.csv")
+data <- read_csv("combined.csv")
+
+data |> select(postcode,suburbs,state) |> jsonlite::write_json("../docs/tiles/names.json")
 
 data_2016 <- data |> select(postcode, suburbs, state, ends_with("_2016"), ends_with("_common")) |> mutate(year = 2016, postcode = as.character(postcode)) |> rename_with(~str_remove(., '_2016$')) |> rename_with(~str_remove(., '_common$'))
 data_2021 <- data |> select(postcode, suburbs, state, ends_with("_2021"), ends_with("_common")) |> mutate(year = 2021, postcode = as.character(postcode)) |> rename_with(~str_remove(., '_2021$')) |> rename_with(~str_remove(., '_common$'))
@@ -19,3 +21,4 @@ joined_2021 <- data_2021 |> left_join(geoms_2021) |> st_as_sf() |> filter(!st_is
 final <- rbind(joined_2016, joined_2021) |> mutate(id = 1:n())
 
 final |> st_write("tiles.geojson")
+
