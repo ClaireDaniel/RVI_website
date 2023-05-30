@@ -1,4 +1,3 @@
-let YEAR = '2021';
 let CONTROLS = STATE ? draw_controls() : null;
 
 function draw_controls() {

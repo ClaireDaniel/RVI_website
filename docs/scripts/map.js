@@ -4,11 +4,11 @@ let MAP = new deck.DeckGL({
   mapStyle: 'libs/base.json',
   controller: { touchRotate: false, dragRotate: false, doubleClickZoom: true, inertia: true },
   getTooltip: ({object}) => {if(object) { return(STATE ? tooltip_postcode(object) : tooltip_state(object))}},
-  layers: STATE ? layer_state() : layer_national()
+  layers: STATE ? layer_postcode() : layer_state()
 })
 let LEGEND = legend('rvi');
 
-function layer_state() { 
+function layer_postcode() { 
   return ([
     new deck.MVTLayer({
       id: 'rental_vulnerability_index',
@@ -20,8 +20,8 @@ function layer_state() {
       highlightColor: [255, 0, 0],
       opacity: 0.5,
       lineWidthUnits: 'pixels',
-      getLineWidth: 1,
-      getLineColor: [0, 0, 0, 50], 
+      getLineWidth: i => { if(){console.log(i.properties.}; return(SELECTED.indexOf(i.properties.postcode) < 0 ? 1 : 3) }, 
+      getLineColor: i => SELECTED.indexOf(i.properties.postcode) < 0 ? [0, 0, 0, 50] : [255, 0, 0] , 
       getFillColor: i => COLOR_SCALE(i.properties.rvi).rgb(),
       onClick: (i,e) => { console.log(i.object.properties) },
       getFilterValue: i => i.properties.year == YEAR && i.properties.state == STATE ? 1 : 0, 
@@ -29,13 +29,15 @@ function layer_state() {
       extensions: [new deck.DataFilterExtension({filterSize: 1})],
       updateTriggers: { 
         getFillColor: [YEAR],
-        getFilterValue: [YEAR]
+        getFilterValue: [YEAR],
+        getLineColor: [SELECTED],
+        getLineWidth: [SELECTED]
       }
     })
   ]);
 }
 
-function layer_national() { 
+function layer_state() { 
   return ([
     new deck.GeoJsonLayer({
       id: 'states',
