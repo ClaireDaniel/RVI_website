@@ -1,4 +1,3 @@
-let BRANDING = draw_branding(SETTING);
 function draw_branding(state) {
   let branding = document.querySelector('#branding');
   let title, about, data, logos;

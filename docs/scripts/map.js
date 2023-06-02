@@ -1,13 +1,3 @@
-let MAP = new deck.DeckGL({ 
-  initialViewState: SETTING.view,
-  container: 'map-container', 
-  mapStyle: 'libs/base.json',
-  controller: { touchRotate: false, dragRotate: false, doubleClickZoom: true, inertia: true },
-  getTooltip: ({object}) => {if(object) { return(STATE ? tooltip_postcode(object) : tooltip_state(object))}},
-  layers: STATE ? layer_postcode() : layer_state()
-})
-let LEGEND = legend('rvi');
-
 function layer_postcode() { 
   return ([
     new deck.MVTLayer({
@@ -70,6 +60,4 @@ function tooltip_state(object) {
   return {html: html, style: style };
 }
 
-function legend(map_variable) {
 
-}

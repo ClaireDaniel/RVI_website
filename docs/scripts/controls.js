@@ -1,4 +1,3 @@
-let CONTROLS = STATE ? draw_controls() : null;
 
 function draw_controls() {
   let controls = document.querySelector('#controls');
@@ -15,6 +14,7 @@ function draw_controls() {
     input.addEventListener('change', function() { 
       YEAR = document.querySelector('input[name="year"]:checked').value;
       MAP.setProps( { layers: layer_postcode() } );
+      draw_info_panel(SELECTED);
     });
   });
 
@@ -28,17 +28,10 @@ function draw_controls() {
   search_input.setAttribute('placeholder','Search Suburbs/Postcodes'); 
   search_input.addEventListener('click',(e) => { e.target.value = '' });
   search.appendChild(search_input);
-  (async () => {
-    const response = await fetch("tiles/names.json");
-    const options = await response.json();
-    options.filter(a => a.state == STATE).forEach((option,i) => {
-      search_datalist.innerHTML += `<option value=${option.postcode}>${option.suburbs}</option>`
-    });
-  })();
-  search_input.addEventListener('change', function() {
-    console.log(this.value);
-    toggle_postcode_selection(this.value)
-  })
+  DATA.filter(a => a.state == STATE).forEach((option,i) => {
+    search_datalist.innerHTML += `<option value=${option.postcode}>${option.suburbs}</option>`
+  });
+  search_input.addEventListener('change', function() { toggle_postcode_selection(this.value) })
   search.appendChild(search_datalist);
   controls_container.appendChild(search);
 

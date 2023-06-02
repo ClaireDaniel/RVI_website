@@ -19,6 +19,8 @@ joined_2016 <- data_2016 |> left_join(geoms_2016) |> st_as_sf() |> filter(!st_is
 joined_2021 <- data_2021 |> left_join(geoms_2021) |> st_as_sf() |> filter(!st_is_empty(geometry)) |> st_transform("epsg:4326")
 
 final <- rbind(joined_2016, joined_2021) |> mutate(id = 1:n())
+non_geom <- rbind(data_2016,data_2021)
 
 final |> st_write("tiles.geojson")
+non_geom |> jsonlite::write_json('data.json')
 

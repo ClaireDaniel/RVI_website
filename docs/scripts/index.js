@@ -24,10 +24,28 @@ let SETTINGS = {
 }
 
 let COLOR_SCALE = chroma.scale(["#fee6ce", "#fdae6b", "#e6550d"]);
-let SELECTED = ['4416','4419']
-let MAX_SELECTIONS = 2;
-let YEAR = '2021'
+let SELECTED = []
+let MAX_SELECTIONS = 5;
+let YEAR = '2021';
 
 const URL_PARAMS = new URLSearchParams(window.location.search)
 const STATE = URL_PARAMS.get('state')
 const SETTING = STATE ? SETTINGS[STATE] : SETTINGS.default;
+
+let DATA, BRANDING, CONTROLS, INFO_PANEL, MAP, LEGEND;
+(async () => {
+  const response = await fetch("tiles/data.json");
+  DATA = await response.json();
+  BRANDING = draw_branding(SETTING);
+  CONTROLS = STATE ? draw_controls() : null;
+  INFO_PANEL = draw_info_panel(SELECTED);
+  MAP = new deck.DeckGL({ 
+    initialViewState: SETTING.view,
+    container: 'map-container', 
+    mapStyle: 'libs/base.json',
+    controller: { touchRotate: false, dragRotate: false, doubleClickZoom: true, inertia: true },
+    getTooltip: ({object}) => {if(object) { return(STATE ? tooltip_postcode(object) : tooltip_state(object))}},
+    layers: STATE ? layer_postcode() : layer_state()
+  })
+  LEGEND = draw_legend('rvi');
+})();
