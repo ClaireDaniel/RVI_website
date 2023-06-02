@@ -24,7 +24,8 @@ let SETTINGS = {
 }
 
 let COLOR_SCALE = chroma.scale(["#fee6ce", "#fdae6b", "#e6550d"]);
-let SELECTED = [2877]
+let SELECTED = ['4416','4419']
+let MAX_SELECTIONS = 2;
 let YEAR = '2021'
 
 const URL_PARAMS = new URLSearchParams(window.location.search)

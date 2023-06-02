@@ -14,7 +14,7 @@ function draw_controls() {
   document.querySelectorAll('.year>input').forEach(input => {
     input.addEventListener('change', function() { 
       YEAR = document.querySelector('input[name="year"]:checked').value;
-      MAP.setProps( { layers: layer_state() } );
+      MAP.setProps( { layers: layer_postcode() } );
     });
   });
 
@@ -35,9 +35,13 @@ function draw_controls() {
       search_datalist.innerHTML += `<option value=${option.postcode}>${option.suburbs}</option>`
     });
   })();
+  search_input.addEventListener('change', function() {
+    console.log(this.value);
+    toggle_postcode_selection(this.value)
+  })
   search.appendChild(search_datalist);
   controls_container.appendChild(search);
 
   controls.style.display = 'block';
-  return(document.querySelector('#controls'));
+  return(controls);
 }
