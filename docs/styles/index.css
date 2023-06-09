@@ -11,6 +11,8 @@ html, body, #app, #map-container {
 /* Side Panel                                                      */
 /*******************************************************************/
 #side-panel {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   float: right;
   right: 10px;
@@ -20,6 +22,7 @@ html, body, #app, #map-container {
   max-width: 500px;
   min-width: 250px;
   text-align: right;
+  max-height: calc( 100% - 10px);
 }
 .containers { padding: 10px; }
 .side-panel-sections {
@@ -88,18 +91,10 @@ summary { font-weight: bold; }
 /*******************************************************************/
 /* Info Panel                                                      */
 /*******************************************************************/
-
-#info-panel-container {
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  justify-items: start;
-  justify-content: space-evenly;
-  padding: 15px;
+#info-panel {
+  flex-grow: 1;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-.info-panel-column { flex-grow: 1; }
-.info-panel-cell { padding: 5px; }
-.info-panel-key { font-weight: bold; border-right: 1px solid gray; }
-.info-panel-cell:nth-child(2n+1) {background: rgba(219, 219, 219, 0.56)}
-
-
+#info-panel::-webkit-scrollbar { display: none; }

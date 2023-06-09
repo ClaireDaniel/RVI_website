@@ -28,7 +28,7 @@ function draw_controls() {
   search_input.setAttribute('placeholder','Search Suburbs/Postcodes'); 
   search_input.addEventListener('click',(e) => { e.target.value = '' });
   search.appendChild(search_input);
-  DATA.filter(a => a.state == STATE).forEach((option,i) => {
+  DATA.filter(a => a.state == STATE && a.year == YEAR).forEach((option,i) => {
     search_datalist.innerHTML += `<option value=${option.postcode}>${option.suburbs}</option>`
   });
   search_input.addEventListener('change', function() { toggle_postcode_selection(this.value) })
