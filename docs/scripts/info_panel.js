@@ -1,135 +1,61 @@
 function draw_info_panel (postcodes) {
-  console.log(postcodes)
-  let data = DATA.filter(d => postcodes.indexOf(d.postcode) > -1 && d.year == YEAR)
-console.log(data)
-
   let info_panel_container = document.querySelector('#info-panel');
-  info_panel_container.setAttribute('class','containers');
-  info_panel_container.innerHTML = '';
+  let info_panel = document.createElement('div');
+  let info_table = document.createElement('table');
 
-  let info_panel = document.createElement('div')
+  info_panel_container.innerHTML = '';
   info_panel.setAttribute('class','side-panel-sections');
 
-  let info_table;
-  info_table = document.createElement('table');
-
-  if(data[0]) {
+  function add_row(d) {
     let info_row, info_cell_header, info_cell_value;
-
-    function add_row(d) {
-      if(typeof(data[0][d.value]) != 'undefined') {
-        info_row = document.createElement('tr');
-        info_cell_header = document.createElement('td');
-        info_cell_header.innerHTML = d.header;
-        info_row.appendChild(info_cell_header);
-        for(i in data) {
-          info_cell_value = document.createElement('td');
-          info_cell_value.innerHTML=`<span>${data[i][d.value]}</span>`;
-          info_row.appendChild(info_cell_value);
+    let data_exists = data.map(f=>typeof(f[d.value]) != 'undefined').reduce((x,y) => { return(x || y) });
+    info_row = document.createElement('tr');
+    info_cell_header = document.createElement('td');
+    info_cell_header.innerHTML = d.value ? d.header : `<b>${d.header}</b>`;
+    info_row.appendChild(info_cell_header);
+    if(d.value) {
+      for(i in data) {
+        info_cell_value = document.createElement('td');
+        if(d.chart) {
+          info_cell_value.innerHTML=`<div class="chart"></div>`;
+        } else {
+          if(data_exists) {
+            info_cell_value.innerHTML=`<span ${d.tooltip ? 'data-tooltip="'+data[i][d.tooltip]+'"' : '' }>${data[i][d.value]}</span>`;
+            if(d.close) info_cell_value.innerHTML += `<span class='close' onClick="toggle_postcode_selection('${data[i].postcode}');">×</span>`;
+          }
         }
-        info_table.appendChild(info_row);
+        info_row.appendChild(info_cell_value);
       }
     }
-    
-    function add_heading(d) {
-      info_row = document.createElement('tr');
-      info_cell_header = document.createElement('td');
-      info_cell_header.innerHTML = `<b>${d}<b>`;
-      info_row.appendChild(info_cell_header);
-      info_table.appendChild(info_row);
-    }
+    if((!d.value) || data_exists || d.chart) info_table.appendChild(info_row);
+  }
 
-    info_row = document.createElement('tr');
-    info_cell_header = document.createElement('td');
-    info_cell_header.innerHTML = 'Postcode';
-    info_row.appendChild(info_cell_header);
-    for(i in data) {
-      info_cell_value = document.createElement('td');
-      info_cell_value.innerHTML=`<span data-tooltip="${data[i].suburbs}">${data[i].postcode}</span><span style="cursor:pointer;" onClick="toggle_postcode_selection('${data[i].postcode}')"> [x]</span>`;
-      info_row.appendChild(info_cell_value);
-    }
-    info_table.appendChild(info_row);
-
-    add_heading("Rental Indicators");
+  let data = DATA.filter(d => postcodes.indexOf(d.postcode) > -1 && d.year == YEAR)
+  if(data.length > 0) {
     [
+      {header: "Postcode", value: "postcode", tooltip: "suburbs", close: true},
+      {header: "Rental Indicators"},
       {header: "Rental Vulnerability Index", value: "rvi"},
-      {header: "Boarding Houses", value: "rent_stress"},
-      {header: "Number of Renters", value: "total_renters"}
-    ].forEach(f => { add_row(f) })
-
-    info_row = document.createElement('tr');
-    info_cell_header = document.createElement('td');
-    info_cell_header.innerHTML = 'Bonds Lodged';
-    info_row.appendChild(info_cell_header);
-    for(i in data) {
-      info_cell_value = document.createElement('td');
-      info_cell_value.innerHTML=`<span id="bonds-lodged-chart"></span>`;
-      info_row.appendChild(info_cell_value);
-    }
-    info_table.appendChild(info_row);
-
-    info_row = document.createElement('tr');
-    info_cell_header = document.createElement('td');
-    info_cell_header.innerHTML = 'Median Rent';
-    info_row.appendChild(info_cell_header);
-    for(i in data) {
-      info_cell_value = document.createElement('td');
-      info_cell_value.innerHTML=`<span id="median-rent-chart"></span>`;
-      info_row.appendChild(info_cell_value);
-    }
-    info_table.appendChild(info_row);
-
-    info_row = document.createElement('tr');
-    info_cell_header = document.createElement('td');
-    info_cell_header.innerHTML = 'Unaffordable Rentals';
-    info_row.appendChild(info_cell_header);
-    for(i in data) {
-      info_cell_value = document.createElement('td');
-      info_cell_value.innerHTML=`<span id="unaff-rentals-chart"></span>`;
-      info_row.appendChild(info_cell_value);
-    }
-    info_table.appendChild(info_row);
-
-    add_heading("Dwelling Indicators");
-    [
+      {header: "Rent Stress", value: "rent_stress"},
+      {header: "Number of Renters", value: "total_renters"},
+      {header: "Bonds Lodged", value: ["","",""], chart: 'line'},
+      {header: "Median Rent", value: ["","",""], chart: 'line'},
+      {header: "Unaffordable Rentals", value: ["","",""], chart: true},
+      {header: "Dwelling Indicators"},
       {header: "Public/Community Housing", value: "public_community"},
       {header: "Boarding Houses", value: "boardinghouse"},
-      {header: "Residential Parks", value: "residential_park"}
-    ].forEach(f => { add_row(f) })
-
-    info_row = document.createElement('tr');
-    info_cell_header = document.createElement('td');
-    info_cell_header.innerHTML = 'Home Ownership';
-    info_row.appendChild(info_cell_header);
-    for(i in data) {
-      info_cell_value = document.createElement('td');
-      info_cell_value.innerHTML=`<span id="home-ownership-chart"></span>`;
-      info_row.appendChild(info_cell_value);
-    }
-    info_table.appendChild(info_row);
-    
-    add_heading("People Indicators");
-    [
+      {header: "Residential Parks", value: "residential_park"},
+      {header: "Home Ownership", value: ["","",""], chart: 'bar'},
+      {header: "People Indicators"},
       {header: "Younger", value: "young"},
-      {header: "Older", value: "old"},
-      {header: "Unemployed", value: "unemp"},
+      {header: "Older", value: "older"},
+      {header: "Unemployed", value: "unemployed"},
       {header: "Single Parent", value: "single_parent"},
       {header: "Lower Education Level", value: "low_ed"},
-      {header: "On Assistance", value: "assist"},
-      {header: "Indigenous", value: "indig"}
+      {header: "Need of Assistance", value: "assist"},
+      {header: "Indigenous", value: "indig"},
+      {header: "Language Profile", value: ["","",""], chart: 'bar'},
     ].forEach(f => { add_row(f) })
-
-    info_row = document.createElement('tr');
-    info_cell_header = document.createElement('td');
-    info_cell_header.innerHTML = 'Language Profile';
-    info_row.appendChild(info_cell_header);
-    for(i in data) {
-      info_cell_value = document.createElement('td');
-      info_cell_value.innerHTML=`<span id="language-profile-chart"></span>`;
-      info_row.appendChild(info_cell_value);
-    }
-    info_table.appendChild(info_row);
-
   }
   
   info_panel.appendChild(info_table);

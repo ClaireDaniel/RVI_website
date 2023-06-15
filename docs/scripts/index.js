@@ -23,7 +23,7 @@ let SETTINGS = {
 
 }
 
-let COLOR_SCALE = chroma.scale(["#fee6ce", "#fdae6b", "#e6550d"]);
+let COLOR_SCALE = chroma.scale('OrRd').classes(5);
 let SELECTED = []
 let MAX_SELECTIONS = 3; 
 let YEAR = '2021';
