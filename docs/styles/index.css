@@ -19,7 +19,7 @@ html, body, #app, #map-container {
   top: 10px;
   font-family: Microsoft Sans Serif;
   width: 33%;
-  max-width: 500px;
+  max-width: 400px;
   min-width: 250px;
   text-align: right;
   max-height: calc( 100% - 10px);
@@ -116,8 +116,7 @@ summary { font-weight: bold; }
 }
 [data-tooltip]:hover::after { opacity: 0.9; transition-duration: 300ms; }
 table { width: 100%; }
-td, th { padding: 3px; text-align: center; white-space: nowrap;}
+td, th { padding: 3px; text-align: center; white-space: nowrap; min-width: 65px;}
 td:nth-child(1) { min-width: 75px; text-align: right; white-space: pre-wrap; }
 .close { opacity: 0.5; font-size: 1.2em; margin-left: 2px; font-family: sans-serif; font-weight: bold; cursor: pointer; }
 .close:hover { opacity: 1; }
-

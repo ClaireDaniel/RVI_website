@@ -31,7 +31,10 @@ function draw_controls() {
   DATA.filter(a => a.state == STATE && a.year == YEAR).forEach((option,i) => {
     search_datalist.innerHTML += `<option value=${option.postcode}>${option.suburbs}</option>`
   });
-  search_input.addEventListener('change', function() { toggle_postcode_selection(this.value) })
+  search_input.addEventListener('change', function(e) { 
+    toggle_postcode_selection(this.value);
+    e.target.value = '';
+})
   search.appendChild(search_datalist);
   controls_container.appendChild(search);
 
