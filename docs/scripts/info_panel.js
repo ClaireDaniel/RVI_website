@@ -11,7 +11,7 @@ function draw_info_panel (postcodes) {
     let data_exists = data.map(f=>typeof(f[d.value]) != 'undefined').reduce((x,y) => { return(x || y) });
     info_row = document.createElement('tr');
     info_cell_header = document.createElement('td');
-    info_cell_header.innerHTML = d.value ? d.header : `<b>${d.header}</b>`;
+    info_cell_header.innerHTML = d.value ? `<span ${d.tooltip_h ? 'data-tooltip="'+d.tooltip_h+'"' : '' } class="short">${d.header}</span>` : `<b>${d.header}</b>`;
     info_row.appendChild(info_cell_header);
     if(d.value) {
       for(i in data) {
@@ -41,7 +41,7 @@ function draw_info_panel (postcodes) {
             options: {
               animation: false,
               layout: { padding: 0 },
-              plugins: { legend: {display: false }, tooltip: { displayColors: d.chart != 'line'} },
+              plugins: { legend: {display: false }, tooltip: { caretSize:0, displayColors: d.chart != 'line'} },
               scales: { x: { display: false}, y: { display: false, beginAtZero: false } },
               maintainAspectRatio: false
             }
@@ -66,9 +66,12 @@ function draw_info_panel (postcodes) {
       {header: "Rental Vulnerability Index", value: "rvi"},
       {header: "Rent Stress", value: "rent_stress"},
       {header: "Number of Renters", value: "total_renters"},
-      {header: "Bonds Lodged", value: ["2016_12","2017_12","2018_12","2019_12","2020_12","2021_12"], chart: 'line', labels : ['2016','2017','2018','2019','2020','2021']},
-      {header: "Median Rent", value: ["16_m_rent","17_m_rent","18_m_rent","19_m_rent","20_m_rent","21_m_rent"], chart: 'line', labels : ['2016','2017','2018','2019','2020','2021']},
-      {header: "Unaffordable Rentals", value: ["unaff_2017","unaff_2018","unaff_2019","unaff_2020","unaff_2021"], chart: 'line', labels : ['2017','2018','2019','2020','2021']},
+      {header: "Bonds Lodged", value: `${YEAR}_12`},
+      {header: "Median Rent", value: `${YEAR.slice(-2)}_m_rent`},
+      {header: "Unaffordable Rentals", value: `unaff_${YEAR==2016 ? 2017 : YEAR}`},
+      {header: "Bonds Lodged (Trend)", value: ["2016_12","2017_12","2018_12","2019_12","2020_12","2021_12"], chart: 'line', labels : ['2016','2017','2018','2019','2020','2021'],tooltip_h:"From 2016-2021"},
+      {header: "Median Rent (Trend)", value: ["16_m_rent","17_m_rent","18_m_rent","19_m_rent","20_m_rent","21_m_rent"], chart: 'line', labels : ['2016','2017','2018','2019','2020','2021'],tooltip_h:"From 2016-2021 (AUD/Week)"},
+      {header: "Unaffordable Rentals (Trend)", value: ["unaff_2017","unaff_2018","unaff_2019","unaff_2020","unaff_2021"], chart: 'line', labels : ['2017','2018','2019','2020','2021'],tooltip_h:"From 2017-2021 (%)"},
       {header: "Dwelling Indicators"},
       {header: "Public/Community Housing", value: "public_community"},
       {header: "Boarding Houses", value: "boardinghouse"},

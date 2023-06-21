@@ -114,6 +114,7 @@ summary { font-weight: bold; }
   white-space: pre-wrap;
   text-align: right;
 }
+.short::after { width: unset; }
 [data-tooltip]:hover::after { opacity: 0.9; transition-duration: 300ms; }
 table { width: 100%; }
 td, th { padding: 3px; text-align: center; white-space: nowrap; min-width: 65px;}
