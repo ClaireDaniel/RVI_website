@@ -5,6 +5,7 @@ function draw_info_panel (postcodes) {
 
   info_panel_container.innerHTML = '';
   info_panel.setAttribute('class','side-panel-sections');
+  info_panel.style.padding = '15px 15px'
 
   function add_row(d) {
     let info_row, info_cell_header, info_cell_value;

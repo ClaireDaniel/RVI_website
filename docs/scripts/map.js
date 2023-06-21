@@ -49,7 +49,7 @@ function layer_state() {
 }
 
 function tooltip_postcode(object) {
-  let html = `Postcode: ${object.properties.postcode} <br> `;
+  let html = `Postcode: ${object.properties.postcode} <br> Rental Vulnerabilty: ${object.properties.rvi.toFixed(2)}`;
   let style = { color:'#fff', backgroundColor: '#000', fontSize: '0.7em', fontFamily: 'monospace' };
   return {html: html, style: style };
 }
