@@ -46,7 +46,7 @@ summary { font-weight: bold; }
   justify-content: flex-end;
   flex-wrap: wrap;
 }
-.branding-logo { max-height: 50px; margin: 5px 10px; }
+.branding-logo { max-height: 65px; margin: 5px 10px; }
 #branding-home {
   position: absolute;
   left: 15px;
