@@ -7,6 +7,7 @@ function draw_controls() {
 
   let year;
   (year = document.createElement('div')).setAttribute('class','year controls-row');
+  year.innerHTML += `<input type="radio" name="year" value="2011" id="year-2011" /><label for="year-2011"> 2011 </label>`;
   year.innerHTML += `<input type="radio" name="year" value="2016" id="year-2016" /><label for="year-2016"> 2016 </label>`;
   year.innerHTML += `<input type="radio" name="year" value="2021" id="year-2021" checked /><label for="year-2021"> 2021 </label>`;
   controls_container.appendChild(year);

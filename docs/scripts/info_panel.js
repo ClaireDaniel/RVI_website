@@ -60,17 +60,17 @@ function draw_info_panel (postcodes) {
   }
 
   let data = DATA.filter(d => postcodes.indexOf(d.postcode) > -1 && d.year == YEAR)
-  if(data.length > 0) {
+  if(data.length > 0 && YEAR != 2011) {
     [
       {header: "Postcode", value: "postcode", tooltip: "suburbs", close: true},
       {header: "Rental Indicators"},
       {header: "Rental Vulnerability Index", value: "rvi"},
       {header: "Rent Stress", value: "rent_stress"},
       {header: "Number of Renters", value: "total_renters"},
-      {header: "Bonds Lodged", value: `${YEAR}_12`},
+      {header: "Bonds Held", value: `${YEAR}_12`},
       {header: "Median Rent", value: `${YEAR.slice(-2)}_m_rent`},
       {header: "Unaffordable Rentals", value: `unaff_${YEAR==2016 ? 2017 : YEAR}`},
-      {header: "Bonds Lodged (Trend)", value: ["2016_12","2017_12","2018_12","2019_12","2020_12","2021_12"], chart: 'line', labels : ['2016','2017','2018','2019','2020','2021'],tooltip_h:"From 2016-2021"},
+      {header: "Bonds Held (Trend)", value: ["2016_12","2017_12","2018_12","2019_12","2020_12","2021_12"], chart: 'line', labels : ['2016','2017','2018','2019','2020','2021'],tooltip_h:"From 2016-2021"},
       {header: "Median Rent (Trend)", value: ["16_m_rent","17_m_rent","18_m_rent","19_m_rent","20_m_rent","21_m_rent"], chart: 'line', labels : ['2016','2017','2018','2019','2020','2021'],tooltip_h:"From 2016-2021 (AUD/Week)"},
       {header: "Unaffordable Rentals (Trend)", value: ["unaff_2017","unaff_2018","unaff_2019","unaff_2020","unaff_2021"], chart: 'line', labels : ['2017','2018','2019','2020','2021'],tooltip_h:"From 2017-2021 (%)"},
       {header: "Dwelling Indicators"},
@@ -93,6 +93,6 @@ function draw_info_panel (postcodes) {
   
   info_panel.appendChild(info_table);
   info_panel_container.appendChild(info_panel);
-  info_panel_container.style.display = postcodes.length > 0 && STATE ? 'block' : 'none';
+  info_panel_container.style.display = (postcodes.length > 0) && (YEAR != 2011) && STATE ? 'block' : 'none';
   return(info_panel);
 }
