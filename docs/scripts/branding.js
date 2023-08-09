@@ -17,6 +17,14 @@ function draw_branding(state) {
   branding.appendChild(about);
   branding.appendChild(data);
   branding.appendChild(logos);
+
+  let instruction = document.createElement('div');
+  instruction.setAttribute('id','branding-instruction');
+  instruction.setAttribute('class','side-panel-sections');
+  instruction.innerHTML = state.instruction;
+  branding.appendChild(instruction);
+  
+  
   branding.style.display = 'block';
   if(STATE) {
     let home

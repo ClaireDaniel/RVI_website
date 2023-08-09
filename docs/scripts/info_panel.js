@@ -12,7 +12,11 @@ function draw_info_panel (postcodes) {
     let data_exists = data.map(f=>typeof(f[d.value]) != 'undefined').reduce((x,y) => { return(x || y) });
     info_row = document.createElement('tr');
     info_cell_header = document.createElement('td');
-    info_cell_header.innerHTML = d.value ? `<span ${d.tooltip_h ? 'data-tooltip="'+d.tooltip_h+'"' : '' } class="short">${d.header}</span>` : `<b>${d.header}</b>`;
+    if(d.header) {
+      info_cell_header.innerHTML = d.value ? `<span ${d.tooltip_h ? 'data-tooltip="'+d.tooltip_h+'"' : '' } class="short">${d.header}</span>` : `<b>${d.header}</b>`;
+    } else {
+      info_row.setAttribute('class','info-panel-title');
+    }
     info_row.appendChild(info_cell_header);
     if(d.value) {
       for(i in data) {
@@ -62,7 +66,7 @@ function draw_info_panel (postcodes) {
   let data = DATA.filter(d => postcodes.indexOf(d.postcode) > -1 && d.year == YEAR)
   if(data.length > 0 && YEAR != 2011) {
     [
-      {header: "Postcode", value: "postcode", tooltip: "suburbs", close: true},
+      {value: "postcode", tooltip: "suburbs", close: true},
       {header: "Rental Indicators"},
       {header: "Rental Vulnerability Index", value: "rvi"},
       {header: "Rent Stress", value: "rent_stress"},
