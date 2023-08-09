@@ -17,7 +17,7 @@ html, body, #app, #map-container {
   float: right;
   right: 10px;
   top: 10px;
-  font-family: Microsoft Sans Serif;
+  font-family: 'Roboto', sans-serif;
   width: 33%;
   max-width: 400px;
   min-width: 250px;
@@ -28,7 +28,7 @@ html, body, #app, #map-container {
 .side-panel-sections {
   font-size: 0.75em;
   background: rgba(255, 255, 255);
-  padding: 5px 15px;
+  padding: 10px 15px;
   margin-bottom: 10px;
   border-radius: 3px;
 }
@@ -36,7 +36,12 @@ html, body, #app, #map-container {
 /*******************************************************************/
 /* Branding                                                        */
 /*******************************************************************/
-#branding-title { font-size: 2em; }
+#branding-title { 
+  font-size: 2em;
+  font-weight: bold;
+  font-family: 'Roboto Condensed', sans-serif;
+  padding: 15px 20px;
+}
 summary { font-weight: bold; }
 #branding-logos {
   /* height: 65px; */
@@ -123,7 +128,7 @@ summary { font-weight: bold; }
 table { width: 100%; }
 td, th { padding: 3px; text-align: center; white-space: nowrap; min-width: 65px;}
 td:nth-child(1) { min-width: 75px; text-align: right; white-space: pre-wrap; }
-.close { opacity: 0.5; font-size: 1.2em; margin-left: 2px; font-family: sans-serif; font-weight: bold; cursor: pointer; }
+.close { opacity: 0.5; font-size: 1.2em; margin-left: 2px; font-weight: bold; cursor: pointer; }
 .close:hover { opacity: 1; }
 .info-panel-title { font-size: 1.2em; font-weight: bold; }
 
