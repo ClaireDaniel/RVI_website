@@ -3,9 +3,13 @@ html, body, #app, #map-container {
   width: 100%;
   padding: 0px;
   margin: 0px;
+  overflow: hidden;
 }
 
-.maplibregl-ctrl-bottom-right { display: none !important; }
+.maplibregl-ctrl-bottom-right { 
+  left: 0px;
+  right: unset;
+}
 
 /*******************************************************************/
 /* Side Panel                                                      */
@@ -23,7 +27,11 @@ html, body, #app, #map-container {
   min-width: 250px;
   text-align: right;
   max-height: calc( 100% - 10px);
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+#side-panel::-webkit-scrollbar { display: none; }
 .containers { padding: 10px; }
 .side-panel-sections {
   font-size: 0.75em;
@@ -67,7 +75,10 @@ summary { font-weight: bold; }
   opacity: 0.5;
   cursor: pointer;
 }
-#branding-instruction { background: #ffffb0; }
+#branding-instruction { 
+  background: #ffffb0;
+  margin-bottom: 0px;
+}
 
 /*******************************************************************/
 /* Controls                                                        */

@@ -10,13 +10,14 @@ function draw_branding(state) {
   data.setAttribute('class','side-panel-sections');
   logos.setAttribute('class','side-panel-sections');
   title.innerHTML = state.title;
-  about.innerHTML = `<details${STATE?'':'open'}><summary>About</summary><p>${state.about}</p></details>`;
+  about.innerHTML = `<details${STATE?'':'open'}><summary>About</summary><p id="about-content">${state.about}<br><br></p></details>`;
   data.innerHTML = `<details${STATE?'':'open'}><summary>Data Sources</summary><p>${state.data}</p></details>`;
-  state.logos.forEach((url, i) => { logos.innerHTML += `<img class='branding-logo' src="${url}"></img>`; });
   branding.appendChild(title);
   branding.appendChild(about);
   branding.appendChild(data);
-  branding.appendChild(logos);
+
+  state.logos.forEach((url, i) => { document.querySelector("#about-content").innerHTML += `<img class='branding-logo' src="${url}"></img>`; });
+  // branding.appendChild(logos);
 
   let instruction = document.createElement('div');
   instruction.setAttribute('id','branding-instruction');
