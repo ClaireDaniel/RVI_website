@@ -95,6 +95,16 @@ summary { font-weight: bold; }
   width: calc( 100% - 20px);
 }
 
+.theme>select {
+  -webkit-appearance: none;
+  border: 1px solid black;
+  border-radius: 0px;
+  padding: 5px 10px;
+  margin-top: 10px;
+  font-size: 1em;
+  width: 100%;
+}
+
 /* Year Switcher ***************************************************/
 .year { display: flex; width: 100%; position: relative; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative; z-index: 1; font-size: 12px; border: 1px solid #000; border-radius: 3px; color: #000; }
 .year > input { display: none; }

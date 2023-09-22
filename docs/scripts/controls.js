@@ -35,9 +35,56 @@ function draw_controls() {
   search_input.addEventListener('change', function(e) { 
     toggle_postcode_selection(this.value);
     e.target.value = '';
-})
+  })
   search.appendChild(search_datalist);
   controls_container.appendChild(search);
+
+  let theme_values = [
+    {label: "Rental Vulnerability Index", value: "rvi"},
+    {label: "Rent Stress", value: "rent_stress"},
+    {label: "Number of Renters", value: "total_renters"},
+    {label: "Bonds Held", value: `${YEAR}_12`},
+    {label: "Median Rent", value: `${YEAR.slice(-2)}_m_rent`},
+    {label: "Unaffordable Rentals", value: `unaff_${YEAR==2016 ? 2017 : YEAR}`},
+    {label: "Public/Community Housing", value: "public_community"},
+    {label: "Boarding Houses", value: "boardinghouse"},
+    {label: "Residential Parks", value: "residential_park"},
+    {label: "Owner Occupied", value: "own_occ"},
+    {label: "Rented", value: "rented"},
+    {label: "Other Tenure", value: "other_tenure"},
+    {label: "Tenure Not Stated", value: "tenurenotstated"},
+    {label: "Younger", value: "young"},
+    {label: "Older", value: "older"},
+    {label: "Unemployed", value: "unemployed"},
+    {label: "Single Parent", value: "single_parent"},
+    {label: "Lower Education Level", value: "low_ed"},
+    {label: "Need of Assistance", value: "assist"},
+    {label: "Indigenous", value: "indig"},
+    {label: "English", value:"english"},
+    {label: "Spanish", value: "spanish"},
+    {label: "Arabic", value: "arabic"},
+    {label: "Hindi", value: "hindi"},
+    {label: "Punjabi", value: "punjabi"},
+    {label: "Vietnamese", value: "vietnamese"},
+    {label: "Japanese", value: "japanese"},
+    {label: "Korean", value: "korean"},
+    {label: "Mandarin", value: "mandarin"},
+    {label: "Samoan", value: "samoan"},
+    {label: "Tagalog", value: "tagalog"},
+    {label: "Other", value: "all_otherlang"}
+  ]
+
+  let theme, theme_input;
+  (theme = document.createElement('div')).setAttribute('class','theme controls-row');
+  (theme_input = document.createElement('select')).setAttribute('id','theme');
+  theme_input.setAttribute('name','theme'); 
+  theme_values.forEach((theme_value,i) => {
+    theme_input.innerHTML += `<option value=${theme_value.value}>${theme_value.label}</option>`
+  });
+  theme_input.addEventListener('change', function(e) { })
+  theme.appendChild(theme_input);
+  controls_container.appendChild(theme);
+
 
   controls.style.display = 'block';
   return(controls);
