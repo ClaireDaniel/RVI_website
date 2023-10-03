@@ -81,7 +81,10 @@ function draw_controls() {
   theme_values.forEach((theme_value,i) => {
     theme_input.innerHTML += `<option value=${theme_value.value}>${theme_value.label}</option>`
   });
-  theme_input.addEventListener('change', function(e) { })
+  theme_input.addEventListener('change', function(e) { 
+    THEME = e.target.value
+    MAP.setProps({layers: layer_postcode()});
+  })
   theme.appendChild(theme_input);
   controls_container.appendChild(theme);
 

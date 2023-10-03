@@ -12,13 +12,13 @@ function layer_postcode() {
       lineWidthUnits: 'pixels',
       getLineWidth: i =>  SELECTED.indexOf(i.properties.postcode) < 0 ? 1 : 3 , 
       getLineColor: i => SELECTED.indexOf(i.properties.postcode) < 0 ? [0, 0, 0, 50] : [0, 0, 255] , 
-      getFillColor: i => COLOR_SCALE(i.properties.rvi).rgb(),
+      getFillColor: i => COLOR_SCALE(i.properties[THEME]).rgb(),
       onClick: (i,e) => { toggle_postcode_selection(i.object.properties.postcode); },
       getFilterValue: i => i.properties.year == YEAR && i.properties.state == STATE ? 1 : 0, 
       filterRange: [1, 1],
       extensions: [new deck.DataFilterExtension({filterSize: 1})],
       updateTriggers: { 
-        getFillColor: [YEAR],
+        getFillColor: [YEAR, THEME],
         getFilterValue: [YEAR],
         getLineColor: [SELECTED],
         getLineWidth: [SELECTED]

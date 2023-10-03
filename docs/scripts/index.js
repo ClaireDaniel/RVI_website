@@ -29,6 +29,7 @@ let COLOR_SCALE = chroma.scale('OrRd').classes(5);
 let SELECTED = []
 let MAX_SELECTIONS = 2; 
 let YEAR = '2021';
+let THEME = 'rvi';
 
 const URL_PARAMS = new URLSearchParams(window.location.search)
 const STATE = URL_PARAMS.get('state')
