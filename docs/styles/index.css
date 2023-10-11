@@ -64,7 +64,7 @@ summary { font-weight: bold; }
 #branding-home {
   position: absolute;
   left: 15px;
-  top: 30px;
+  top: 70px;
   width: 25px;
   height: 25px;
   margin: 10px;
@@ -127,7 +127,10 @@ summary { font-weight: bold; }
 #info-panel::-webkit-scrollbar { display: none; }
 [data-tooltip] { border-bottom: 1px dashed #000; cursor: help }
 [data-tooltip]::after {
-  position: absolute;
+  position: fixed;
+  float: left;
+  right: 30px;
+  bottom: 25px;
   opacity: 0;
   pointer-events: none;
   content: attr(data-tooltip);
@@ -137,14 +140,13 @@ summary { font-weight: bold; }
   z-index: 10;
   padding: 8px;
   width: 100%;
-  max-width: 500px;
+  max-width: 345px;
   transition: all 150ms cubic-bezier(.25, .8, .25, 1);
-  transform: translate(-100%,-100%);
   margin: -10px 0px;
   white-space: pre-wrap;
-  text-align: right;
+  text-align: left;
 }
-.short::after { width: unset; }
+/* .short::after { width: unset; } */
 [data-tooltip]:hover::after { opacity: 0.9; transition-duration: 300ms; }
 table { width: 100%; }
 td, th { padding: 3px; text-align: center; white-space: nowrap; min-width: 65px;}

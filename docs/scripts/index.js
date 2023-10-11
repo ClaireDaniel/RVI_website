@@ -25,11 +25,131 @@ let SETTINGS = {
   }
 }
 
+
+
 let COLOR_SCALE = chroma.scale('OrRd').classes(5);
 let SELECTED = []
-let MAX_SELECTIONS = 2; 
+let MAX_SELECTIONS = 3; 
 let YEAR = '2021';
-let THEME = 'rvi';
+
+let THEMES = [
+  { "name": "Rental Indicators",
+    "items": [
+      { id: 0, display: false, label: "Post Code", color: d => d.postcode, format: d => d.postcode},
+      { id: 1, 
+        display: true,
+        label: "Rental Vulnerability Index", 
+        color: d => chroma.scale('OrRd').classes(5)(d.rvi).rgb(),
+        format: d => d.rvi.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2, maximumFractionDigits:2})
+      },
+      { id: 2, 
+        display: true,
+        label: "Rent Stress", 
+        color: d => {
+          let val = STATE == 'qld' ? Number(d.rent_stress) : Number(d.rent_stress.replace('%','')/100)
+          let color = chroma.scale('OrRd').domain([0,0.28]).classes(5)(val).rgb()
+          if(val == 0) return [200,200,200,0.5]
+          return color;
+        },
+        format: d => {
+          let val = STATE=='QLD' ? Number(d.rent_stress) : Number(d.rent_stress.replace('%','')/100)
+          return val.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2, maximumFractionDigits:2})
+        }
+      },
+      { id: 3, 
+        display: true,
+        label: "Number of Renters", 
+        color: d => {
+          let val = d.total_renters/d.total_persons
+          let color = chroma.scale('OrRd').domain([0,0.5,0.75]).classes(5)(val).rgb()
+          if(val == 0) return [200,200,200,0.5]
+          return color;
+        },
+        format: d => {
+          let percentage = (d.total_renters/d.total_persons).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2});
+          return `${d.total_renters} (${percentage})`
+        },
+      },
+      { id: 4, 
+        display: true,
+        label: "Bonds Held", 
+        color: d => {
+          let val = d[`${YEAR}_12`]
+          let color = chroma.scale('OrRd').domain([10,1000,5000]).classes(5)(val).rgb()
+          if(val == 0) return [200,200,200,0.5]
+          return color;
+        },
+        format: d => d[`${YEAR}_12`]
+      },
+      { id: 5, 
+        display: true,
+        label: "Median Rent", 
+        color: d => {
+          let val = d[`${YEAR.slice(-2)}_m_rent`]
+          let color = chroma.scale('OrRd').domain([100,750]).classes(5)(val).rgb()
+          if(val == 0) return [200,200,200,0.5]
+          return color;
+        },
+        format: d => d[`${YEAR.slice(-2)}_m_rent`]
+      },
+      { id: 6, 
+        display: true,
+        label: "Unaffordable Rentals", 
+        color: d => {
+          let val = d[`unaff_${YEAR==2016 ? 2017 : YEAR}`]
+          let color = chroma.scale('OrRd').domain([0,100]).classes(5)(val).rgb()
+          if(val == 0) return [200,200,200,0.5]
+          return color;
+        },
+        format: d => {
+          let val = d[`unaff_${YEAR==2016 ? 2017 : YEAR}`]/100
+          let string = val.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})
+          return string
+        }
+      },
+    ]
+  },
+  { "name": "Dwelling Indicators",
+    "items": [
+      {id: 7, label: "Public/Community Housing", value: "public_community"},
+      {id: 8, label: "Boarding Houses", value: "boardinghouse"},
+      {id: 9, label: "Residential Parks", value: "residential_park"},
+      {id: 10, label: "Owner Occupied", value: "own_occ"},
+      {id: 11, label: "Rented", value: "rented"},
+      {id: 12, label: "Other Tenure", value: "other_tenure"},
+      {id: 13, label: "Tenure Not Stated", value: "tenurenotstated"}
+    ]
+  },
+  { "name": "People Indicators",
+    "items": [
+      { id: 14, display: true, label: "Younger",               color: d => chroma.scale('OrRd').domain([0,0.25])(d.young/d.total_renters).rgb(), format: d => `${d.young} (${(d.young/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 15, display: true, label: "Older",                 color: d => chroma.scale('OrRd').domain([0,0.25])(d.older/d.total_renters).rgb(), format: d => `${d.older} (${(d.older/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 16, display: true, label: "Unemployed",            color: d => chroma.scale('OrRd').domain([0,0.1])(d.unemployed/d.total_renters).rgb(), format: d => `${d.unemployed} (${(d.unemployed/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 17, display: true, label: "Single Parent",         color: d => chroma.scale('OrRd').domain([0,0.25])(d.single_parent/d.total_renters).rgb(), format: d => `${d.single_parent} (${(d.single_parent/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 18, display: true, label: "Lower Education Level", color: d => chroma.scale('OrRd').domain([0,0.25])(d.low_ed/d.total_renters).rgb(), format: d => `${d.low_ed} (${(d.low_ed/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 19, display: true, label: "Need of Assistance",    color: d => chroma.scale('OrRd').domain([0,0.20])(d.assist/d.total_renters).rgb(), format: d => `${d.assist} (${(d.assist/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 20, display: true, label: "Indigenous",            color: d => chroma.scale('OrRd').domain([0,0.5])(d.indig/d.total_renters).rgb(), format: d => `${d.indig} (${(d.indig/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+     ]
+  },     
+  { "name": "Languages Spoken",
+    "items": [
+      { id: 21, display: true, label: "English",    color: d => chroma.scale('OrRd').domain([0.75,1])(d.english/d.total_renters).rgb(), format: d => `${d.english} (${(d.english/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 22, display: true, label: "Spanish",    color: d => chroma.scale('OrRd').domain([0,0.05,0.25])(d.spanish/d.total_renters).rgb(), format: d => `${d.spanish} (${(d.spanish/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 23, display: true, label: "Arabic",     color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d.arabic/d.total_renters).rgb(), format: d => `${d.arabic} (${(d.arabic/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 24, display: true, label: "Hindi",      color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d.hindi/d.total_renters).rgb(), format: d => `${d.hindi} (${(d.hindi/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 25, display: true, label: "Punjabi",    color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d.punjabi/d.total_renters).rgb(), format: d => `${d.pubjabi} (${(d.punjabi/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 26, display: true, label: "Vietnamese", color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d.vietnamese/d.total_renters).rgb(), format: d => `${d.vietnamese} (${(d.vietnamese/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 27, display: true, label: "Japanese",   color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d.japanese/d.total_renters).rgb(), format: d => `${d.japanese} (${(d.japanese/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 28, display: true, label: "Korean",     color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d.korean/d.total_renters).rgb(), format: d => `${d.korean} (${(d.korean/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 29, display: true, label: "Mandarin",   color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d.mandarin/d.total_renters).rgb(), format: d => `${d.mandarin} (${(d.mandarin/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 30, display: true, label: "Samoan",     color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d.samoan/d.total_renters).rgb(), format: d => `${d.samoan} (${(d.samoan/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 31, display: true, label: "Tagalog",    color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d.tagalog/d.total_renters).rgb(), format: d => `${d.tagalog} (${(d.tagalog/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 32, display: true, label: "Other",      color: d => chroma.scale('OrRd').domain([0,0.05,0.50])(d.all_other_lang/d.total_renters).rgb(), format: d => `${d.all_other_lang} (${(d.all_other_lang/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`}
+    ]
+  }
+]
+
+let THEME = 1;
 
 const URL_PARAMS = new URLSearchParams(window.location.search)
 const STATE = URL_PARAMS.get('state')
