@@ -52,7 +52,7 @@ function layer_state() {
 function tooltip_postcode(object) {
   let theme = THEMES.map(a => a.items).flat().filter(f => f.id == THEME)[0]
   let html = `Postcode: ${object.properties.postcode} <br> ${theme.label}: ${theme.format(object.properties)}`;
-  let style = { color:'#fff', backgroundColor: '#000', fontSize: '0.7em', fontFamily: 'monospace' };
+  let style = { color:'#fff', backgroundColor: '#000', fontSize: '1em', fontFamily: 'monospace',fontWeight: 'bold' };
   return {html: html, style: style };
 }
 
