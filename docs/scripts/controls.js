@@ -63,6 +63,7 @@ function draw_controls() {
   theme_input.addEventListener('change', function(e) { 
     THEME = e.target.value
     MAP.setProps({layers: layer_postcode()});
+    draw_legend();
   })
   theme.appendChild(theme_input);
   controls_container.appendChild(theme);
