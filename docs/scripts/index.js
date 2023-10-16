@@ -35,78 +35,13 @@ let YEAR = '2021';
 let THEMES = [
   { "name": "Rental Indicators",
     "items": [
-      { id: 0, display: false, label: "Post Code", color: d => d.postcode, format: d => d.postcode},
-      { id: 1, 
-        display: true,
-        label: "Rental Vulnerability Index", 
-        color: d => chroma.scale('OrRd').classes(5)(d.rvi).rgb(),
-        format: d => d.rvi.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2, maximumFractionDigits:2})
-      },
-      { id: 2, 
-        display: true,
-        label: "Rent Stress", 
-        color: d => {
-          let val = STATE == 'qld' ? Number(d.rent_stress) : Number(d.rent_stress.replace('%','')/100)
-          let color = chroma.scale('OrRd').domain([0,0.28]).classes(5)(val).rgb()
-          if(val == 0) return [200,200,200,0.5]
-          return color;
-        },
-        format: d => {
-          let val = STATE=='QLD' ? Number(d.rent_stress) : Number(d.rent_stress.replace('%','')/100)
-          return val.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2, maximumFractionDigits:2})
-        }
-      },
-      { id: 3, 
-        display: true,
-        label: "Number of Renters", 
-        color: d => {
-          let val = d.total_renters/d.total_persons
-          let color = chroma.scale('OrRd').domain([0,0.5,0.75]).classes(5)(val).rgb()
-          if(val == 0) return [200,200,200,0.5]
-          return color;
-        },
-        format: d => {
-          let percentage = (d.total_renters/d.total_persons).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2});
-          return `${d.total_renters} (${percentage})`
-        },
-      },
-      { id: 4, 
-        display: true,
-        label: "Bonds Held", 
-        color: d => {
-          let val = d[`${YEAR}_12`]
-          let color = chroma.scale('OrRd').domain([10,1000,5000]).classes(5)(val).rgb()
-          if(val == 0) return [200,200,200,0.5]
-          return color;
-        },
-        format: d => d[`${YEAR}_12`]
-      },
-      { id: 5, 
-        display: true,
-        label: "Median Rent", 
-        color: d => {
-          let val = d[`${YEAR.slice(-2)}_m_rent`]
-          let color = chroma.scale('OrRd').domain([100,750]).classes(5)(val).rgb()
-          if(val == 0) return [200,200,200,0.5]
-          return color;
-        },
-        format: d => `$ ${d[YEAR.slice(-2)+'_m_rent']} pw`
-      },
-      { id: 6, 
-        display: true,
-        label: "Unaffordable Rentals", 
-        color: d => {
-          let val = d[`unaff_${YEAR==2016 ? 2017 : YEAR}`]
-          let color = chroma.scale('OrRd').domain([0,100]).classes(5)(val).rgb()
-          if(val == 0) return [200,200,200,0.5]
-          return color;
-        },
-        format: d => {
-          let val = d[`unaff_${YEAR==2016 ? 2017 : YEAR}`]/100
-          let string = val.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})
-          return string
-        }
-      },
+      { id: 0, display: false, label: "Post Code",                 color: d => d.postcode, format: d => d.postcode},
+      { id: 1, display: true, label: "Rental Vulnerability Index", color: d => chroma.scale('OrRd').classes(5)(d.rvi).rgb(), format: d => d.rvi.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2, maximumFractionDigits:2}) },
+      { id: 2, display: true, label: "Rent Stress",                color: d => { let val = STATE == 'qld' ? Number(d.rent_stress) : Number(d.rent_stress.replace('%','')/100) let color = chroma.scale('OrRd').domain([0,0.28]).classes(5)(val).rgb() if(val == 0) return [200,200,200,0.5] return color; }, format: d => { let val = STATE=='QLD' ? Number(d.rent_stress) : Number(d.rent_stress.replace('%','')/100) return val.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2, maximumFractionDigits:2}) } },
+      { id: 3, display: true, label: "Number of Renters",          color: d => { let val = d.total_renters/d.total_persons let color = chroma.scale('OrRd').domain([0,0.5,0.75]).classes(5)(val).rgb() if(val == 0) return [200,200,200,0.5] return color; },                                                format: d => { let percentage = (d.total_renters/d.total_persons).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2}); return `${d.total_renters} (${percentage})` } },
+      { id: 4, display: true, label: "Bonds Held",                 color: d => { let val = d[`${YEAR}_12`] let color = chroma.scale('OrRd').domain([10,1000,5000]).classes(5)(val).rgb() if(val == 0) return [200,200,200,0.5] return color; },                                                              format: d => d[`${YEAR}_12`] },
+      { id: 5, display: true, label: "Median Rent",                color: d => { let val = d[`${YEAR.slice(-2)}_m_rent`] let color = chroma.scale('OrRd').domain([100,750]).classes(5)(val).rgb() if(val == 0) return [200,200,200,0.5] return color; },                                                     format: d => `$ ${d[YEAR.slice(-2)+'_m_rent']} pw` },
+      { id: 6, display: true, label: "Unaffordable Rentals",       color: d => { let val = d[`unaff_${YEAR==2016 ? 2017 : YEAR}`] let color = chroma.scale('OrRd').domain([0,100]).classes(5)(val).rgb() if(val == 0) return [200,200,200,0.5] return color; },                                              format: d => { let val = d[`unaff_${YEAR==2016 ? 2017 : YEAR}`]/100 let string = val.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2}) return string } }
     ]
   },
   { "name": "Dwelling Indicators",
