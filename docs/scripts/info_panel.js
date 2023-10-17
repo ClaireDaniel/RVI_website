@@ -1,4 +1,102 @@
 function draw_info_panel (postcodes) {
+
+
+  let aggregated_info = [
+    {"header": "Postcode", "state": "nsw", "year": "2016", "value": "NSW", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "nsw", "year": "2016", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "nsw", "year": "2016", "value": "  ", "labels": ""},
+    {"header": "Number of Renters", "state": "nsw", "year": "2016", "value": "2.11m (28%)", "labels": ""},
+    {"header": "Bonds Held", "state": "nsw", "year": "2016", "value": "--", "labels": ""},
+    {"header": "Median Rent", "state": "nsw", "year": "2016", "value": "450 pw", "labels": ""},
+    {"header": "Unaffordable Rentals", "state": "nsw", "year": "2016", "value": "65%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "nsw", "year": "2016", "value": [833729,867253,900927,921878,930738], "labels": [2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "nsw", "year": "2016", "value": [450,465,480,480,470,480], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Unaffordable Rentals (Trend)", "state": "nsw", "year": "2016", "value": [0.72,0.72,0.70,0.64,0.55], "labels": [2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "nsw", "year": "2016", "value": "125k (4%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "nsw", "year": "2016", "value": "11k (0.3%)", "labels": ""},
+    {"header": "Residential Parks", "state": "nsw", "year": "2016", "value": "22k (0.7%)", "labels": ""},
+    {"header": "Home Ownership", "state": "nsw", "year": "2016", "value": "1.70m (55%)", "labels": ""},
+    {"header": "Younger", "state": "nsw", "year": "2016", "value": "253k (12%)", "labels": ""},
+    {"header": "Older", "state": "nsw", "year": "2016", "value": "140k (6%)", "labels": ""},
+    {"header": "Unemployed", "state": "nsw", "year": "2016", "value": "101k (5%)", "labels": ""},
+    {"header": "Single Parent", "state": "nsw", "year": "2016", "value": "141k (7%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "nsw", "year": "2016", "value": "137k (6%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "nsw", "year": "2016", "value": "105k (5%)", "labels": ""},
+    {"header": "Indigenous", "state": "nsw", "year": "2016", "value": "115k (5%)", "labels": ""},
+    {"header": "English Speakers", "state": "nsw", "year": "2016", "value": "1.37m (65%)", "labels": ""},
+    {"header": "Other Languages", "state": "nsw", "year": "2016", "value": " ", "labels": ""},
+    {"header": "Postcode", "state": "nsw", "year": "2021", "value": "NSW", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "nsw", "year": "2021", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "nsw", "year": "2021", "value": "  ", "labels": ""},
+    {"header": "Number of Renters", "state": "nsw", "year": "2021", "value": "2.37m (29%)", "labels": ""},
+    {"header": "Bonds Held", "state": "nsw", "year": "2021", "value": "930k", "labels": ""},
+    {"header": "Median Rent", "state": "nsw", "year": "2021", "value": "480 pw", "labels": ""},
+    {"header": "Unaffordable Rentals", "state": "nsw", "year": "2021", "value": "38%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "nsw", "year": "2021", "value": [833729,867253,900927,921878,930738], "labels": [2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "nsw", "year": "2021", "value": [450,465,480,480,470,480], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Unaffordable Rentals (Trend)", "state": "nsw", "year": "2021", "value": [0.72,0.72,0.70,0.64,0.55], "labels": [2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "nsw", "year": "2021", "value": "123k (4%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "nsw", "year": "2021", "value": "10k (0.3%)", "labels": ""},
+    {"header": "Residential Parks", "state": "nsw", "year": "2021", "value": "22k (1%)", "labels": ""},
+    {"header": "Home Ownership", "state": "nsw", "year": "2021", "value": "1.89m (56%)", "labels": ""},
+    {"header": "Younger", "state": "nsw", "year": "2021", "value": "257k (11%)", "labels": ""},
+    {"header": "Older", "state": "nsw", "year": "2021", "value": "175k (7%)", "labels": ""},
+    {"header": "Unemployed", "state": "nsw", "year": "2021", "value": "89k (4%)", "labels": ""},
+    {"header": "Single Parent", "state": "nsw", "year": "2021", "value": "154k (6%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "nsw", "year": "2021", "value": "139k (6%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "nsw", "year": "2021", "value": "134k (6%)", "labels": ""},
+    {"header": "Indigenous", "state": "nsw", "year": "2021", "value": "144k (6%)", "labels": ""},
+    {"header": "English Speakers", "state": "nsw", "year": "2021", "value": "1.53m (64%)", "labels": ""},
+    {"header": "Other Languages", "state": "nsw", "year": "2021", "value": "  ", "labels": ""},
+    {"header": "Postcode", "state": "qld", "year": "2016", "value": "QLD", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "qld", "year": "2016", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "qld", "year": "2016", "value": "  ", "labels": ""},
+    {"header": "Number of Renters", "state": "qld", "year": "2016", "value": "1.45m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "qld", "year": "2016", "value": "568k", "labels": ""},
+    {"header": "Median Rent", "state": "qld", "year": "2016", "value": "355 pw", "labels": ""},
+    {"header": "Unaffordable Rentals", "state": "qld", "year": "2016", "value": "47%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "qld", "year": "2016", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "qld", "year": "2016", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Unaffordable Rentals (Trend)", "state": "qld", "year": "2016", "value": [0.67,0.68,0.69,0.71,0.70,0.62], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "qld", "year": "2016", "value": "57k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "qld", "year": "2016", "value": "8k (0.3%)", "labels": ""},
+    {"header": "Residential Parks", "state": "qld", "year": "2016", "value": "17k (0.8%)", "labels": ""},
+    {"header": "Home Ownership", "state": "qld", "year": "2016", "value": "1.04m (53%)", "labels": ""},
+    {"header": "Younger", "state": "qld", "year": "2016", "value": "253k (17%)", "labels": ""},
+    {"header": "Older", "state": "qld", "year": "2016", "value": "94k (6%)", "labels": ""},
+    {"header": "Unemployed", "state": "qld", "year": "2016", "value": "85k (6%)", "labels": ""},
+    {"header": "Single Parent", "state": "qld", "year": "2016", "value": "99k (7%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "qld", "year": "2016", "value": "350k (25%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "qld", "year": "2016", "value": "72k (5%)", "labels": ""},
+    {"header": "Indigenous", "state": "qld", "year": "2016", "value": "113k (7%)", "labels": ""},
+    {"header": "English Speakers", "state": "qld", "year": "2016", "value": "1.19m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "qld", "year": "2016", "value": "  ", "labels": ""},
+    {"header": "Postcode", "state": "qld", "year": "2021", "value": "QLD", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "qld", "year": "2021", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "qld", "year": "2021", "value": "  ", "labels": ""},
+    {"header": "Number of Renters", "state": "qld", "year": "2021", "value": "1.56m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "qld", "year": "2021", "value": "593k", "labels": ""},
+    {"header": "Median Rent", "state": "qld", "year": "2021", "value": "420 pw", "labels": ""},
+    {"header": "Unaffordable Rentals", "state": "qld", "year": "2021", "value": "47%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "qld", "year": "2021", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "qld", "year": "2021", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Unaffordable Rentals (Trend)", "state": "qld", "year": "2021", "value": [0.67,0.68,0.69,0.71,0.70,0.62], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "qld", "year": "2021", "value": "56k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "qld", "year": "2021", "value": "8k (0.4%)", "labels": ""},
+    {"header": "Residential Parks", "state": "qld", "year": "2021", "value": "24k (1%)", "labels": ""},
+    {"header": "Home Ownership", "state": "qld", "year": "2021", "value": "120k (55%)", "labels": ""},
+    {"header": "Younger", "state": "qld", "year": "2021", "value": "194k (12%)", "labels": ""},
+    {"header": "Older", "state": "qld", "year": "2021", "value": "120k (8%)", "labels": ""},
+    {"header": "Unemployed", "state": "qld", "year": "2021", "value": "67k (4%)", "labels": ""},
+    {"header": "Single Parent", "state": "qld", "year": "2021", "value": "119k (8%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "qld", "year": "2021", "value": "85k (5%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "qld", "year": "2021", "value": "96k (6%)", "labels": ""},
+    {"header": "Indigenous", "state": "qld", "year": "2021", "value": "142k (9%)", "labels": ""},
+    {"header": "English Speakers", "state": "qld", "year": "2021", "value": "1.27m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "qld", "year": "2021", "value": "  ", "labels": ""}
+  ]
+
+
   let info_panel_container = document.querySelector('#info-panel');
   let info_panel = document.createElement('div');
   let info_table = document.createElement('table');
@@ -19,13 +117,46 @@ function draw_info_panel (postcodes) {
     }
     info_row.appendChild(info_cell_header);
     if(d.value) {
+      let state_agg = aggregated_info.filter(a => a.header == d.header &&  a.state == STATE && a.year == YEAR)
+      if(state_agg.length > 0) {
+        info_cell_value = document.createElement('td');
+        if(state_agg[0].labels) {
+          info_cell_value.setAttribute('class','chart-cell');
+          info_cell_value.setAttribute('height', '50px');
+          info_cell_value.setAttribute('style','max-width:100px;');
+          let info_chart = document.createElement('canvas');
+          info_chart.setAttribute('class','chart');
+          info_cell_value.appendChild(info_chart);
+          console.log(state_agg,state_agg[0].value)
+          new Chart(info_chart,{
+            type: 'line',
+            data : {
+              labels: state_agg[0].labels,
+              datasets: [{
+                data: state_agg[0].value,
+                fill: false, borderColor: 'rgb(252, 141, 89)', pointRadius: 1.1, borderWidth: 2, backgroundColor: 'rgb(252, 141, 89)' }
+              ]
+            },
+            options: {
+              animation: false,
+              layout: { padding: 0 },
+              plugins: { legend: {display: false }, tooltip: { caretSize:0, displayColors: false} },
+              scales: { x: { display: false}, y: { display: false, beginAtZero: false } },
+              maintainAspectRatio: false
+            }
+          });
+        } else {
+            info_cell_value.innerHTML=`<span>${state_agg[0].value}</span>`;
+        }
+        info_row.appendChild(info_cell_value);
+      }
       for(i in data) {
         info_cell_value = document.createElement('td');
         if(d.chart) {
           info_cell_value.setAttribute('class','chart-cell');
           info_cell_value.setAttribute('height',d.chart == 'line' ? '50px':'75px');
           info_cell_value.setAttribute('style','max-width:100px;');
-          info_chart = document.createElement('canvas');
+          let info_chart = document.createElement('canvas');
           info_chart.setAttribute('class','chart');
           info_cell_value.appendChild(info_chart);
           let values = d.value.map(f => data[i][f])
@@ -53,10 +184,8 @@ function draw_info_panel (postcodes) {
           });
         } else {
           let theme = THEMES.map(a => a.items).flat().filter(f => f.id == d.value)[0]
-          console.log(theme)
-          data_exists = data.map(f=>typeof(theme.color(f)) != 'undefined').reduce((x,y) => { return(x || y) });
+          data_exists = theme.value ? data.map(f=>typeof(theme.value(f)) != 'undefined').reduce((x,y) => { return(x || y) }) : false;
           if(data_exists) {
-            console.log(data[i])
             info_cell_value.innerHTML=`<span ${d.tooltip ? 'data-tooltip="'+data[i][d.tooltip]+'"' : '' }>${theme.format(data[i])}</span>`;
             if(d.close) info_cell_value.innerHTML += `<span class='close' onClick="toggle_postcode_selection('${data[i].postcode}');">×</span>`;
           }
@@ -70,7 +199,7 @@ function draw_info_panel (postcodes) {
   let data = DATA.filter(d => postcodes.indexOf(d.postcode) > -1 && d.year == YEAR)
   if(data.length > 0 && YEAR != 2011) {
     [
-      {value: "0", tooltip: "suburbs", close: true},
+      {header: "Postcode", value: "0", tooltip: "suburbs", close: true},
       {header: "Rental Indicators"},
       {header: "Rental Vulnerability Index", value: 1},
       {header: "Rent Stress", value: 2, tooltip_h: "Households in the lowest 40% of incomes paying more than 30% of household income on rent (Census)"},
