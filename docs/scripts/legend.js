@@ -3,7 +3,7 @@ function draw_legend(map_variable) {
   legend.innerHTML = ''
   if(STATE) { 
     let theme = THEMES.map(a => a.items).flat().filter(f => f.id == THEME)[0]
-    legend.innerHTML = theme.label
+    legend.innerHTML = `<span ${theme.tooltip != "" ? 'data-tooltip="'+theme.tooltip+'"' : '' } class="short">${theme.label}</span>`
     let legend_container = document.createElement('div');
     legend_container.setAttribute('id','legend-container');
     theme.legend.forEach(l => {
