@@ -37,6 +37,7 @@ function draw_controls() {
   search_input.addEventListener('change', function(e) { 
     toggle_postcode_selection(this.value);
     e.target.value = '';
+    //document.querySelectorAll('#branding>.side-panel-sections>details').forEach(n => n.open = false)
   })
   search.appendChild(search_datalist);
   controls_container.appendChild(search);
