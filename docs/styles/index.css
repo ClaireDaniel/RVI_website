@@ -122,8 +122,8 @@ summary { font-weight: bold; }
 /* Info Panel                                                      */
 /*******************************************************************/
 #info-panel { flex-grow: 1; -ms-overflow-style: none; scrollbar-width: none; }
-#info-panel { overflow: scroll; }
-#info-panel > .side-panel-sections { overflow: scroll; }
+#info-panel { overflow: scroll; min-height: 700px; }
+#info-panel > .side-panel-sections { overflow: scroll; min-height: 700px; }
 #info-panel::-webkit-scrollbar { display: none; }
 [data-tooltip] { border-bottom: 1px dashed #000; cursor: help }
 [data-tooltip]::after {

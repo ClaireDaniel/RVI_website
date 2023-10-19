@@ -1,6 +1,5 @@
 function draw_info_panel (postcodes) {
 
-
   let aggregated_info = [
     {"header": "Postcode", "state": "nsw", "year": "2016", "value": "NSW", "labels": ""},
     {"header": "Rental Vulnerability Index", "state": "nsw", "year": "2016", "value": " ", "labels": ""},
@@ -226,6 +225,9 @@ function draw_info_panel (postcodes) {
       {header: "English Speakers", value: 21 , tooltip_h:"Main language used at home (Census)"},
       {header: "Other Languages", value: ["spanish","arabic","hindi","punjabi","vietnamese","japanese","korean","mandarin","samoan","tagalog","all_otherlang"], chart: 'doughnut', labels : ["Spanish","Arabic","Hindi","Punjabi","Vietnamese","Japanese","Korean","Mandarin","Samoan","Tagalog","Other"], tooltip_h:"Main language used at home (Census)"},
     ].forEach(f => { add_row(f) })
+
+    document.querySelectorAll('#branding>.side-panel-sections>details').forEach(n => n.open = false)
+
   }
   
   info_panel.appendChild(info_table);
