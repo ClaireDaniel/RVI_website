@@ -83,7 +83,7 @@ function draw_info_panel (postcodes) {
     {"header": "Public/Community Housing", "state": "qld", "year": "2021", "value": "56k (3%)", "labels": ""},
     {"header": "Boarding Houses", "state": "qld", "year": "2021", "value": "8k (0.4%)", "labels": ""},
     {"header": "Residential Parks", "state": "qld", "year": "2021", "value": "24k (1%)", "labels": ""},
-    {"header": "Home Ownership", "state": "qld", "year": "2021", "value": "120k (55%)", "labels": ""},
+    {"header": "Home Ownership", "state": "qld", "year": "2021", "value": "1.20m (55%)", "labels": ""},
     {"header": "Younger", "state": "qld", "year": "2021", "value": "194k (12%)", "labels": ""},
     {"header": "Older", "state": "qld", "year": "2021", "value": "120k (8%)", "labels": ""},
     {"header": "Unemployed", "state": "qld", "year": "2021", "value": "67k (4%)", "labels": ""},
