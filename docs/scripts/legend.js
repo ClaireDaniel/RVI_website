@@ -7,6 +7,7 @@ function draw_legend(map_variable) {
     let legend_container = document.createElement('div');
     legend_container.setAttribute('id','legend-container');
     theme.legend.forEach(l => {
+      console.log(l);
       let legend_box = document.createElement('div')
       legend_box.style.backgroundColor = chroma.rgb(theme.color(l)).hex()
       legend_box.setAttribute('class','legend-box')
