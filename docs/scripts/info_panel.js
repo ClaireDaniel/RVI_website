@@ -138,7 +138,27 @@ function draw_info_panel (postcodes) {
             options: {
               animation: false,
               layout: { padding: 0 },
-              plugins: { legend: {display: false }, tooltip: { caretSize:0, displayColors: false} },
+              plugins: { 
+                legend: {display: false }, 
+                tooltip: { 
+                  caretSize:0, 
+                  displayColors: false,
+                  callbacks: {
+                    label: function(context) {
+                        let label = context.dataset.label || '';
+
+                        if (label) {
+                            label += ': ';
+                        }
+                        if (context.parsed.y !== null) {
+                           console.log(context.parsed.y)
+                            label += d.header == 'Affordable Rentals (Trend)' ? (context.parsed.y).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:0, maximumfractiondigits:0}) : context.parsed.y
+                        }
+                        return label;
+                    }
+                  }
+                }
+              },
               scales: { x: { display: false}, y: { display: false, beginAtZero: false } },
               maintainAspectRatio: false
             }
@@ -175,7 +195,27 @@ function draw_info_panel (postcodes) {
             options: {
               animation: false,
               layout: { padding: 0 },
-              plugins: { legend: {display: false }, tooltip: { caretSize:0, displayColors: d.chart != 'line'} },
+              plugins: { 
+                legend: { display: false }, 
+                tooltip: { 
+                  caretSize:0, 
+                  displayColors: d.chart != 'line',
+                  callbacks: {
+                    label: function(context) {
+                        let label = context.dataset.label || '';
+
+                        if (label) {
+                            label += ': ';
+                        }
+                        if (context.parsed.y !== null) {
+                           console.log(context.parsed.y)
+                            label += d.header == 'Affordable Rentals (Trend)' ? (context.parsed.y/100).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:0, maximumfractiondigits:0}) : context.parsed.y
+                        }
+                        return label;
+                    }
+                  }
+                }
+              },
               scales: { x: { display: false}, y: { display: false, beginAtZero: false } },
               maintainAspectRatio: false
             }
