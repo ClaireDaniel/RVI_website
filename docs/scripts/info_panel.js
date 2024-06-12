@@ -151,7 +151,6 @@ function draw_info_panel (postcodes) {
                             label += ': ';
                         }
                         if (context.parsed.y !== null) {
-                           console.log(context.parsed.y)
                             label += d.header == 'Affordable Rentals (Trend)' ? (context.parsed.y).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:0, maximumfractiondigits:0}) : context.parsed.y
                         }
                         return label;
@@ -208,7 +207,6 @@ function draw_info_panel (postcodes) {
                             label += ': ';
                         }
                         if (context.parsed.y !== null) {
-                           console.log(context.parsed.y)
                             label += d.header == 'Affordable Rentals (Trend)' ? (context.parsed.y/100).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:0, maximumfractiondigits:0}) : context.parsed.y
                         }
                         return label;
