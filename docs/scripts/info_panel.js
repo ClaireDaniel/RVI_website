@@ -1,7 +1,10 @@
 function draw_info_panel (postcodes) {
 
   let aggregated_info = [
-    {"header": "Postcode", "state": "nsw", "year": "2016", "value": "NSW", "labels": ""},
+
+    //NSW
+    {"header": "Name", "state": "nsw", "year": "2016", "value": "NSW", "labels": ""},
+    {"header": "SA2 Code", "state": "nsw", "year": "2016", "value": "-", "labels": ""},
     {"header": "Rental Vulnerability Index", "state": "nsw", "year": "2016", "value": " ", "labels": ""},
     {"header": "Rent Stress", "state": "nsw", "year": "2016", "value": "  ", "labels": ""},
     {"header": "Proportion of Renters", "state": "nsw", "year": "2016", "value": "2.11m (28%)", "labels": ""},
@@ -24,7 +27,9 @@ function draw_info_panel (postcodes) {
     {"header": "Indigenous", "state": "nsw", "year": "2016", "value": "115k (5%)", "labels": ""},
     {"header": "English Speakers", "state": "nsw", "year": "2016", "value": "1.37m (65%)", "labels": ""},
     {"header": "Other Languages", "state": "nsw", "year": "2016", "value": " ", "labels": ""},
-    {"header": "Postcode", "state": "nsw", "year": "2021", "value": "NSW", "labels": ""},
+
+    {"header": "Name", "state": "nsw", "year": "2021", "value": "NSW", "labels": ""},
+    {"header": "SA2 Code", "state": "nsw", "year": "2021", "value": "-", "labels": ""},
     {"header": "Rental Vulnerability Index", "state": "nsw", "year": "2021", "value": " ", "labels": ""},
     {"header": "Rent Stress", "state": "nsw", "year": "2021", "value": "  ", "labels": ""},
     {"header": "Proportion of Renters", "state": "nsw", "year": "2021", "value": "2.37m (29%)", "labels": ""},
@@ -47,7 +52,10 @@ function draw_info_panel (postcodes) {
     {"header": "Indigenous", "state": "nsw", "year": "2021", "value": "144k (6%)", "labels": ""},
     {"header": "English Speakers", "state": "nsw", "year": "2021", "value": "1.53m (64%)", "labels": ""},
     {"header": "Other Languages", "state": "nsw", "year": "2021", "value": "  ", "labels": ""},
-    {"header": "Postcode", "state": "qld", "year": "2016", "value": "QLD", "labels": ""},
+    
+    //QLD
+    {"header": "Name", "state": "qld", "year": "2016", "value": "QLD", "labels": ""},
+    {"header": "SA2 Code", "state": "qld", "year": "2016", "value": "-", "labels": ""},
     {"header": "Rental Vulnerability Index", "state": "qld", "year": "2016", "value": " ", "labels": ""},
     {"header": "Rent Stress", "state": "qld", "year": "2016", "value": "  ", "labels": ""},
     {"header": "Proportion of Renters", "state": "qld", "year": "2016", "value": "1.45m (30%)", "labels": ""},
@@ -70,7 +78,9 @@ function draw_info_panel (postcodes) {
     {"header": "Indigenous", "state": "qld", "year": "2016", "value": "113k (7%)", "labels": ""},
     {"header": "English Speakers", "state": "qld", "year": "2016", "value": "1.19m (81%)", "labels": ""},
     {"header": "Other Languages", "state": "qld", "year": "2016", "value": "  ", "labels": ""},
-    {"header": "Postcode", "state": "qld", "year": "2021", "value": "QLD", "labels": ""},
+    
+    {"header": "Name", "state": "qld", "year": "2021", "value": "QLD", "labels": ""},
+    {"header": "SA2 Code", "state": "qld", "year": "2021", "value": "-", "labels": ""},
     {"header": "Rental Vulnerability Index", "state": "qld", "year": "2021", "value": " ", "labels": ""},
     {"header": "Rent Stress", "state": "qld", "year": "2021", "value": "  ", "labels": ""},
     {"header": "Proportion of Renters", "state": "qld", "year": "2021", "value": "1.56m (30%)", "labels": ""},
@@ -92,7 +102,313 @@ function draw_info_panel (postcodes) {
     {"header": "Need of Assistance", "state": "qld", "year": "2021", "value": "96k (6%)", "labels": ""},
     {"header": "Indigenous", "state": "qld", "year": "2021", "value": "142k (9%)", "labels": ""},
     {"header": "English Speakers", "state": "qld", "year": "2021", "value": "1.27m (81%)", "labels": ""},
-    {"header": "Other Languages", "state": "qld", "year": "2021", "value": "  ", "labels": ""}
+    {"header": "Other Languages", "state": "qld", "year": "2021", "value": "  ", "labels": ""},
+
+    //VIC
+    {"header": "Name", "state": "vic", "year": "2016", "value": "VIC", "labels": ""},
+    {"header": "SA2 Code", "state": "vic", "year": "2016", "value": "-", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "vic", "year": "2016", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "vic", "year": "2016", "value": "  ", "labels": ""},
+    {"header": "Proportion of Renters", "state": "vic", "year": "2016", "value": "1.45m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "vic", "year": "2016", "value": "568k", "labels": ""},
+    {"header": "Median Rent", "state": "vic", "year": "2016", "value": "355 pw", "labels": ""},
+    {"header": "Affordable Rentals", "state": "vic", "year": "2016", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "vic", "year": "2016", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "vic", "year": "2016", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Rentals (Trend)", "state": "vic", "year": "2016", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "vic", "year": "2016", "value": "57k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "vic", "year": "2016", "value": "8k (0.3%)", "labels": ""},
+    {"header": "Residential Parks", "state": "vic", "year": "2016", "value": "17k (0.8%)", "labels": ""},
+    {"header": "Home Ownership", "state": "vic", "year": "2016", "value": "1.05m (58.8%)", "labels": ""},
+    {"header": "Younger", "state": "vic", "year": "2016", "value": "253k (17%)", "labels": ""},
+    {"header": "Older", "state": "vic", "year": "2016", "value": "94k (6%)", "labels": ""},
+    {"header": "Unemployed", "state": "vic", "year": "2016", "value": "85k (6%)", "labels": ""},
+    {"header": "Single Parent", "state": "vic", "year": "2016", "value": "99k (7%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "vic", "year": "2016", "value": "350k (25%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "vic", "year": "2016", "value": "72k (5%)", "labels": ""},
+    {"header": "Indigenous", "state": "vic", "year": "2016", "value": "113k (7%)", "labels": ""},
+    {"header": "English Speakers", "state": "vic", "year": "2016", "value": "1.19m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "vic", "year": "2016", "value": "  ", "labels": ""},
+
+    {"header": "Name", "state": "vic", "year": "2021", "value": "VIC", "labels": ""},
+    {"header": "SA2 Code", "state": "vic", "year": "2021", "value": "-", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "vic", "year": "2021", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "vic", "year": "2021", "value": "  ", "labels": ""},
+    {"header": "Proportion of Renters", "state": "vic", "year": "2021", "value": "1.56m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "vic", "year": "2021", "value": "593k", "labels": ""},
+    {"header": "Median Rent", "state": "vic", "year": "2021", "value": "420 pw", "labels": ""},
+    {"header": "Affordable Rentals", "state": "vic", "year": "2021", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "vic", "year": "2021", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "vic", "year": "2021", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Rentals (Trend)", "state": "vic", "year": "2021", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "vic", "year": "2021", "value": "56k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "vic", "year": "2021", "value": "8k (0.4%)", "labels": ""},
+    {"header": "Residential Parks", "state": "vic", "year": "2021", "value": "24k (1%)", "labels": ""},
+    {"header": "Home Ownership", "state": "vic", "year": "2021", "value": "1.21m (60.6%)", "labels": ""},
+    {"header": "Younger", "state": "vic", "year": "2021", "value": "194k (12%)", "labels": ""},
+    {"header": "Older", "state": "vic", "year": "2021", "value": "120k (8%)", "labels": ""},
+    {"header": "Unemployed", "state": "vic", "year": "2021", "value": "67k (4%)", "labels": ""},
+    {"header": "Single Parent", "state": "vic", "year": "2021", "value": "119k (8%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "vic", "year": "2021", "value": "85k (5%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "vic", "year": "2021", "value": "96k (6%)", "labels": ""},
+    {"header": "Indigenous", "state": "vic", "year": "2021", "value": "142k (9%)", "labels": ""},
+    {"header": "English Speakers", "state": "vic", "year": "2021", "value": "1.27m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "vic", "year": "2021", "value": "  ", "labels": ""},
+
+    //SA
+    {"header": "Name", "state": "sa", "year": "2016", "value": "SA", "labels": ""},
+    {"header": "SA2 Code", "state": "sa", "year": "2016", "value": "-", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "sa", "year": "2016", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "sa", "year": "2016", "value": "  ", "labels": ""},
+    {"header": "Proportion of Renters", "state": "sa", "year": "2016", "value": "1.45m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "sa", "year": "2016", "value": "568k", "labels": ""},
+    {"header": "Median Rent", "state": "sa", "year": "2016", "value": "355 pw", "labels": ""},
+    {"header": "Affordable Rentals", "state": "sa", "year": "2016", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "sa", "year": "2016", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "sa", "year": "2016", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Rentals (Trend)", "state": "sa", "year": "2016", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "sa", "year": "2016", "value": "57k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "sa", "year": "2016", "value": "8k (0.3%)", "labels": ""},
+    {"header": "Residential Parks", "state": "sa", "year": "2016", "value": "17k (0.8%)", "labels": ""},
+    {"header": "Home Ownership", "state": "sa", "year": "2016", "value": "1.05m (58.8%)", "labels": ""},
+    {"header": "Younger", "state": "sa", "year": "2016", "value": "253k (17%)", "labels": ""},
+    {"header": "Older", "state": "sa", "year": "2016", "value": "94k (6%)", "labels": ""},
+    {"header": "Unemployed", "state": "sa", "year": "2016", "value": "85k (6%)", "labels": ""},
+    {"header": "Single Parent", "state": "sa", "year": "2016", "value": "99k (7%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "sa", "year": "2016", "value": "350k (25%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "sa", "year": "2016", "value": "72k (5%)", "labels": ""},
+    {"header": "Indigenous", "state": "sa", "year": "2016", "value": "113k (7%)", "labels": ""},
+    {"header": "English Speakers", "state": "sa", "year": "2016", "value": "1.19m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "sa", "year": "2016", "value": "  ", "labels": ""},
+
+    {"header": "Name", "state": "sa", "year": "2021", "value": "SA", "labels": ""},
+    {"header": "SA2 Code", "state": "sa", "year": "2021", "value": "-", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "sa", "year": "2021", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "sa", "year": "2021", "value": "  ", "labels": ""},
+    {"header": "Proportion of Renters", "state": "sa", "year": "2021", "value": "1.56m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "sa", "year": "2021", "value": "593k", "labels": ""},
+    {"header": "Median Rent", "state": "sa", "year": "2021", "value": "420 pw", "labels": ""},
+    {"header": "Affordable Rentals", "state": "sa", "year": "2021", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "sa", "year": "2021", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "sa", "year": "2021", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Rentals (Trend)", "state": "sa", "year": "2021", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "sa", "year": "2021", "value": "56k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "sa", "year": "2021", "value": "8k (0.4%)", "labels": ""},
+    {"header": "Residential Parks", "state": "sa", "year": "2021", "value": "24k (1%)", "labels": ""},
+    {"header": "Home Ownership", "state": "sa", "year": "2021", "value": "1.21m (60.6%)", "labels": ""},
+    {"header": "Younger", "state": "sa", "year": "2021", "value": "194k (12%)", "labels": ""},
+    {"header": "Older", "state": "sa", "year": "2021", "value": "120k (8%)", "labels": ""},
+    {"header": "Unemployed", "state": "sa", "year": "2021", "value": "67k (4%)", "labels": ""},
+    {"header": "Single Parent", "state": "sa", "year": "2021", "value": "119k (8%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "sa", "year": "2021", "value": "85k (5%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "sa", "year": "2021", "value": "96k (6%)", "labels": ""},
+    {"header": "Indigenous", "state": "sa", "year": "2021", "value": "142k (9%)", "labels": ""},
+    {"header": "English Speakers", "state": "sa", "year": "2021", "value": "1.27m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "sa", "year": "2021", "value": "  ", "labels": ""},
+    
+    // WA
+    {"header": "Name", "state": "wa", "year": "2016", "value": "WA", "labels": ""},
+    {"header": "SA2 Code", "state": "wa", "year": "2016", "value": "-", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "wa", "year": "2016", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "wa", "year": "2016", "value": "  ", "labels": ""},
+    {"header": "Proportion of Renters", "state": "wa", "year": "2016", "value": "1.45m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "wa", "year": "2016", "value": "568k", "labels": ""},
+    {"header": "Median Rent", "state": "wa", "year": "2016", "value": "355 pw", "labels": ""},
+    {"header": "Affordable Rentals", "state": "wa", "year": "2016", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "wa", "year": "2016", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "wa", "year": "2016", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Rentals (Trend)", "state": "wa", "year": "2016", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "wa", "year": "2016", "value": "57k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "wa", "year": "2016", "value": "8k (0.3%)", "labels": ""},
+    {"header": "Residential Parks", "state": "wa", "year": "2016", "value": "17k (0.8%)", "labels": ""},
+    {"header": "Home Ownership", "state": "wa", "year": "2016", "value": "1.05m (58.8%)", "labels": ""},
+    {"header": "Younger", "state": "wa", "year": "2016", "value": "253k (17%)", "labels": ""},
+    {"header": "Older", "state": "wa", "year": "2016", "value": "94k (6%)", "labels": ""},
+    {"header": "Unemployed", "state": "wa", "year": "2016", "value": "85k (6%)", "labels": ""},
+    {"header": "Single Parent", "state": "wa", "year": "2016", "value": "99k (7%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "wa", "year": "2016", "value": "350k (25%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "wa", "year": "2016", "value": "72k (5%)", "labels": ""},
+    {"header": "Indigenous", "state": "wa", "year": "2016", "value": "113k (7%)", "labels": ""},
+    {"header": "English Speakers", "state": "wa", "year": "2016", "value": "1.19m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "wa", "year": "2016", "value": "  ", "labels": ""},
+    
+    {"header": "Name", "state": "wa", "year": "2021", "value": "WA", "labels": ""},
+    {"header": "SA2 Code", "state": "wa", "year": "2021", "value": "-", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "wa", "year": "2021", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "wa", "year": "2021", "value": "  ", "labels": ""},
+    {"header": "Proportion of Renters", "state": "wa", "year": "2021", "value": "1.56m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "wa", "year": "2021", "value": "593k", "labels": ""},
+    {"header": "Median Rent", "state": "wa", "year": "2021", "value": "420 pw", "labels": ""},
+    {"header": "Affordable Rentals", "state": "wa", "year": "2021", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "wa", "year": "2021", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "wa", "year": "2021", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Rentals (Trend)", "state": "wa", "year": "2021", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "wa", "year": "2021", "value": "56k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "wa", "year": "2021", "value": "8k (0.4%)", "labels": ""},
+    {"header": "Residential Parks", "state": "wa", "year": "2021", "value": "24k (1%)", "labels": ""},
+    {"header": "Home Ownership", "state": "wa", "year": "2021", "value": "1.21m (60.6%)", "labels": ""},
+    {"header": "Younger", "state": "wa", "year": "2021", "value": "194k (12%)", "labels": ""},
+    {"header": "Older", "state": "wa", "year": "2021", "value": "120k (8%)", "labels": ""},
+    {"header": "Unemployed", "state": "wa", "year": "2021", "value": "67k (4%)", "labels": ""},
+    {"header": "Single Parent", "state": "wa", "year": "2021", "value": "119k (8%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "wa", "year": "2021", "value": "85k (5%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "wa", "year": "2021", "value": "96k (6%)", "labels": ""},
+    {"header": "Indigenous", "state": "wa", "year": "2021", "value": "142k (9%)", "labels": ""},
+    {"header": "English Speakers", "state": "wa", "year": "2021", "value": "1.27m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "wa", "year": "2021", "value": "  ", "labels": ""},
+
+    //NT
+    {"header": "Name", "state": "nt", "year": "2016", "value": "NT", "labels": ""},
+    {"header": "SA2 Code", "state": "nt", "year": "2016", "value": "-", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "nt", "year": "2016", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "nt", "year": "2016", "value": "  ", "labels": ""},
+    {"header": "Proportion of Renters", "state": "nt", "year": "2016", "value": "1.45m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "nt", "year": "2016", "value": "568k", "labels": ""},
+    {"header": "Median Rent", "state": "nt", "year": "2016", "value": "355 pw", "labels": ""},
+    {"header": "Affordable Rentals", "state": "nt", "year": "2016", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "nt", "year": "2016", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "nt", "year": "2016", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Rentals (Trend)", "state": "nt", "year": "2016", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "nt", "year": "2016", "value": "57k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "nt", "year": "2016", "value": "8k (0.3%)", "labels": ""},
+    {"header": "Residential Parks", "state": "nt", "year": "2016", "value": "17k (0.8%)", "labels": ""},
+    {"header": "Home Ownership", "state": "nt", "year": "2016", "value": "1.05m (58.8%)", "labels": ""},
+    {"header": "Younger", "state": "nt", "year": "2016", "value": "253k (17%)", "labels": ""},
+    {"header": "Older", "state": "nt", "year": "2016", "value": "94k (6%)", "labels": ""},
+    {"header": "Unemployed", "state": "nt", "year": "2016", "value": "85k (6%)", "labels": ""},
+    {"header": "Single Parent", "state": "nt", "year": "2016", "value": "99k (7%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "nt", "year": "2016", "value": "350k (25%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "nt", "year": "2016", "value": "72k (5%)", "labels": ""},
+    {"header": "Indigenous", "state": "nt", "year": "2016", "value": "113k (7%)", "labels": ""},
+    {"header": "English Speakers", "state": "nt", "year": "2016", "value": "1.19m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "nt", "year": "2016", "value": "  ", "labels": ""},
+
+    {"header": "Name", "state": "nt", "year": "2021", "value": "NT", "labels": ""},
+    {"header": "SA2 Code", "state": "nt", "year": "2021", "value": "-", "labels": ""},
+    {"header": "Rental Vulnerability Index", "state": "nt", "year": "2021", "value": " ", "labels": ""},
+    {"header": "Rent Stress", "state": "nt", "year": "2021", "value": "  ", "labels": ""},
+    {"header": "Proportion of Renters", "state": "nt", "year": "2021", "value": "1.56m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "nt", "year": "2021", "value": "593k", "labels": ""},
+    {"header": "Median Rent", "state": "nt", "year": "2021", "value": "420 pw", "labels": ""},
+    {"header": "Affordable Rentals", "state": "nt", "year": "2021", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "nt", "year": "2021", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Rent (Trend)", "state": "nt", "year": "2021", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Rentals (Trend)", "state": "nt", "year": "2021", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "nt", "year": "2021", "value": "56k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "nt", "year": "2021", "value": "8k (0.4%)", "labels": ""},
+    {"header": "Residential Parks", "state": "nt", "year": "2021", "value": "24k (1%)", "labels": ""},
+    {"header": "Home Ownership", "state": "nt", "year": "2021", "value": "1.21m (60.6%)", "labels": ""},
+    {"header": "Younger", "state": "nt", "year": "2021", "value": "194k (12%)", "labels": ""},
+    {"header": "Older", "state": "nt", "year": "2021", "value": "120k (8%)", "labels": ""},
+    {"header": "Unemployed", "state": "nt", "year": "2021", "value": "67k (4%)", "labels": ""},
+    {"header": "Single Parent", "state": "nt", "year": "2021", "value": "119k (8%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "nt", "year": "2021", "value": "85k (5%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "nt", "year": "2021", "value": "96k (6%)", "labels": ""},
+    {"header": "Indigenous", "state": "nt", "year": "2021", "value": "142k (9%)", "labels": ""},
+    {"header": "English Speakers", "state": "nt", "year": "2021", "value": "1.27m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "nt", "year": "2021", "value": "  ", "labels": ""},
+
+    //TAS
+    {"header": "Name", "state": "tas", "year": "2016", "value": "TAS", "labels": ""},
+    {"header": "SA2 Code", "state": "tas", "year": "2016", "value": "-", "labels": ""},
+    {"header": "Retasal Vulnerability Index", "state": "tas", "year": "2016", "value": " ", "labels": ""},
+    {"header": "Retas Stress", "state": "tas", "year": "2016", "value": "  ", "labels": ""},
+    {"header": "Proportion of Retasers", "state": "tas", "year": "2016", "value": "1.45m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "tas", "year": "2016", "value": "568k", "labels": ""},
+    {"header": "Median Retas", "state": "tas", "year": "2016", "value": "355 pw", "labels": ""},
+    {"header": "Affordable Retasals", "state": "tas", "year": "2016", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "tas", "year": "2016", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Retas (Trend)", "state": "tas", "year": "2016", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Retasals (Trend)", "state": "tas", "year": "2016", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "tas", "year": "2016", "value": "57k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "tas", "year": "2016", "value": "8k (0.3%)", "labels": ""},
+    {"header": "Residetasial Parks", "state": "tas", "year": "2016", "value": "17k (0.8%)", "labels": ""},
+    {"header": "Home Ownership", "state": "tas", "year": "2016", "value": "1.05m (58.8%)", "labels": ""},
+    {"header": "Younger", "state": "tas", "year": "2016", "value": "253k (17%)", "labels": ""},
+    {"header": "Older", "state": "tas", "year": "2016", "value": "94k (6%)", "labels": ""},
+    {"header": "Unemployed", "state": "tas", "year": "2016", "value": "85k (6%)", "labels": ""},
+    {"header": "Single Paretas", "state": "tas", "year": "2016", "value": "99k (7%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "tas", "year": "2016", "value": "350k (25%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "tas", "year": "2016", "value": "72k (5%)", "labels": ""},
+    {"header": "Indigenous", "state": "tas", "year": "2016", "value": "113k (7%)", "labels": ""},
+    {"header": "English Speakers", "state": "tas", "year": "2016", "value": "1.19m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "tas", "year": "2016", "value": "  ", "labels": ""},
+    
+    {"header": "Name", "state": "tas", "year": "2021", "value": "TAS", "labels": ""},
+    {"header": "SA2 Code", "state": "tas", "year": "2021", "value": "-", "labels": ""},
+    {"header": "Retasal Vulnerability Index", "state": "tas", "year": "2021", "value": " ", "labels": ""},
+    {"header": "Retas Stress", "state": "tas", "year": "2021", "value": "  ", "labels": ""},
+    {"header": "Proportion of Retasers", "state": "tas", "year": "2021", "value": "1.56m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "tas", "year": "2021", "value": "593k", "labels": ""},
+    {"header": "Median Retas", "state": "tas", "year": "2021", "value": "420 pw", "labels": ""},
+    {"header": "Affordable Retasals", "state": "tas", "year": "2021", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "tas", "year": "2021", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median Retas (Trend)", "state": "tas", "year": "2021", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Retasals (Trend)", "state": "tas", "year": "2021", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "tas", "year": "2021", "value": "56k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "tas", "year": "2021", "value": "8k (0.4%)", "labels": ""},
+    {"header": "Residetasial Parks", "state": "tas", "year": "2021", "value": "24k (1%)", "labels": ""},
+    {"header": "Home Ownership", "state": "tas", "year": "2021", "value": "1.21m (60.6%)", "labels": ""},
+    {"header": "Younger", "state": "tas", "year": "2021", "value": "194k (12%)", "labels": ""},
+    {"header": "Older", "state": "tas", "year": "2021", "value": "120k (8%)", "labels": ""},
+    {"header": "Unemployed", "state": "tas", "year": "2021", "value": "67k (4%)", "labels": ""},
+    {"header": "Single Paretas", "state": "tas", "year": "2021", "value": "119k (8%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "tas", "year": "2021", "value": "85k (5%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "tas", "year": "2021", "value": "96k (6%)", "labels": ""},
+    {"header": "Indigenous", "state": "tas", "year": "2021", "value": "142k (9%)", "labels": ""},
+    {"header": "English Speakers", "state": "tas", "year": "2021", "value": "1.27m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "tas", "year": "2021", "value": "  ", "labels": ""},
+
+    //ACT
+    {"header": "Name", "state": "act", "year": "2016", "value": "ACT", "labels": ""},
+    {"header": "SA2 Code", "state": "act", "year": "2016", "value": "-", "labels": ""},
+    {"header": "Reactal Vulnerability Index", "state": "act", "year": "2016", "value": " ", "labels": ""},
+    {"header": "React Stress", "state": "act", "year": "2016", "value": "  ", "labels": ""},
+    {"header": "Proportion of Reacters", "state": "act", "year": "2016", "value": "1.45m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "act", "year": "2016", "value": "568k", "labels": ""},
+    {"header": "Median React", "state": "act", "year": "2016", "value": "355 pw", "labels": ""},
+    {"header": "Affordable Reactals", "state": "act", "year": "2016", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "act", "year": "2016", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median React (Trend)", "state": "act", "year": "2016", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Reactals (Trend)", "state": "act", "year": "2016", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "act", "year": "2016", "value": "57k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "act", "year": "2016", "value": "8k (0.3%)", "labels": ""},
+    {"header": "Resideactial Parks", "state": "act", "year": "2016", "value": "17k (0.8%)", "labels": ""},
+    {"header": "Home Ownership", "state": "act", "year": "2016", "value": "1.05m (58.8%)", "labels": ""},
+    {"header": "Younger", "state": "act", "year": "2016", "value": "253k (17%)", "labels": ""},
+    {"header": "Older", "state": "act", "year": "2016", "value": "94k (6%)", "labels": ""},
+    {"header": "Unemployed", "state": "act", "year": "2016", "value": "85k (6%)", "labels": ""},
+    {"header": "Single Pareact", "state": "act", "year": "2016", "value": "99k (7%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "act", "year": "2016", "value": "350k (25%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "act", "year": "2016", "value": "72k (5%)", "labels": ""},
+    {"header": "Indigenous", "state": "act", "year": "2016", "value": "113k (7%)", "labels": ""},
+    {"header": "English Speakers", "state": "act", "year": "2016", "value": "1.19m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "act", "year": "2016", "value": "  ", "labels": ""},
+
+    {"header": "Name", "state": "act", "year": "2021", "value": "ACT", "labels": ""},
+    {"header": "SA2 Code", "state": "act", "year": "2021", "value": "-", "labels": ""},
+    {"header": "Reactal Vulnerability Index", "state": "act", "year": "2021", "value": " ", "labels": ""},
+    {"header": "React Stress", "state": "act", "year": "2021", "value": "  ", "labels": ""},
+    {"header": "Proportion of Reacters", "state": "act", "year": "2021", "value": "1.56m (30%)", "labels": ""},
+    {"header": "Bonds Held", "state": "act", "year": "2021", "value": "593k", "labels": ""},
+    {"header": "Median React", "state": "act", "year": "2021", "value": "420 pw", "labels": ""},
+    {"header": "Affordable Reactals", "state": "act", "year": "2021", "value": "53%", "labels": ""},
+    {"header": "Bonds Held (Trend)", "state": "act", "year": "2021", "value": [568164, 592789,611749,626321,637817,624098], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Median React (Trend)", "state": "act", "year": "2021", "value": [355,360,370,376,385,410], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Affordable Reactals (Trend)", "state": "act", "year": "2021", "value": [0.33,0.32,0.31,0.29,0.30,0.38], "labels": [2016,2017,2018,2019,2020,2021]},
+    {"header": "Public/Community Housing", "state": "act", "year": "2021", "value": "56k (3%)", "labels": ""},
+    {"header": "Boarding Houses", "state": "act", "year": "2021", "value": "8k (0.4%)", "labels": ""},
+    {"header": "Resideactial Parks", "state": "act", "year": "2021", "value": "24k (1%)", "labels": ""},
+    {"header": "Home Ownership", "state": "act", "year": "2021", "value": "1.21m (60.6%)", "labels": ""},
+    {"header": "Younger", "state": "act", "year": "2021", "value": "194k (12%)", "labels": ""},
+    {"header": "Older", "state": "act", "year": "2021", "value": "120k (8%)", "labels": ""},
+    {"header": "Unemployed", "state": "act", "year": "2021", "value": "67k (4%)", "labels": ""},
+    {"header": "Single Pareact", "state": "act", "year": "2021", "value": "119k (8%)", "labels": ""},
+    {"header": "Lower Education Level", "state": "act", "year": "2021", "value": "85k (5%)", "labels": ""},
+    {"header": "Need of Assistance", "state": "act", "year": "2021", "value": "96k (6%)", "labels": ""},
+    {"header": "Indigenous", "state": "act", "year": "2021", "value": "142k (9%)", "labels": ""},
+    {"header": "English Speakers", "state": "act", "year": "2021", "value": "1.27m (81%)", "labels": ""},
+    {"header": "Other Languages", "state": "act", "year": "2021", "value": "  ", "labels": ""},
   ]
 
 
@@ -109,6 +425,7 @@ function draw_info_panel (postcodes) {
     let data_exists;
     info_row = document.createElement('tr');
     info_cell_header = document.createElement('td');
+    
     if(d.header) {
       info_cell_header.innerHTML = d.value ? `<span ${d.tooltip_h ? 'data-tooltip="'+d.tooltip_h+'"' : '' } class="short">${d.header}</span>` : `<b>${d.header}</b>`;
     } else {
@@ -116,8 +433,11 @@ function draw_info_panel (postcodes) {
     }
     info_row.appendChild(info_cell_header);
     if(d.value) {
+      
       let state_agg = aggregated_info.filter(a => a.header == d.header &&  a.state == STATE && a.year == YEAR)
+     
       if(state_agg.length > 0) {
+        
         info_cell_value = document.createElement('td');
         if(state_agg[0].labels) {
           info_cell_value.setAttribute('class','chart-cell');
@@ -164,6 +484,7 @@ function draw_info_panel (postcodes) {
           });
         } else {
             info_cell_value.innerHTML=`<span>${state_agg[0].value}</span>`;
+            console.log(state_agg[0])
         }
         info_row.appendChild(info_cell_value);
       }
@@ -223,7 +544,7 @@ function draw_info_panel (postcodes) {
           data_exists = theme.value ? data.map(f=>typeof(theme.value(f)) != 'undefined').reduce((x,y) => { return(x || y) }) : false;
           if(data_exists) {
             info_cell_value.innerHTML=`<span ${d.tooltip ? 'data-tooltip="'+data[i][d.tooltip]+'"' : '' }>${theme.format(data[i])}</span>`;
-            if(d.close) info_cell_value.innerHTML += `<span class='close' onClick="toggle_postcode_selection('${data[i].postcode}');">×</span>`;
+            if(d.close) info_cell_value.innerHTML += `<span class='close' onClick="toggle_postcode_selection('${data[i].sa2_code}');">×</span>`;
           }
         }
         info_row.appendChild(info_cell_value);
@@ -232,10 +553,12 @@ function draw_info_panel (postcodes) {
     if((!d.value) || data_exists || d.chart) info_table.appendChild(info_row);
   }
 
-  let data = DATA.filter(d => postcodes.indexOf(d.postcode) > -1 && d.year == YEAR)
+  let data = DATA.filter(d => postcodes.indexOf(d.sa2_code) > -1 && d.year == YEAR)
+  
   if(data.length > 0 && YEAR != 2011) {
     [
-      {header: "Postcode", value: "0", tooltip: "suburbs", close: true},
+      {header: "Name", value: "33", tooltip: "suburbs", close: true},
+      {header: "SA2 Code", value: "0", tooltip_h: "Unique id", close: false},
       {header: "Rental Indicators"},
       {header: "Rental Vulnerability Index", value: 1},
       {header: "Rent Stress", value: 2, tooltip_h: "Households in the lowest 40% of incomes paying more than 30% of household income on rent (Census)"},

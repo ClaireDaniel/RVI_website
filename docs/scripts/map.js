@@ -11,10 +11,10 @@ function layer_postcode() {
       highlightColor: [0, 0, 255],
       opacity: 0.5,
       lineWidthUnits: 'pixels',
-      getLineWidth: i =>  SELECTED.indexOf(i.properties.postcode) < 0 ? 1 : 3 , 
-      getLineColor: i => SELECTED.indexOf(i.properties.postcode) < 0 ? [0, 0, 0, 50] : [0, 0, 255] , 
+      getLineWidth: i =>  SELECTED.indexOf(i.properties.sa2_code) < 0 ? 1 : 3 , 
+      getLineColor: i => SELECTED.indexOf(i.properties.sa2_code) < 0 ? [0, 0, 0, 50] : [0, 0, 255] , 
       getFillColor: i => theme.color(theme.value(i.properties)),
-      onClick: (i,e) => { toggle_postcode_selection(i.object.properties.postcode); },
+      onClick: (i,e) => { toggle_postcode_selection(i.object.properties.sa2_code); },
       getFilterValue: i => i.properties.year == YEAR && i.properties.state == STATE ? 1 : 0, 
       filterRange: [1, 1],
       extensions: [new deck.DataFilterExtension({filterSize: 1})],
@@ -51,7 +51,7 @@ function layer_state() {
 
 function tooltip_postcode(object) {
   let theme = THEMES.map(a => a.items).flat().filter(f => f.id == THEME)[0]
-  let html = `Postcode: ${object.properties.postcode} <br> ${theme.label}: ${theme.format(object.properties)}`;
+  let html = `SA2 Name: ${object.properties.sa2_name} <br> SA2 Code: ${object.properties.sa2_code} <br> ${theme.label}: ${theme.format(object.properties)}`;
   let style = { color:'#fff', backgroundColor: '#000', fontSize: '1em', fontFamily: 'monospace',fontWeight: 'bold' };
   return {html: html, style: style };
 }
