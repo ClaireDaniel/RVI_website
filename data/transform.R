@@ -3,18 +3,31 @@
 # https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files/POA_2021_AUST_GDA2020_SHP.zip and store at 2021/2021.shp
 # https://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/1270.0.55.003July%202011?OpenDocument
 
-library(tidyverse)
-library(sf)
+dir.create("C:/Users/cdan0460/R/win-library/4.5", recursive = TRUE)
+install.packages("tidyverse", lib = "C:/Users/cdan0460/R/win-library/4.5")
+install.packages("sf", lib = "C:/Users/cdan0460/R/win-library/4.5")
+install.packages("ggplot2", lib = "C:/Users/cdan0460/R/win-library/4.5")
+
+
+userlib <- file.path(Sys.getenv("USERPROFILE"), "R", "win-library/4.5")
+dir.create(userlib, recursive = TRUE, showWarnings = FALSE)
+.libPaths(c(userlib, .libPaths()))  # puts userlib first
+
+
+library(tidyverse, lib.loc = "C:/Users/cdan0460/R/win-library/4.5")
+library(sf, lib.loc = "C:/Users/cdan0460/R/win-library/4.5")
+
+setwd("//wsl.localhost/Ubuntu-24.04/home/cdan0460/dashboards-rental-vulnerability-index/data")
 
 data <- read_csv("combined.csv")
 
-data_2011 <- data |> select(postcode, state, suburbs, ends_with("_2011"), ends_with("_common")) |> mutate(year = 2011, postcode = as.character(postcode)) |> rename_with(~str_remove(., '_2011$')) |> rename_with(~str_remove(., '_common$'))
-data_2016 <- data |> select(postcode, state, suburbs, ends_with("_2016"), ends_with("_common")) |> mutate(year = 2016, postcode = as.character(postcode)) |> rename_with(~str_remove(., '_2016$')) |> rename_with(~str_remove(., '_common$'))
-data_2021 <- data |> select(postcode, state, suburbs, ends_with("_2021"), ends_with("_common")) |> mutate(year = 2021, postcode = as.character(postcode)) |> rename_with(~str_remove(., '_2021$')) |> rename_with(~str_remove(., '_common$'))
+data_2011 <- data |> select(sa2_code, state, sa2_name, ends_with("_2011"), ends_with("_common")) |> mutate(year = 2011, sa2_code = as.character(sa2_code)) |> rename_with(~str_remove(., '_2011$')) |> rename_with(~str_remove(., '_common$'))
+data_2016 <- data |> select(sa2_code, state, sa2_name, ends_with("_2016"), ends_with("_common")) |> mutate(year = 2016, sa2_code = as.character(sa2_code)) |> rename_with(~str_remove(., '_2016$')) |> rename_with(~str_remove(., '_common$'))
+data_2021 <- data |> select(sa2_code, state, sa2_name, ends_with("_2021"), ends_with("_common")) |> mutate(year = 2021, sa2_code = as.character(sa2_code)) |> rename_with(~str_remove(., '_2021$')) |> rename_with(~str_remove(., '_common$'))
 
-geoms_2011 <- st_read("2011","2011") |> select(postcode = POA_CODE)
-geoms_2016 <- st_read("2016","2016") |> select(postcode = POA_CODE16)
-geoms_2021 <- st_read("2021","2021") |> select(postcode = POA_CODE21)
+geoms_2011 <- st_read("2011","2011") |> select(sa2_code = SA2_MAIN11)
+geoms_2016 <- st_read("2016","2016") |> select(sa2_code = SA2_MAIN16)
+geoms_2021 <- st_read("2021","2021") |> select(sa2_code = SA2_CODE21)
 
 geoms_2011$bbox = split(geoms_2011, 1:nrow(geoms_2011)) %>% map(function(x){st_bbox(x) |> paste(collapse=",")}) |> unlist()
 geoms_2016$bbox = split(geoms_2016, 1:nrow(geoms_2016)) %>% map(function(x){st_bbox(x) |> paste(collapse=",")}) |> unlist()

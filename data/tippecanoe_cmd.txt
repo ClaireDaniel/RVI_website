@@ -1,0 +1,1 @@
+tippecanoe -e tiles --no-feature-limit --no-tile-size-limit --simplification=2 --minimum-zoom=0 --maximum-zoom=11 --no-tile-compression tiles.geojson
