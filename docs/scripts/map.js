@@ -1,10 +1,12 @@
 function layer_postcode() { 
   let theme = THEMES.map(a => a.items).flat().filter(f => f.id == THEME)[0]
+  console.log('THEME INFO');
+  console.log(theme);
   return ([
     new deck.MVTLayer({
       id: 'rental_vulnerability_index',
       data : `tiles/{z}/{x}/{y}.pbf`, 
-      minZoom: 1, maxZoom: 11,
+      minZoom: 0, maxZoom: 11,
       pickable: true,
       uniqueIdProperty: 'id', 
       autoHighlight: true,
@@ -26,6 +28,7 @@ function layer_postcode() {
       }
     })
   ]);
+  
 }
 
 function layer_state() { 
@@ -54,6 +57,7 @@ function tooltip_postcode(object) {
   let html = `SA2 Name: ${object.properties.sa2_name} <br> SA2 Code: ${object.properties.sa2_code} <br> ${theme.label}: ${theme.format(object.properties)}`;
   let style = { color:'#fff', backgroundColor: '#000', fontSize: '1em', fontFamily: 'monospace',fontWeight: 'bold' };
   return {html: html, style: style };
+  
 }
 
 function tooltip_state(object) {

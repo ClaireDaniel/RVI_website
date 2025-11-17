@@ -28,7 +28,7 @@ function draw_controls() {
   (search_input = document.createElement('input')).setAttribute('id','search');
   search_input.setAttribute('list','search-datalist'); 
   search_input.setAttribute('name','search'); 
-  search_input.setAttribute('placeholder','Search Suburbs/Postcodes'); 
+  search_input.setAttribute('placeholder','Search Suburb or Region (SA2)'); 
   search_input.addEventListener('click',(e) => { e.target.value = '' });
   search.appendChild(search_input);
   DATA.filter(a => a.state == STATE && a.year == YEAR).forEach((option,i) => {
@@ -48,11 +48,7 @@ function draw_controls() {
   (theme_input = document.createElement('select')).setAttribute('id','theme');
   theme_input.setAttribute('name','theme'); 
   let THEMES_TEMP = THEMES
-  if(YEAR == 2011) {
-    THEMES_TEMP = [{ "name": "Rental Indicators", "items": [ { id: 1, display: true, label: "Rental Vulnerability Index", color: d => chroma.scale('OrRd').classes(5)(d.rvi).rgb(), format: d => d.rvi.toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2, maximumFractionDigits:2})}]}]
-    THEME = 1
-    MAP.setProps( { layers: layer_postcode() } );
-  }
+
   THEMES_TEMP.forEach((group,i) => {
     let theme_group = document.createElement('optgroup')
     theme_group.setAttribute('label',group.name);

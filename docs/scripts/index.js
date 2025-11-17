@@ -2,78 +2,113 @@ let SETTINGS = {
   qld: {
     view: { latitude: -19.14862, longitude: 147.07058, zoom: 4.9},
     title: 'Queensland Rental Vulnerability Index',
-    about: "PLACEHOLDER",
-    data: "PLACEHOLDER",
-    logos: ['images/qld_gov.jpg','images/tq.png','images/qstars.jpg','images/cfrc.png','images/unsw.jpg','images/usyd.jpg'],
-    instruction: 'Please click on an area in the map or search by its name to see detailed postcode level information. You can also select two postcodes at a time to compare them.'
+    about: "The RVI is a composite index that maps rental vulnerability across Australia. It brings together a number of indicators, including rental stress, unemployment, disability and education levels, to show where renters may be facing the greatest challenges. <br> <br>The index reveals that the areas where renters need the most support aren't always the most expensive. Many vulnerable renters live in places that seem affordable, but face overlapping disadvantages that make housing insecure or unsuitable. <br> ",
+    data: "All analysis is derived from ABS Census data, ensuring a consistent and comprehensive national picture. <br> <br>Australian Bureau of Statistics (various reference periods, 2011–2021) ‘Census of Population and Housing’ https://www.abs.gov.au/census, ABS Websites",
+    logos: [],
+    instruction: 'Please click on an area in the map or search by its name to see detailed local area level information. You can also select two local areas at a time to compare them.'
   },
   nsw: {
     view: {latitude: -31.73846, longitude: 148.36798, zoom: 5.5},
     title: 'New South Wales Rental Vulnerability Index',
-    about: "PLACEHOLDER",
-    data: "PLACEHOLDER",
-    logos: ['images/nsw.png','images/tn.jpg','images/cfrc.png','images/unsw.jpg','images/usyd.jpg'],
-    instruction: 'Please click on an area in the map or search by its name to see detailed postcode level information. You can also select two postcodes at a time to compare them.'
+    about: "The RVI is a composite index that maps rental vulnerability across Australia. It brings together a number of indicators, including rental stress, unemployment, disability and education levels, to show where renters may be facing the greatest challenges. <br> <br>The index reveals that the areas where renters need the most support aren't always the most expensive. Many vulnerable renters live in places that seem affordable, but face overlapping disadvantages that make housing insecure or unsuitable. <br> ",
+    data: "All analysis is derived from ABS Census data, ensuring a consistent and comprehensive national picture. <br> <br>Australian Bureau of Statistics (various reference periods, 2011–2021) ‘Census of Population and Housing’ https://www.abs.gov.au/census, ABS Websites",
+    logos: [],
+    instruction: 'Please click on an area in the map or search by its name to see detailed local area level information. You can also select two local areas at a time to compare them.'
   },
   vic: {
     view: {latitude: -37.43653241308908, longitude: 144.8332690047882, zoom: 5.5},
     title: 'Victorian Rental Vulnerability Index',
-    about: "The NSW RVI project was commissioned by the Tenants’ Union of NSW to help plan the delivery of tenant advice services in the Tenants Advice and Advocacy Program (TAAP).<br><br>The project defines 'rental vulnerability' as the vulnerability of persons to problems that may make their rental housing unaffordable, insecure or inappropriate, and which therefore indicates a need for tenant advice. Vulnerability is not inherent to persons; it reflects their position in social and economic relations. Vulnerable persons, on their own and with the assistance of advocates, can seek to resolve their housing problems and change things for the better.<br><br>Thirteen indicators of rental vulnerability are identified, in two broad groups: 'housing indicators' and 'people indicators'. All the indicators were subject to a principal component analysis to create the rental vulnerability index (RVI). Each of the indicators is also mapped separately. See the original Queensland RVI project report for more <a href=\"https://cityfutures.be.unsw.edu.au/research/projects/queensland-rental-vulnerability-index/\">information and methodology</a>.<br><br>The analysis of the data and mapping was undertaken and produced by Dr Chris Martin, Dr Matthew Ng and Dr Balamurugan Soundararaj (City Futures Research Centre, UNSW Sydney) and Dr Laurence Troy (University of Sydney). <br><br>The NSW RVI is based on the Queensland RVI, conceived by Tenants Queensland, Dr Chris Martin and Dr Laurence Troy. The TAAP is funded by the NSW Government. Funding for the project was provided by the NSW Government.",
-    data: "Rental bond data sourced from the NSW Rental Bond Board. Other population and housing statistics were sourced from Australian Bureau of Statistics, Census of Population and Housing 2011, 2016 and 2021. ABS Average Weekly Earnings were used to adjust Census incomes data for affordability indicators in between census periods (2012 to 2021).<br></br>Affordability and rent stress calculations by Dr Laurence Troy and Dr Matthew Ng. The Rental Vulnerability Index (RVI) calculations by Dr Laurence Troy, Dr Chris Martin and Dr Matthew Ng. Full details of the methodology can be found <a href=\"https://cityfutures.ada.unsw.edu.au/research/projects/queensland-rental-vulnerability-index\">here</a>. <br><br> The outputs have been anonymised by removing absolute values lower than 15 to preserver renters privacy.",
-    logos: ['images/nsw.png','images/tn.jpg','images/cfrc.png','images/unsw.jpg','images/usyd.jpg'],
-    instruction: 'Please click on an area in the map or search by its name to see detailed postcode level information. You can also select two postcodes at a time to compare them.'
+    about: "The RVI is a composite index that maps rental vulnerability across Australia. It brings together a number of indicators, including rental stress, unemployment, disability and education levels, to show where renters may be facing the greatest challenges. <br> <br>The index reveals that the areas where renters need the most support aren't always the most expensive. Many vulnerable renters live in places that seem affordable, but face overlapping disadvantages that make housing insecure or unsuitable. <br> ",
+    data: "All analysis is derived from ABS Census data, ensuring a consistent and comprehensive national picture. <br> <br>Australian Bureau of Statistics (various reference periods, 2011–2021) ‘Census of Population and Housing’ https://www.abs.gov.au/census, ABS Websites",
+    logos: [],
+    instruction: 'Please click on an area in the map or search by its name to see detailed local area level information. You can also select two local areas at a time to compare them.'
   },
    tas: {
     view: {latitude: -42.236648275847756, longitude: 146.63847076497873, zoom: 5.5},
     title: 'Tasmanian Rental Vulnerability Index',
-    about: "PLACEHOLDER",
-    data: "PLACEHOLDER",
-    logos: ['images/nsw.png','images/tn.jpg','images/cfrc.png','images/unsw.jpg','images/usyd.jpg'],
-    instruction: 'Please click on an area in the map or search by its name to see detailed postcode level information. You can also select two postcodes at a time to compare them.'
+    about: "The RVI is a composite index that maps rental vulnerability across Australia. It brings together a number of indicators, including rental stress, unemployment, disability and education levels, to show where renters may be facing the greatest challenges. <br> <br>The index reveals that the areas where renters need the most support aren't always the most expensive. Many vulnerable renters live in places that seem affordable, but face overlapping disadvantages that make housing insecure or unsuitable. <br> ",
+    data: "All analysis is derived from ABS Census data, ensuring a consistent and comprehensive national picture. <br> <br>Australian Bureau of Statistics (various reference periods, 2011–2021) ‘Census of Population and Housing’ https://www.abs.gov.au/census, ABS Websites",
+    logos: [],
+    instruction: 'Please click on an area in the map or search by its name to see detailed local area level information. You can also select two local areas at a time to compare them.'
   },
   sa: {
     view: {latitude: -32.52186901737224, longitude: 135.11715896569484, zoom: 5.5},
     title: 'South Australian Rental Vulnerability Index',
-    about: "PLACEHOLDER",
-    data: "PLACEHOLDER",
-    logos: ['images/nsw.png','images/tn.jpg','images/cfrc.png','images/unsw.jpg','images/usyd.jpg'],
-    instruction: 'Please click on an area in the map or search by its name to see detailed postcode level information. You can also select two postcodes at a time to compare them.'
+    about: "The RVI is a composite index that maps rental vulnerability across Australia. It brings together a number of indicators, including rental stress, unemployment, disability and education levels, to show where renters may be facing the greatest challenges. <br> <br>The index reveals that the areas where renters need the most support aren't always the most expensive. Many vulnerable renters live in places that seem affordable, but face overlapping disadvantages that make housing insecure or unsuitable. <br> ",
+    data: "All analysis is derived from ABS Census data, ensuring a consistent and comprehensive national picture. <br> <br>Australian Bureau of Statistics (various reference periods, 2011–2021) ‘Census of Population and Housing’ https://www.abs.gov.au/census, ABS Websites",
+    logos: [],
+    instruction: 'Please click on an area in the map or search by its name to see detailed local area level information. You can also select two local areas at a time to compare them.'
   },
   wa: {
     view: {latitude: -26.168504043208777, longitude: 122.23741477268813, zoom: 4},
     title: 'Western Australian Rental Vulnerability Index',
-    about: "PLACEHOLDER",
-    data: "PLACEHOLDER", 
-    logos: ['images/nsw.png','images/tn.jpg','images/cfrc.png','images/unsw.jpg','images/usyd.jpg'],
-    instruction: 'Please click on an area in the map or search by its name to see detailed postcode level information. You can also select two postcodes at a time to compare them.'
+    about: "The RVI is a composite index that maps rental vulnerability across Australia. It brings together a number of indicators, including rental stress, unemployment, disability and education levels, to show where renters may be facing the greatest challenges. <br> <br>The index reveals that the areas where renters need the most support aren't always the most expensive. Many vulnerable renters live in places that seem affordable, but face overlapping disadvantages that make housing insecure or unsuitable. <br> ",
+    data: "All analysis is derived from ABS Census data, ensuring a consistent and comprehensive national picture. <br> <br>Australian Bureau of Statistics (various reference periods, 2011–2021) ‘Census of Population and Housing’ https://www.abs.gov.au/census, ABS Websites",
+    logos: [],
+    instruction: 'Please click on an area in the map or search by its name to see detailed local area level information. You can also select two local areas at a time to compare them.'
   },
   nt: {
     view: {latitude: -19.936101027922735, longitude: 133.55262384714197, zoom: 4},
     title: 'Northern Territory Rental Vulnerability Index',
-    about: "PLACEHOLDER",
-    data: "PLACEHOLDER",
-    logos: ['images/nsw.png','images/tn.jpg','images/cfrc.png','images/unsw.jpg','images/usyd.jpg'],
-    instruction: 'Please click on an area in the map or search by its name to see detailed postcode level information. You can also select two postcodes at a time to compare them.'
+    about: "The RVI is a composite index that maps rental vulnerability across Australia. It brings together a number of indicators, including rental stress, unemployment, disability and education levels, to show where renters may be facing the greatest challenges. <br> <br>The index reveals that the areas where renters need the most support aren't always the most expensive. Many vulnerable renters live in places that seem affordable, but face overlapping disadvantages that make housing insecure or unsuitable. <br> ",
+    data: "All analysis is derived from ABS Census data, ensuring a consistent and comprehensive national picture. <br> <br>Australian Bureau of Statistics (various reference periods, 2011–2021) ‘Census of Population and Housing’ https://www.abs.gov.au/census, ABS Websites",
+    logos: [],
+    instruction: 'Please click on an area in the map or search by its name to see detailed local area level information. You can also select two local areas at a time to compare them.'
   },
   act: {
     view: {latitude: -35.504758360145615, longitude: 148.9639778358947, zoom: 9},
-    title: 'Northern Territory Rental Vulnerability Index',
-    about: "PLACEHOLDER",
-    data: "PLACEHOLDER",
-    logos: ['images/nsw.png','images/tn.jpg','images/cfrc.png','images/unsw.jpg','images/usyd.jpg'],
-    instruction: 'Please click on an area in the map or search by its name to see detailed postcode level information. You can also select two postcodes at a time to compare them.'
+    title: 'Australian Capital Territory Rental Vulnerability Index',
+    about: "The RVI is a composite index that maps rental vulnerability across Australia. It brings together a number of indicators, including rental stress, unemployment, disability and education levels, to show where renters may be facing the greatest challenges. <br> <br>The index reveals that the areas where renters need the most support aren't always the most expensive. Many vulnerable renters live in places that seem affordable, but face overlapping disadvantages that make housing insecure or unsuitable. <br> ",
+    data: "All analysis is derived from ABS Census data, ensuring a consistent and comprehensive national picture. <br> <br>Australian Bureau of Statistics (various reference periods, 2011–2021) ‘Census of Population and Housing’ https://www.abs.gov.au/census, ABS Websites",
+    logos: [],
+    instruction: 'Please click on an area in the map or search by its name to see detailed local area level information. You can also select two local areas at a time to compare them.'
   },
   default: {
-    view: {latitude: -25.9, longitude: 133.5 , zoom: 4.0}, 
+    view: {latitude: -28, longitude: 145.5 , zoom: 3.5}, 
     title: 'Australian Rental Vulnerability Index',
-    about: "PLACEHOLDER",
-    data: "PLACEHOLDER",
+    about: "The RVI is a composite index that maps rental vulnerability across Australia. It brings together a number of indicators, including rental stress, unemployment, disability and education levels, to show where renters may be facing the greatest challenges. <br> <br>The index reveals that the areas where renters need the most support aren't always the most expensive. Many vulnerable renters live in places that seem affordable, but face overlapping disadvantages that make housing insecure or unsuitable. <br> ",
+    data: "All analysis is derived from ABS Census data, ensuring a consistent and comprehensive national picture. <br> <br>Australian Bureau of Statistics (various reference periods, 2011–2021) ‘Census of Population and Housing’ https://www.abs.gov.au/census, ABS Websites",
     logos: ['images/nsw.png','images/tn.jpg','images/qld_gov.jpg','images/tq.png','images/qstars.jpg','images/cfrc.png','images/unsw.jpg','images/usyd.jpg'],
-    instruction: 'Please click a state on the map to see detailed postcode level Rental Vulnerability Index for the state.'
+    instruction: 'Please click a state on the map to see detailed local area level Rental Vulnerability Index for the state.'
   }
 }
 
+const CATEGORY_LABELS = {
+  PC_RECRENTERS: "Recent renters",
+  PC_UNEMP: "Unemployed renters",
+  PC_OLD: "Older renters",
+  PC_YOUNG:"Young renters",
+  PC_DISABILITY: "Disabled renters",
+  PC_RSTRESS: "Rental Stress",
+  NA: "Not applicable",
+  PC_SOCIAL: "Social housing",
+  PC_INDGSTAT: "Indigenous renters",
+  PC_RESIPARKS: "Residential parks",
+  PC_ENGLISH: "Non-english speaking renters",
+  PC_BHOUSE: "Boarding houses",
+  PC_LONEPARENT: "Lone parents",
+  PC_LOWEDU: "Lower education"
+};
 
+const CATEGORY_COLORS = {
+  PC_RECRENTERS: chroma('#1f78b4').rgb(),    // mid blue
+  PC_UNEMP: chroma('#e31a1c').rgb(),         // red
+  PC_OLD: chroma('#ff7f00').rgb(),           // orange
+  PC_YOUNG: chroma('#33a02c').rgb(),         // green
+  PC_DISABILITY: chroma('#6a3d9a').rgb(),    // purple
+  PC_RSTRESS: chroma('#fb9a99').rgb(),       // light red
+  NA: chroma('#bdbdbd').rgb(),               // grey
+  PC_SOCIAL: chroma('#a6cee3').rgb(),        // light blue
+  PC_INDGSTAT: chroma('#b15928').rgb(),      // brown
+  PC_RESIPARKS: chroma('#cab2d6').rgb(),     // lavender
+  PC_ENGLISH: chroma('#fdbf6f').rgb(),       // yellow-orange
+  PC_BHOUSE: chroma('#ffff99').rgb(),        // pale yellow
+  PC_LONEPARENT: chroma('#b2df8a').rgb(),    // light green
+  PC_LOWEDU: chroma('#fb8072').rgb()         // coral
+};
+
+const CATEGORY_DOMAIN = Object.keys(CATEGORY_LABELS);
+const CATEGORY_FALLBACK = [200,200,200];
 
 let COLOR_SCALE = chroma.scale('OrRd').classes(5);
 let SELECTED = []
@@ -85,11 +120,13 @@ let THEMES = [
     "items": [
       { id: 0, display: false, label: "Post Code",                  tooltip: "", value: d => d,                   color: d => d.sa2_code, format: d => d.sa2_code},
       { id: 1, display: true,  label: "Rental Vulnerability Index", tooltip: "", legend: [0,0.25,0.5,0.75,1],     legend_format: d => d.toLocaleString(undefined,{minimumfractiondigits:1, maximumfractiondigits:1}), color: c => chroma.scale('OrRd').classes(5)(c).rgb(),        value: d => d.rvi,   format: d => d.rvi.toLocaleString(undefined,{ minimumFractionDigits:2, maximumFractionDigits:2 }) },
-      { id: 2, display: true,  label: "Rent Stress",                tooltip: "", legend: [0,0.07,0.14,0.21,0.28], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,0.28]).classes(5)(c).rgb(),       value: d => Number(d.rent_stress), format: d => Number(d.rent_stress).toLocaleString(undefined, {style: 'percent',  minimumFractionDigits: 0, maximumFractionDigits: 0}) },
+      { id: 34, display: true, type: "categorical", label: "Primary Vulnerability Category", domain: CATEGORY_DOMAIN, value: d => d.hcv, color: v => chroma(CATEGORY_COLORS[v] || CATEGORY_FALLBACK).rgb(), format: d => CATEGORY_LABELS?.[d?.hcv] ?? "N/A", legend: CATEGORY_DOMAIN, legend_format: v => CATEGORY_LABELS[v] ?? v, tooltip: "Most prominent renter vulnerability characteristic", legend_layout: 'stack'},
+      { id: 2, display: true,  label: "Rent Stress",                tooltip: "", legend: [0,0.07,0.14,0.21,0.28], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,0.28]).classes(5)(c).rgb(),       value: d => d.rent_stress, format: d => d.rent_stress, format: d => `${d.rent_stress} (${(d.rent_stress/d.rented).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
       { id: 3, display: true,  label: "Proportion of Renters",          tooltip: "", legend: [0,0.25,0.5,0.6,0.7],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,0.5,0.75]).classes(5)(c).rgb(),   value: d => d.total_renters/d.total_persons,                                                    format: d => `${d.total_renters} (${(d.total_renters/d.total_persons).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})` },
       { id: 4, display: true,  label: "Bonds Held",                 tooltip: "", legend: [10,500,1000,3000,5000], legend_format: d => d.toLocaleString(undefined,{notation: 'compact'}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([10,1000,5000]).classes(5)(c).rgb(), value: d => d[`${YEAR}_12`],                                                                    format: d => d[`${YEAR}_12`] },
       { id: 5, display: true,  label: "Median Rent",                tooltip: "", legend: [100,250,425,575,750],   legend_format: d => d.toLocaleString(undefined,{notation: 'compact'}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([100,750]).classes(5)(c).rgb(),      value: d => d[`${YEAR.slice(-2)}_m_rent`],                                                      format: d => `$ ${d[YEAR.slice(-2)+'_m_rent']} pw` },
-      { id: 6, display: true,  label: "Affordable Rentals",       tooltip: "", legend: [0,25,50,75,100],        legend_format: d => (d/100).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 100 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,100]).classes(5)(100-c).rgb(),        value: d => 100 - d[`unaff_${YEAR==2016 ? 2017 : YEAR}`],                                             format: d => { let val = (100 - d[`unaff_${YEAR==2016 ? 2017 : YEAR}`])/100; return val.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2}) } }
+      { id: 6, display: true,  label: "Affordable Rentals",       tooltip: "", legend: [0,25,50,75,100],        legend_format: d => (d/100).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 100 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,100]).classes(5)(100-c).rgb(),        value: d => 100 - d[`unaff_${YEAR==2016 ? 2017 : YEAR}`],                                             format: d => { let val = (100 - d[`unaff_${YEAR==2016 ? 2017 : YEAR}`])/100; return val.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2}) } },
+      { id: 35, display: false, label: "Median Rent Trend", value: d => d.ts_rent }
     ]
   },
   { "name": "Dwelling Indicators",
