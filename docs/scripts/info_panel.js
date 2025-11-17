@@ -3,7 +3,7 @@ async function draw_info_panel (postcodes) {
   // Load aggregated_info.json dynamically
   let aggregated_info = [];
   try {
-    const res = await fetch('../data/state_year_cards.json');   // or your JSON filename/path
+    const res = await fetch('tiles/state_year_cards.json');   // or your JSON filename/path
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     aggregated_info = await res.json();
   } catch (e) {
