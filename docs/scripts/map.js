@@ -2,6 +2,8 @@ function layer_postcode() {
   let theme = THEMES.map(a => a.items).flat().filter(f => f.id == THEME)[0]
   console.log('THEME INFO');
   console.log(theme);
+
+
   return ([
     new deck.MVTLayer({
       id: 'rental_vulnerability_index',
@@ -15,9 +17,33 @@ function layer_postcode() {
       lineWidthUnits: 'pixels',
       getLineWidth: i =>  SELECTED.indexOf(i.properties.sa2_code) < 0 ? 1 : 3 , 
       getLineColor: i => SELECTED.indexOf(i.properties.sa2_code) < 0 ? [0, 0, 0, 50] : [0, 0, 255] , 
-      getFillColor: i => theme.color(theme.value(i.properties)),
-      onClick: (i,e) => { toggle_postcode_selection(i.object.properties.sa2_code); },
-      getFilterValue: i => i.properties.year == YEAR && i.properties.state == STATE ? 1 : 0, 
+      getFillColor: f => {
+        const p = f.properties;
+
+        if (p.rvi == null || p.rvi === 0) {
+          return [180, 180, 180, 120];
+        }
+
+        return theme.color(theme.value(p));
+      },
+      onClick: info => {
+        const p = info?.object?.properties;
+        if (!p) return;
+        if (p.rvi == null || p.rvi === 0) return; // suppress selection
+        toggle_postcode_selection(p.sa2_code);
+      },
+
+
+
+      getFilterValue: f => {
+        const p = f.properties;
+        return (p.year == YEAR && p.state == STATE) ? 1 : 0;
+      },
+            
+      
+      
+      
+      
       filterRange: [1, 1],
       extensions: [new deck.DataFilterExtension({filterSize: 1})],
       updateTriggers: { 
@@ -53,11 +79,35 @@ function layer_state() {
 }
 
 function tooltip_postcode(object) {
-  let theme = THEMES.map(a => a.items).flat().filter(f => f.id == THEME)[0]
-  let html = `SA2 Name: ${object.properties.sa2_name} <br> SA2 Code: ${object.properties.sa2_code} <br> ${theme.label}: ${theme.format(object.properties)}`;
-  let style = { color:'#fff', backgroundColor: '#000', fontSize: '1em', fontFamily: 'monospace',fontWeight: 'bold' };
-  return {html: html, style: style };
-  
+  const p = object.properties;
+  const theme = THEMES.map(a => a.items).flat().find(f => f.id == THEME);
+
+  let valueLine;
+
+  // IMPORTANT: rvi may be string "0"
+  const rvi = Number(p.rvi);
+
+  if (!Number.isFinite(rvi) || rvi === 0) {
+    valueLine = '<em>No usual residents</em>';
+  } else {
+    valueLine = `${theme.label}: ${theme.format(p)}`;
+  }
+
+  let html = `
+    SA2 Name: ${p.sa2_name}<br>
+    SA2 Code: ${p.sa2_code}<br>
+    ${valueLine}
+  `;
+
+  let style = {
+    color:'#fff',
+    backgroundColor:'#000',
+    fontSize:'1em',
+    fontFamily:'monospace',
+    fontWeight:'bold'
+  };
+
+  return { html, style };
 }
 
 function tooltip_state(object) {

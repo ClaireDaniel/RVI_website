@@ -31,6 +31,7 @@ async function draw_info_panel (postcodes) {
       info_row.setAttribute('class','info-panel-title');
     }
     info_row.appendChild(info_cell_header);
+    
     if(d.value) {
       
       let state_agg = aggregated_info.filter(a => a.header == d.header &&  a.state == STATE && a.year == YEAR)
@@ -86,17 +87,15 @@ async function draw_info_panel (postcodes) {
                       let label = context.label || '';
                       let value = context.parsed;
 
-                      // Handle line charts or grouped datasets (use .y if object)
                       if (typeof value === 'object' && value !== null) {
                         value = value.y !== undefined ? value.y : value.x;
                       }
 
-                      // Compute total of this dataset for % share
                       const dataset = context.dataset.data;
                       const total = dataset.reduce((a, b) => a + (b || 0), 0);
                       const pct = total > 0 ? (value / total) * 100 : 0;
 
-                      // --- shorten large numbers (e.g. 25 000 → 25k, 1 200 000 → 1.2M)
+                      // shorten numbers
                       const compactValue = (() => {
                         const n = Number(value);
                         if (isNaN(n)) return value;
@@ -107,24 +106,28 @@ async function draw_info_panel (postcodes) {
                         return n.toLocaleString();
                       })();
 
-                      // Label logic: switch formatting per header
+                      // ALWAYS return an array (this is the wrapping)
                       if (d.header === 'Affordable Rentals (Trend)') {
-                        return `${label}: ${(value / 100).toLocaleString(undefined, {
-                          style: 'percent',
-                          minimumFractionDigits: 0
-                        })}`;
+                        return [
+                          label,
+                          (value / 100).toLocaleString(undefined, {
+                            style: 'percent',
+                            minimumFractionDigits: 0
+                          })
+                        ];
                       }
 
                       if (d.header === 'Median Rent (Trend)') {
-                        return `$${Number(value).toLocaleString()} pw`;
+                        return [
+                          `$${Number(value).toLocaleString()}`,
+                          'per week'
+                        ];
                       }
 
-                      // default (for other charts)
-                      return `${compactValue} (${pct.toFixed(1)}%)`;
-
-
-
-
+                      return [
+                        compactValue,
+                        `(${pct.toFixed(1)}%)`
+                      ];
                     }
                   }
                 }
@@ -228,17 +231,15 @@ async function draw_info_panel (postcodes) {
                       let label = context.label || '';
                       let value = context.parsed;
 
-                      // Handle line charts or grouped datasets (use .y if object)
                       if (typeof value === 'object' && value !== null) {
                         value = value.y !== undefined ? value.y : value.x;
                       }
 
-                      // Compute total of this dataset for % share
                       const dataset = context.dataset.data;
                       const total = dataset.reduce((a, b) => a + (b || 0), 0);
                       const pct = total > 0 ? (value / total) * 100 : 0;
 
-                      // --- shorten large numbers (e.g. 25 000 → 25k, 1 200 000 → 1.2M)
+                      // shorten numbers
                       const compactValue = (() => {
                         const n = Number(value);
                         if (isNaN(n)) return value;
@@ -249,22 +250,28 @@ async function draw_info_panel (postcodes) {
                         return n.toLocaleString();
                       })();
 
-                      // Label logic: switch formatting per header
+                      // ALWAYS return an array (this is the wrapping)
                       if (d.header === 'Affordable Rentals (Trend)') {
-                      return `${label}: ${(value / 100).toLocaleString(undefined, {
-                        style: 'percent',
-                        minimumFractionDigits: 0
-                      })}`;
-                    }
+                        return [
+                          label,
+                          (value / 100).toLocaleString(undefined, {
+                            style: 'percent',
+                            minimumFractionDigits: 0
+                          })
+                        ];
+                      }
 
-                    if (d.header === 'Median Rent (Trend)') {
-                      return `$${Number(value).toLocaleString()} pw`;
-                    }
+                      if (d.header === 'Median Rent (Trend)') {
+                        return [
+                          `$${Number(value).toLocaleString()}`,
+                          'per week'
+                        ];
+                      }
 
-                    // default (for doughnuts & other charts)
-                    return `${compactValue} (${pct.toFixed(1)}%)`;
-
-
+                      return [
+                        compactValue,
+                        `(${pct.toFixed(1)}%)`
+                      ];
                     }
                   }
                 }
@@ -295,21 +302,24 @@ async function draw_info_panel (postcodes) {
       {header: "SA2 Code", value: "0", tooltip_h: "Unique id", close: false, tooltip_h: "Unique code assigned to the statisical area by the ABS"},
       {header: "Rental Indicators"},
       {header: "Rental Vulnerability Index", value: 1, tooltip_h: "Percentile score showing how this area compares in rental vulnerability (0 = low, 1 = high)."},
-      {header: "Rental Vulnerability Category", value: 34, tooltip_h: "The indicator with the highest contribution to the rental vulnerability index score for the local area"},
-      {header: "Rent Stress", value: 2, tooltip_h: "Households in the lowest 40% of incomes paying more than 30% of household income on rent (Census)"},
-      {header: "Proportion of Renters", value: 3, tooltip_h: "Number of people living in rented dwellings based on place of enumeration (Census)"},
+      {header: "Primary Vulnerability Category", value: 34, tooltip_h: "The indicator with the highest contribution to the rental vulnerability index score for the local area"},
+      {header: "Secondary Vulnerability Category", value: 36, tooltip_h: "The indicator with the second highest contribution to the rental vulnerability index score for the local area"},
+      {header: "Tertiary Vulnerability Category", value: 37, tooltip_h: "The indicator with the third highest contribution to the rental vulnerability index score for the local area"},
       //{header: "Bonds Held", value: 4, tooltip_h:"Total rental bonds held by the Residential Tenancies Authority at end of June in the stated year. Approximates total number of tenancies in the private rental sector. (Rental bonds)"},
-      {header: "Median Rent", value: 5, tooltip_h:"Median rent for new bonds lodged in each calendar year (Rental bonds)"},
       //{header: "Affordable Rentals", value: 6, tooltip_h:"Percentage of new tenancies commencing (per new bonds lodged) in each year that are affordable (less than 30% of income) for the average income households for the area (Rental Bonds, ABS Average Weekly Earnings)"},
       //{header: "Bonds Held (Trend)", value: ["2016_12","2017_12","2018_12","2019_12","2020_12","2021_12"], chart: 'line', labels : ['2016','2017','2018','2019','2020','2021'],tooltip_h:"Total rental bonds held by the Residential Tenancies Authority at end of June in the stated year. Approximates total number of tenancies in the private rental sector. (Rental bonds)"},
-      {header: "Median Rent (Trend)", value: 'ts_rent', chart: 'line', tooltip_h:"Shows how median weekly rent has changed over the past two Census periods (Census)"},
       //{header: "Affordable Rentals (Trend)", value: ["unaff_2017","unaff_2018","unaff_2019","unaff_2020","unaff_2021"], chart: 'line', labels : ['2017','2018','2019','2020','2021'],tooltip_h:"Percentage of new tenancies commencing (per new bonds lodged) in each year that are affordable (less than 30% of income) for the average income households for the area (Rental Bonds, ABS Average Weekly Earnings)"},
       {header: "Dwelling Indicators"},
+      {header: "Median Rent", value: 5, tooltip_h:"Median rent for new bonds lodged in each calendar year (Rental bonds)"},
+      {header: "Median Rent (Trend)", value: 'ts_rent', chart: 'line', tooltip_h:"Shows how median weekly rent has changed over the past two Census periods (Census)"},
+      {header: "Rent Stress", value: 2, tooltip_h: "Households in the lowest 40% of incomes paying more than 30% of household income on rent (Census)"},
       {header: "Public/Community Housing", value: 7, tooltip_h:"Public housing dwellings and community housing dwellings (Census)"},
       {header: "Boarding Houses", value: 8, tooltip_h:"Registered rooming services (Census)"},
       {header: "Residential Parks", value: 9, tooltip_h:"Dwellings on registered residential parks with manufactured homes (Census)"},
-      {header: "Home Ownership", value: ["own_occ","rented","other_tenure","tenurenotstated","tenuren_a"], chart: 'doughnut', chart_labels : ["Owner Occupied","Rented","Other","Not Stated","NA"], tooltip_h:"Owned outright, and owned subject to a mortgage (Census)"},
+      {header: "Home Ownership", value: ["own_occ","rented","other_tenure","tenurenotstated","tenuren_a"], chart: 'doughnut', chart_labels : ["Owner Occ.","Rented","Other","Not Stated","NA"], tooltip_h:"Owned outright, and owned subject to a mortgage (Census)"},
       {header: "People Indicators (Renters)"},
+      {header: "Proportion of Renters", value: 3, tooltip_h: "Number of people living in rented dwellings based on place of enumeration (Census)"},
+      {header: "Recent Renters", value: 38, tooltip_h: "Number of renters who had changed their address within the last year"},
       {header: "Younger", value: 14, tooltip_h:"Number of renters aged 18 to 24 (census)  "},
       {header: "Older", value: 15, tooltip_h:"Number of renters aged 65 and over at (census)"},
       {header: "Unemployed", value: 16, tooltip_h:"Number of renters unemployed (Census)"},
