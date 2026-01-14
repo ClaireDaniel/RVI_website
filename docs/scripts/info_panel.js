@@ -119,8 +119,7 @@ async function draw_info_panel (postcodes) {
 
                       if (d.header === 'Median Rent (Trend)') {
                         return [
-                          `$${Number(value).toLocaleString()}`,
-                          'per week'
+                          `$${Number(value).toLocaleString()} pw`,
                         ];
                       }
 
@@ -263,8 +262,7 @@ async function draw_info_panel (postcodes) {
 
                       if (d.header === 'Median Rent (Trend)') {
                         return [
-                          `$${Number(value).toLocaleString()}`,
-                          'per week'
+                          `$${Number(value).toLocaleString()} pw`,
                         ];
                       }
 
@@ -318,8 +316,8 @@ async function draw_info_panel (postcodes) {
       {header: "Residential Parks", value: 9, tooltip_h:"Dwellings on registered residential parks with manufactured homes (Census)"},
       {header: "Home Ownership", value: ["own_occ","rented","other_tenure","tenurenotstated","tenuren_a"], chart: 'doughnut', chart_labels : ["Owner Occ.","Rented","Other","Not Stated","NA"], tooltip_h:"Owned outright, and owned subject to a mortgage (Census)"},
       {header: "People Indicators (Renters)"},
-      {header: "Proportion of Renters", value: 3, tooltip_h: "Number of people living in rented dwellings based on place of enumeration (Census)"},
-      {header: "Recent Renters", value: 38, tooltip_h: "Number of renters who had changed their address within the last year"},
+      {header: "Number of Renters", value: 3, tooltip_h: "Number of people living in rented dwellings based on place of enumeration (Census)"},
+      {header: "Recently Moved", value: 38, tooltip_h: "Number of renters who had changed their address within the last year"},
       {header: "Younger", value: 14, tooltip_h:"Number of renters aged 18 to 24 (census)  "},
       {header: "Older", value: 15, tooltip_h:"Number of renters aged 65 and over at (census)"},
       {header: "Unemployed", value: 16, tooltip_h:"Number of renters unemployed (Census)"},
