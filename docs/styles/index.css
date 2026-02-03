@@ -71,7 +71,7 @@ html, body, #app, #map-container {
 }
 summary { font-weight: bold; }
 #branding-logos {
-  /* height: 65px; */
+ /* height: 65px; */
   padding: 5px 10px;
   display: flex;
   flex-direction: row;
