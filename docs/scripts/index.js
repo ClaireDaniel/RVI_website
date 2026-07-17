@@ -1,3 +1,8 @@
+/*
+ * CONFIGURATION: State-specific settings
+ * Includes map coordinates, branding text, and associated logos
+*/ 
+
 let SETTINGS = {
   qld: {
     view: { latitude: -19.14862, longitude: 147.07058, zoom: 4.9},
@@ -70,6 +75,9 @@ let SETTINGS = {
   }
 }
 
+
+//CATEGORICAL MAPPINGS: Labels and Colors for vulnerability types
+
 const CATEGORY_LABELS = {
   PC_RECRENTERS: "Recently moved",
   PC_UNEMP: "Unemployed renters",
@@ -104,21 +112,25 @@ const CATEGORY_COLORS = {
   PC_LOWEDU: chroma('#fb8072').rgb()         // coral
 };
 
+// Array of all available category keys
 const CATEGORY_DOMAIN = Object.keys(CATEGORY_LABELS);
+// Default fallback color (light grey) for missing category mappings
 const CATEGORY_FALLBACK = [200,200,200];
 
+// GLOBAL STATE & CONSTANTS
 let COLOR_SCALE = chroma.scale('OrRd').classes(5);
 let SELECTED = []
 let MAX_SELECTIONS = 2; 
 let YEAR = '2021';
 
+// DATA THEMES: Definitions for how to extract, color, and format map indicators
 let THEMES = [
   { "name": "Rental Indicators",
     "items": [
-      { id: 33, display: false, label: "SA2 Name", tooltip: "Name of ABS Statistical Area 2", value: d => d, color: d => d.sa2_name, format: d => d.sa2_name},
-      { id: 0, display: false, label: "Post Code",                  tooltip: "", value: d => d,                   color: d => d.sa2_code, format: d => d.sa2_code},
-      { id: 1, display: true,  label: "Rental Vulnerability Index", tooltip: "", legend: [0,0.25,0.5,0.75,1],     legend_format: d => d.toLocaleString(undefined,{minimumfractiondigits:1, maximumfractiondigits:1}), color: c => chroma.scale('OrRd').classes(5)(c).rgb(),        value: d => d.rvi,   format: d => d.rvi.toLocaleString(undefined,{ minimumFractionDigits:2, maximumFractionDigits:2 }) },
-      //{ id: 34, display: true, type: "categorical", label: "Primary Vulnerability Category", domain: CATEGORY_DOMAIN, value: d => d.hcv1, color: v => chroma(CATEGORY_COLORS[v] || CATEGORY_FALLBACK).rgb(), format: d => CATEGORY_LABELS?.[d?.hcv1] ?? "N/A", legend: CATEGORY_DOMAIN, legend_format: v => CATEGORY_LABELS[v] ?? v, tooltip: "Most prominent renter vulnerability characteristic", legend_layout: 'stack'},
+      { id: 33, display: false, info_display: false, label: "SA2 Name", tooltip: "Name of ABS Statistical Area 2", value: d => d, color: d => d.sa2_name, format: d => d.sa2_name},
+      { id: 0, display: false, info_display: false, label: "Post Code",                  tooltip: "", value: d => d,                   color: d => d.sa2_code, format: d => d.sa2_code},
+      { id: 1, display: true,  info_display: true, label: "Rental Vulnerability Index", tooltip: "", legend: [0,0.25,0.5,0.75,1],     legend_format: d => d.toLocaleString(undefined,{minimumfractiondigits:1, maximumfractiondigits:1}), color: c => chroma.scale('OrRd').classes(5)(c).rgb(),        value: d => d.rvi,   format: d => d.rvi.toLocaleString(undefined,{ minimumFractionDigits:2, maximumFractionDigits:2 }) },
+      //{ id: 34, display: true, info_display: false, type: "categorical", label: "Primary Vulnerability Category", domain: CATEGORY_DOMAIN, value: d => d.hcv1, color: v => chroma(CATEGORY_COLORS[v] || CATEGORY_FALLBACK).rgb(), format: d => CATEGORY_LABELS?.[d?.hcv1] ?? "N/A", legend: CATEGORY_DOMAIN, legend_format: v => CATEGORY_LABELS[v] ?? v, tooltip: "Most prominent renter vulnerability characteristic", legend_layout: 'stack'},
       //{ id: 36, display: true, type: "categorical", label: "Secondary Vulnerability Category", domain: CATEGORY_DOMAIN, value: d => d.hcv2, color: v => chroma(CATEGORY_COLORS[v] || CATEGORY_FALLBACK).rgb(), format: d => CATEGORY_LABELS?.[d?.hcv2] ?? "N/A", legend: CATEGORY_DOMAIN, legend_format: v => CATEGORY_LABELS[v] ?? v, tooltip: "Most prominent renter vulnerability characteristic", legend_layout: 'stack'},
      // { id: 37, display: true, type: "categorical", label: "Tertiary Vulnerability Category", domain: CATEGORY_DOMAIN, value: d => d.hcv3, color: v => chroma(CATEGORY_COLORS[v] || CATEGORY_FALLBACK).rgb(), format: d => CATEGORY_LABELS?.[d?.hcv3] ?? "N/A", legend: CATEGORY_DOMAIN, legend_format: v => CATEGORY_LABELS[v] ?? v, tooltip: "Most prominent renter vulnerability characteristic", legend_layout: 'stack'},
    
@@ -126,63 +138,108 @@ let THEMES = [
   },
   { "name": "Dwelling Indicators",
     "items": [
-      { id: 4, display: false,  label: "Bonds Held",                 tooltip: "", legend: [10,500,1000,3000,5000], legend_format: d => d.toLocaleString(undefined,{notation: 'compact'}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([10,1000,5000]).classes(5)(c).rgb(), value: d => d[`${YEAR}_12`],                                                                    format: d => d[`${YEAR}_12`] },
-      { id: 5, display: true,  label: "Median Rent",                tooltip: "", legend: [100,250,425,575,750],   legend_format: d => d.toLocaleString(undefined,{notation: 'compact'}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([100,750]).classes(5)(c).rgb(),      value: d => d[`${YEAR.slice(-2)}_m_rent`],                                                      format: d => `$ ${d[YEAR.slice(-2)+'_m_rent']} pw` },
-      { id: 35, display: false, label: "Median Rent Trend", value: d => d.ts_rent },
-      { id: 6, display: false,  label: "Affordable Rentals",       tooltip: "", legend: [0,25,50,75,100],        legend_format: d => (d/100).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 100 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,100]).classes(5)(100-c).rgb(),        value: d => 100 - d[`unaff_${YEAR==2016 ? 2017 : YEAR}`],                                             format: d => { let val = (100 - d[`unaff_${YEAR==2016 ? 2017 : YEAR}`])/100; return val.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2}) } },
-      { id: 2, display: true,  label: "Rent Stress",                tooltip: "", legend: [0,0.07,0.14,0.21,0.28], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,0.28]).classes(5)(c).rgb(),       value: d => d.rent_stress/d.total_renters, format: d => `${d.rent_stress} (${(d.rent_stress/d.rented).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 7, display: true,  label: "Public/Community Housing", tooltip: "", legend: [0,0.025,0.05,0.075,0.10],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.10])(d).rgb(), value: d => d.public_community/d.total_dwellings, format: d => `${d.public_community} (${(d.public_community/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 8, display: true,  label: "Boarding Houses",          tooltip: "", legend: [0,0.0025,0.005,0.0075,0.01], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.01])(d).rgb(), value: d => d.boardinghouse/d.total_dwellings,    format: d => `${d.boardinghouse} (${(d.boardinghouse/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 9, display: true,  label: "Residential Parks",        tooltip: "", legend: [0,0.025,0.05,0.075,0.10],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.10])(d).rgb(), value: d => d.residential_park/d.total_dwellings, format: d => `${d.residential_park} (${(d.residential_park/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 10, display: true, label: "Owner Occupied",           tooltip: "", legend: [0,0.2,0.4,0.6,0.8],          legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.25,0.80])(d).rgb(), value: d => d.own_occ/d.total_dwellings,          format: d => `${d.own_occ} (${(d.own_occ/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 11, display: true, label: "Rented",                   tooltip: "", legend: [0,0.125,0.25,0.375,0.50],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.50])(d).rgb(), value: d => d.rented/d.total_dwellings,           format: d => `${d.rented} (${(d.rented/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 12, display: true, label: "Other Tenure",             tooltip: "", legend: [0,0.037,0.075,0.112,0.15],   legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.15])(d).rgb(), value: d => d.other_tenure/d.total_dwellings,     format: d => `${d.other_tenure} (${((d.other_tenure)/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`}
+      { id: 4, display: false,  info_display: false, label: "Bonds Held",                 tooltip: "", legend: [10,500,1000,3000,5000], legend_format: d => d.toLocaleString(undefined,{notation: 'compact'}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([10,1000,5000]).classes(5)(c).rgb(), value: d => d[`${YEAR}_12`],                                                                    format: d => d[`${YEAR}_12`] },
+      { id: 5, display: true,  info_display: false, label: "Median Rent",                tooltip: "", legend: [100,250,425,575,750],   legend_format: d => d.toLocaleString(undefined,{notation: 'compact'}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([100,750]).classes(5)(c).rgb(),      value: d => d[`${YEAR.slice(-2)}_m_rent`],                                                      format: d => `$ ${d[YEAR.slice(-2)+'_m_rent']} pw` },
+      
+      //Chart Variable
+      { id: 'ts_rent',
+        display: false,
+        info_display: true,
+        label: "Median Rent (Trend)",
+        chart: 'line',
+        tooltip_h:"Shows how median weekly rent has changed over the past two Census periods (Census)"
+      },
+
+      { id: 6, display: false,  info_display: false, label: "Affordable Rentals",       tooltip: "", legend: [0,25,50,75,100],        legend_format: d => (d/100).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 100 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,100]).classes(5)(100-c).rgb(),        value: d => 100 - d[`unaff_${YEAR==2016 ? 2017 : YEAR}`],                                             format: d => { let val = (100 - d[`unaff_${YEAR==2016 ? 2017 : YEAR}`])/100; return val.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2}) } },
+      { id: 2, display: true,  info_display: true, label: "Rent Stress",                tooltip: "", legend: [0,0.07,0.14,0.21,0.28], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,0.28]).classes(5)(c).rgb(),       value: d => d.rent_stress/d.total_renters, format: d => `${d.rent_stress} (${(d.rent_stress/d.rented).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 7, display: true,  info_display: true, label: "Public/Community Housing", tooltip: "", legend: [0,0.025,0.05,0.075,0.10],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.10])(d).rgb(), value: d => d.public_community/d.total_dwellings, format: d => `${d.public_community} (${(d.public_community/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 8, display: true,  info_display: true, label: "Boarding Houses",          tooltip: "", legend: [0,0.0025,0.005,0.0075,0.01], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.01])(d).rgb(), value: d => d.boardinghouse/d.total_dwellings,    format: d => `${d.boardinghouse} (${(d.boardinghouse/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 9, display: true,  info_display: true, label: "Residential Parks",        tooltip: "", legend: [0,0.025,0.05,0.075,0.10],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.10])(d).rgb(), value: d => d.residential_park/d.total_dwellings, format: d => `${d.residential_park} (${(d.residential_park/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 10, display: true, info_display: false, label: "Owner Occupied",           tooltip: "", legend: [0,0.2,0.4,0.6,0.8],          legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.25,0.80])(d).rgb(), value: d => d.own_occ/d.total_dwellings,          format: d => `${d.own_occ} (${(d.own_occ/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 11, display: true, info_display: false, label: "Rented",                   tooltip: "", legend: [0,0.125,0.25,0.375,0.50],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.50])(d).rgb(), value: d => d.rented/d.total_dwellings,           format: d => `${d.rented} (${(d.rented/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 12, display: true, info_display: false, label: "Other Tenure",             tooltip: "", legend: [0,0.037,0.075,0.112,0.15],   legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.00,0.15])(d).rgb(), value: d => d.other_tenure/d.total_dwellings,     format: d => `${d.other_tenure} (${((d.other_tenure)/d.total_dwellings).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+
+      //Chart Variable
+      { 
+        id: ["own_occ", "rented", "other_tenure", "tenurenotstated", "tenuren_a"], 
+        display: false,
+        info_display: true, 
+        label: "Home Ownership", 
+        chart: 'doughnut', 
+        labels: ["Owner Occ.", "Rented", "Other", "Not Stated", "NA"], 
+        tooltip: "Owned outright or subject to a mortgage" 
+      },
     ]
   },
   { "name": "People Indicators (Renters)",
     "items": [
-      { id: 3, display: true,  label: "Number of Renters",          tooltip: "", legend: [0,0.25,0.5,0.6,0.7],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,0.5,0.75]).classes(5)(c).rgb(),   value: d => d.total_renters/d.total_persons, format: d => `${d.total_renters} (${(d.total_renters/d.total_persons).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})` },
-      { id: 38, display: true,  label: "Recently Moved",          tooltip: "", legend: [0,0.05,0.1,0.15,0.2],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,0.3]).classes(5)(c).rgb(),   value: d => d.recrenters/d.total_renters, format: d => `${d.recrenters} (${(d.recrenters/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})` },
-      { id: 14, display: true, label: "Younger",               tooltip: "Number of renters aged 15 to 24 (Census)", legend: [0,0.06,0.12,0.19,0.25],                                    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.25])(d).rgb(), value: d => d.young/d.total_renters,         format: d => `${d.young} (${(d.young/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 15, display: true, label: "Older",                 tooltip: "Number of renters aged 65 and over at (Census)", legend: [0,0.06,0.12,0.19,0.25],                              legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.25])(d).rgb(), value: d => d.older/d.total_renters,         format: d => `${d.older} (${(d.older/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 16, display: true, label: "Unemployed",            tooltip: "Number of renters unemployed (census)", legend: [0,0.25,0.05,0.07,0.10],                                       legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.10])(d).rgb(), value: d => d.unemployed/d.total_renters,    format: d => `${d.unemployed} (${(d.unemployed/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 17, display: true, label: "Single Parent",         tooltip: "Number of households classified as one parent family (Census)",                                                legend: [0,0.06,0.12,0.19,0.25], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.25])(d).rgb(), value: d => d.single_parent/d.total_renters, format: d => `${d.single_parent} (${(d.single_parent/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 18, display: true, label: "Lower Education Level", tooltip: "Number of renters where highest level of education attained is Year 10 or below (Census)",                     legend: [0,0.06,0.12,0.19,0.25], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.25])(d).rgb(), value: d => d.low_ed/d.total_renters,        format: d => `${d.low_ed} (${(d.low_ed/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 19, display: true, label: "Disabled",    tooltip: "Needs assistance with a core activity, because of long-term health condition, disability or old age (Census)", legend: [0,0.05,0.10,0.15,0.20], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.20])(d).rgb(), value: d => d.assist/d.total_renters,        format: d => `${d.assist} (${(d.assist/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 20, display: true, label: "Indigenous",            tooltip: "Household contains at least one person who is Aboriginal or Torres Strait Islander (Census)",                  legend: [0,0.12,0.25,0.37,0.50], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.50])(d).rgb(), value: d => d.indig/d.total_renters,         format: d => `${d.indig} (${(d.indig/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 3, display: true,  info_display: true, label: "Number of Renters",          tooltip: "", legend: [0,0.25,0.5,0.6,0.7],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,0.5,0.75]).classes(5)(c).rgb(),   value: d => d.total_renters/d.total_persons, format: d => `${d.total_renters} (${(d.total_renters/d.total_persons).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})` },
+      { id: 38, display: true, info_display: true, label: "Recently Moved",          tooltip: "", legend: [0,0.05,0.1,0.15,0.2],    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: c => c == 0 ? [200, 200, 200, 0.5] : chroma.scale('OrRd').domain([0,0.3]).classes(5)(c).rgb(),   value: d => d.recrenters/d.total_renters, format: d => `${d.recrenters} (${(d.recrenters/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})` },
+      { id: 14, display: true, info_display: true, label: "Younger",               tooltip: "Number of renters aged 15 to 24 (Census)", legend: [0,0.06,0.12,0.19,0.25],                                    legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.25])(d).rgb(), value: d => d.young/d.total_renters,         format: d => `${d.young} (${(d.young/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 15, display: true, info_display: true, label: "Older",                 tooltip: "Number of renters aged 65 and over at (Census)", legend: [0,0.06,0.12,0.19,0.25],                              legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.25])(d).rgb(), value: d => d.older/d.total_renters,         format: d => `${d.older} (${(d.older/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 16, display: true, info_display: true, label: "Unemployed",            tooltip: "Number of renters unemployed (census)", legend: [0,0.25,0.05,0.07,0.10],                                       legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.10])(d).rgb(), value: d => d.unemployed/d.total_renters,    format: d => `${d.unemployed} (${(d.unemployed/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 17, display: true, info_display: true, label: "Single Parent",         tooltip: "Number of households classified as one parent family (Census)",                                                legend: [0,0.06,0.12,0.19,0.25], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.25])(d).rgb(), value: d => d.single_parent/d.total_renters, format: d => `${d.single_parent} (${(d.single_parent/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 18, display: true, info_display: true, label: "Lower Education Level", tooltip: "Number of renters where highest level of education attained is Year 10 or below (Census)",                     legend: [0,0.06,0.12,0.19,0.25], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.25])(d).rgb(), value: d => d.low_ed/d.total_renters,        format: d => `${d.low_ed} (${(d.low_ed/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 19, display: true, info_display: true, label: "Disabled",    tooltip: "Needs assistance with a core activity, because of long-term health condition, disability or old age (Census)", legend: [0,0.05,0.10,0.15,0.20], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.20])(d).rgb(), value: d => d.assist/d.total_renters,        format: d => `${d.assist} (${(d.assist/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 20, display: true, info_display: true, label: "Indigenous",            tooltip: "Household contains at least one person who is Aboriginal or Torres Strait Islander (Census)",                  legend: [0,0.12,0.25,0.37,0.50], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.50])(d).rgb(), value: d => d.indig/d.total_renters,         format: d => `${d.indig} (${(d.indig/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
     ]
   },     
   { "name": "Languages Spoken (Renters)",
     "items": [
-      { id: 21, display: true, label: "English",    tooltip:"Main language used at home (Census)", legend: [0.75,0.837,0.875,0.937,1], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.75,1])(d).rgb(),      value: d => d.english/d.total_renters,        format: d => `${d.english} (${(d.english/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 22, display: true, label: "Spanish",    tooltip:"Main language used at home (Census)", legend: [0,0.025,0.05,0.15,0.25],   legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.05,0.25])(d).rgb(), value: d => d.spanish/d.total_renters,        format: d => `${d.spanish} (${(d.spanish/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 23, display: true, label: "Arabic",     tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.arabic/d.total_renters,         format: d => `${d.arabic} (${(d.arabic/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 24, display: true, label: "Hindi",      tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.hindi/d.total_renters,          format: d => `${d.hindi} (${(d.hindi/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 25, display: true, label: "Punjabi",    tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.punjabi/d.total_renters,        format: d => `${d.pubjabi} (${(d.punjabi/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 26, display: true, label: "Vietnamese", tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.vietnamese/d.total_renters,     format: d => `${d.vietnamese} (${(d.vietnamese/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 27, display: true, label: "Japanese",   tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.japanese/d.total_renters,       format: d => `${d.japanese} (${(d.japanese/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 28, display: true, label: "Korean",     tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.korean/d.total_renters,         format: d => `${d.korean} (${(d.korean/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 29, display: true, label: "Mandarin",   tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.mandarin/d.total_renters,       format: d => `${d.mandarin} (${(d.mandarin/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 30, display: true, label: "Samoan",     tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.samoan/d.total_renters,         format: d => `${d.samoan} (${(d.samoan/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 31, display: true, label: "Tagalog",    tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.tagalog/d.total_renters,        format: d => `${d.tagalog} (${(d.tagalog/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
-      { id: 32, display: true, label: "Other",      tooltip:"Main language used at home (Census)", legend: [0,0.025,0.05,0.275,0.50],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.05,0.50])(d).rgb(), value: d => d.all_other_lang/d.total_renters, format: d => `${d.all_other_lang} (${(d.all_other_lang/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`}
+      { id: 21, display: true, info_display: false, label: "English",    tooltip:"Main language used at home (Census)", legend: [0.75,0.837,0.875,0.937,1], legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0.75,1])(d).rgb(),      value: d => d.english/d.total_renters,        format: d => `${d.english} (${(d.english/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 22, display: true, info_display: false, label: "Spanish",    tooltip:"Main language used at home (Census)", legend: [0,0.025,0.05,0.15,0.25],   legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.05,0.25])(d).rgb(), value: d => d.spanish/d.total_renters,        format: d => `${d.spanish} (${(d.spanish/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 23, display: true, info_display: false, label: "Arabic",     tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.arabic/d.total_renters,         format: d => `${d.arabic} (${(d.arabic/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 24, display: true, info_display: false, label: "Hindi",      tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.hindi/d.total_renters,          format: d => `${d.hindi} (${(d.hindi/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 25, display: true, info_display: false, label: "Punjabi",    tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.punjabi/d.total_renters,        format: d => `${d.pubjabi} (${(d.punjabi/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 26, display: true, info_display: false, label: "Vietnamese", tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.vietnamese/d.total_renters,     format: d => `${d.vietnamese} (${(d.vietnamese/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 27, display: true, info_display: false, label: "Japanese",   tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.japanese/d.total_renters,       format: d => `${d.japanese} (${(d.japanese/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 28, display: true, info_display: false, label: "Korean",     tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.korean/d.total_renters,         format: d => `${d.korean} (${(d.korean/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 29, display: true, info_display: false, label: "Mandarin",   tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.mandarin/d.total_renters,       format: d => `${d.mandarin} (${(d.mandarin/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 30, display: true, info_display: false, label: "Samoan",     tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.samoan/d.total_renters,         format: d => `${d.samoan} (${(d.samoan/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 31, display: true, info_display: false, label: "Tagalog",    tooltip:"Main language used at home (Census)", legend: [0,0.01,0.02,0.15,0.25],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.02,0.25])(d).rgb(), value: d => d.tagalog/d.total_renters,        format: d => `${d.tagalog} (${(d.tagalog/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      { id: 32, display: true, info_display: false, label: "Other",      tooltip:"Main language used at home (Census)", legend: [0,0.025,0.05,0.275,0.50],  legend_format: d => d.toLocaleString(undefined,{style: 'percent', minimumfractiondigits:1, maximumfractiondigits:1}), color: d => chroma.scale('OrRd').domain([0,0.05,0.50])(d).rgb(), value: d => d.all_other_lang/d.total_renters, format: d => `${d.all_other_lang} (${(d.all_other_lang/d.total_renters).toLocaleString(undefined,{style: 'percent', minimumfractiondigits:2, maximumfractiondigits:2})})`},
+      
+      // COMPOSITE ITEM: Another array for the languages
+      { 
+        id: ["spanish", "arabic", "hindi", "punjabi", "vietnamese", "japanese", "korean", "mandarin", "samoan", "tagalog", "all_other_lang"], 
+        display: false, 
+        info_display: true,
+        label: "Other Languages", 
+        chart: 'doughnut', 
+        labels: ["Spanish", "Arabic", "Hindi", "Punjabi", "Vietnamese", "Japanese", "Korean", "Mandarin", "Samoan", "Tagalog", "Other"], 
+        tooltip: "Main language used at home" 
+      },
+    
     ]
   }
 ]
 
 let THEME = 1;
 
+
+/*
+ * URL ROUTING: Resolve which state to load based on query parameters (e.g., ?state=qld)
+*/
 const URL_PARAMS = new URLSearchParams(window.location.search)
 const STATE = URL_PARAMS.get('state')
 const SETTING = STATE ? SETTINGS[STATE] : SETTINGS.default;
 
 let DATA, BRANDING, CONTROLS, INFO_PANEL, MAP, LEGEND;
+
+/*
+ * INITIALIZATION: Load data and boot up the UI/Map
+*/
 (async () => {
+  // Load geospatial data
   const response = await fetch("tiles/data.json");
   DATA = await response.json();
+
+  // Initialize UI components
   BRANDING = draw_branding(SETTING);
   CONTROLS = STATE ? draw_controls() : null;
   INFO_PANEL = draw_info_panel(SELECTED);
+
+  // Initialize Deck.gl map
   MAP = new deck.DeckGL({ 
     initialViewState: SETTING.view,
     container: 'map-container', 
@@ -194,8 +251,12 @@ let DATA, BRANDING, CONTROLS, INFO_PANEL, MAP, LEGEND;
   draw_legend();
 })();
 
+/**
+ * TOOLTIP LOGIC: Handle mouse interactions for data hover effects
+ */
 const tooltip = document.getElementById('cursor-tooltip');
 
+// Update tooltip position on mouse move
 document.addEventListener('mousemove', e => {
   if (tooltip.style.opacity === '1') {
     tooltip.style.left = e.clientX + 12 + 'px';
@@ -203,6 +264,7 @@ document.addEventListener('mousemove', e => {
   }
 });
 
+// Show tooltip when hovering over elements with [data-tooltip]
 document.addEventListener('mouseover', e => {
   const el = e.target.closest('[data-tooltip]');
   if (!el) return;
@@ -211,6 +273,7 @@ document.addEventListener('mouseover', e => {
   tooltip.style.opacity = '1';
 });
 
+// Hide tooltip on mouse out
 document.addEventListener('mouseout', e => {
   if (e.target.closest('[data-tooltip]')) {
     tooltip.style.opacity = '0';

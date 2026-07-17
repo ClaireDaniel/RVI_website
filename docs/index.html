@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Basic page metadata: sets character encoding and ensures the page is responsive on mobile devices -->
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Vulnerability Index</title>
+    
+    <!-- Browser icon (favicon) -->
     <link href="images/favicon.ico" rel="shortcut icon" type="image/jpg" />
+
+    <!-- MapLibre GL JS styles: essential for the base map to render correctly -->
     <link href="styles/maplibre-gl.css" rel="stylesheet" />
+
+    <!-- Google Fonts: Preconnecting to servers to speed up the loading of the Roboto font family -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed" rel="stylesheet">
+    
+    <!-- 
+      External Libraries:
+      - deck-gl: For high-performance visual overlays (like hexagons or arcs)
+      - maplibre-gl: The core engine for the interactive map
+      - chroma.js: Used for manipulating colors and creating scales (perfect for heatmaps/indices)
+      - chart.js: Used for rendering graphs and charts in the info panel
+    -->
     <script src="libs/deck-gl.js" type="module"></script>
     <script src="libs/maplibre-gl.js"></script>
     <script src="libs/chroma.js"></script>
     <script src="libs/chart.js"></script>
   </head>
+
   <body>
+    
     <div id="app">
       <div id="map-container"></div>
       <div id="side-panel">
@@ -26,6 +43,8 @@
       <div id="legend"></div>
     </div>
   </body>
+
+  <!-- Application Scripts -->
   <script src="scripts/branding.js"></script>
   <script src="scripts/controls.js"></script>
   <script src="scripts/map.js"></script>
@@ -33,5 +52,7 @@
   <script src="scripts/selection.js"></script>
   <script src="scripts/info_panel.js"></script>
   <script src="scripts/index.js"></script>
+
+  <!-- Main stylesheet for layout and custom UI components -->
   <link href="styles/index.css" rel="stylesheet"/>
 </html>

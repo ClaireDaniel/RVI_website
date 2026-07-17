@@ -1,8 +1,12 @@
-function layer_postcode() { 
-  let theme = THEMES.map(a => a.items).flat().filter(f => f.id == THEME)[0]
-  console.log('THEME INFO');
-  console.log(theme);
+/**
+ * Creates the detailed local-area layer (Postcodes/SA2).
+ * Uses MVTLayer for high-performance rendering of vector tiles.
+ */
 
+function layer_postcode() { 
+
+  // Retrieve the current active theme's configuration
+  let theme = THEMES.map(a => a.items).flat().filter(f => f.id == THEME)[0]
 
   return ([
     new deck.MVTLayer({
@@ -15,8 +19,12 @@ function layer_postcode() {
       highlightColor: [0, 0, 255],
       opacity: 0.5,
       lineWidthUnits: 'pixels',
+
+      // Highlight selected areas with a thicker, blue border
       getLineWidth: i =>  SELECTED.indexOf(i.properties.sa2_code) < 0 ? 1 : 3 , 
       getLineColor: i => SELECTED.indexOf(i.properties.sa2_code) < 0 ? [0, 0, 0, 50] : [0, 0, 255] , 
+      
+      // Apply fill color based on the current theme's scale
       getFillColor: f => {
         const p = f.properties;
 
@@ -26,6 +34,8 @@ function layer_postcode() {
 
         return theme.color(theme.value(p));
       },
+
+      // Handle area selection on click
       onClick: info => {
         const p = info?.object?.properties;
         if (!p) return;
@@ -33,19 +43,17 @@ function layer_postcode() {
         toggle_postcode_selection(p.sa2_code);
       },
 
-
-
+      // Filter tiles to only show the data for the currently selected STATE and YEAR
       getFilterValue: f => {
         const p = f.properties;
         return (p.year == YEAR && p.state == STATE) ? 1 : 0;
       },
             
-      
-      
-      
-      
       filterRange: [1, 1],
       extensions: [new deck.DataFilterExtension({filterSize: 1})],
+      
+      // PERFORMANCE: Only re-calculate these specific attributes when the triggers change
+      // This prevents the entire layer from re-rendering on every update
       updateTriggers: { 
         getFillColor: [YEAR, THEME],
         getFilterValue: [YEAR],
@@ -57,6 +65,10 @@ function layer_postcode() {
   
 }
 
+/**
+ * Creates the high-level state map layer.
+ * Uses GeoJsonLayer for simple polygon rendering of state boundaries.
+ */
 function layer_state() { 
   return ([
     new deck.GeoJsonLayer({
@@ -70,7 +82,11 @@ function layer_state() {
       getLineWidth: 1,
       getLineColor: [0, 0, 0], 
       getFillColor: COLOR_SCALE(1).rgb().concat(125) ,
+
+      // Redirect the browser to the state-specific view via URL parameter
       onClick: (i,e) => { window.location.href = `./?state=${i.object.properties.state}` },
+
+      // Only render the state that are defined in the SETTINGS object
       getFilterValue: i => Object.keys(SETTINGS).indexOf(i.properties.state) > -1 ? 1 : 0, 
       filterRange: [1, 1],
       extensions: [new deck.DataFilterExtension({filterSize: 1})],
@@ -78,8 +94,11 @@ function layer_state() {
   ]);
 }
 
-function tooltip_postcode(object) {
-  const p = object.properties;
+/**
+ * Generates the hover tooltip for local areas.
+ * Combines basic metadata with the currently active theme's formatted value.
+ */
+function tooltip_postcode(object) {  const p = object.properties;
   const theme = THEMES.map(a => a.items).flat().find(f => f.id == THEME);
 
   let valueLine;
@@ -87,6 +106,7 @@ function tooltip_postcode(object) {
   // IMPORTANT: rvi may be string "0"
   const rvi = Number(p.rvi);
 
+  // Handle cases where the area has no residents/data
   if (!Number.isFinite(rvi) || rvi === 0) {
     valueLine = '<em>No usual residents</em>';
   } else {
@@ -110,6 +130,9 @@ function tooltip_postcode(object) {
   return { html, style };
 }
 
+/**
+ * Generates a simple hover tooltip for state-level polygons.
+ */
 function tooltip_state(object) {
   let html = `${object.properties.STATE_NAME} <br> `;
   let style = { color:'#fff', backgroundColor: '#000', fontSize: '1em', fontFamily: 'monospace' };
