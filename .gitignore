@@ -1,2 +1,8 @@
 .DS_Store
-data/tiles.geojson
+data/output/tiles.geojson
+data/output/tiles/
+docs/tiles_orig/
+docs/tiles/tiles.geojson
+archive/
+data/input/
+.venv
