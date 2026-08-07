@@ -78,6 +78,7 @@ let SETTINGS = {
 
 //CATEGORICAL MAPPINGS: Labels and Colors for vulnerability types
 
+/*
 const CATEGORY_LABELS = {
   PC_RECRENTERS: "Recently moved",
   PC_UNEMP: "Unemployed renters",
@@ -94,7 +95,8 @@ const CATEGORY_LABELS = {
   PC_LONEPARENT: "Lone parents",
   PC_LOWEDU: "Lower education"
 };
-
+*/
+/*
 const CATEGORY_COLORS = {
   PC_RECRENTERS: chroma('#1f78b4').rgb(),    // mid blue
   PC_UNEMP: chroma('#e31a1c').rgb(),         // red
@@ -111,11 +113,36 @@ const CATEGORY_COLORS = {
   PC_LONEPARENT: chroma('#b2df8a').rgb(),    // light green
   PC_LOWEDU: chroma('#fb8072').rgb()         // coral
 };
+*/
+
+const CATEGORY_COLORS = {
+  "Social housing residents": chroma('#a6cee3').rgb(),
+  "Single parent tenants": chroma('#b2df8a').rgb(),
+  "Older Tenants": chroma('#ff7f00').rgb(),
+  "Unemployed tenants": chroma('#e31a1c').rgb(),
+  "Mobile tenants": chroma('#1f78b4').rgb(),
+  "Tenants with low education": chroma('#fb8072').rgb(),
+  "Tenants with disability": chroma('#6a3d9a').rgb(),
+  "Young tenants": chroma('#33a02c').rgb(),
+  "Resident park residents": chroma('#cab2d6').rgb(),
+  "NA": chroma('#bdbdbd').rgb(),
+  "Boarding house residents": chroma('#ffff99').rgb(),
+  "Stressed tenants": chroma('#fb9a99').rgb(),
+  "Indigenous tenants": chroma('#b15928').rgb(),
+  "Tenants not speaking English at home": chroma('#fdbf6f').rgb()
+};
+
+const CATEGORY_DOMAIN = Object.keys(CATEGORY_COLORS);
+const CATEGORY_FALLBACK = [200, 200, 200];
+
+
+
+
 
 // Array of all available category keys
-const CATEGORY_DOMAIN = Object.keys(CATEGORY_LABELS);
+//const CATEGORY_DOMAIN = Object.keys(CATEGORY_LABELS);
 // Default fallback color (light grey) for missing category mappings
-const CATEGORY_FALLBACK = [200,200,200];
+//const CATEGORY_FALLBACK = [200,200,200];
 
 // GLOBAL STATE & CONSTANTS
 let COLOR_SCALE = chroma.scale('OrRd').classes(5);
@@ -133,7 +160,21 @@ let THEMES = [
       //{ id: 34, display: true, info_display: false, type: "categorical", label: "Primary Vulnerability Category", domain: CATEGORY_DOMAIN, value: d => d.hcv1, color: v => chroma(CATEGORY_COLORS[v] || CATEGORY_FALLBACK).rgb(), format: d => CATEGORY_LABELS?.[d?.hcv1] ?? "N/A", legend: CATEGORY_DOMAIN, legend_format: v => CATEGORY_LABELS[v] ?? v, tooltip: "Most prominent renter vulnerability characteristic", legend_layout: 'stack'},
       //{ id: 36, display: true, type: "categorical", label: "Secondary Vulnerability Category", domain: CATEGORY_DOMAIN, value: d => d.hcv2, color: v => chroma(CATEGORY_COLORS[v] || CATEGORY_FALLBACK).rgb(), format: d => CATEGORY_LABELS?.[d?.hcv2] ?? "N/A", legend: CATEGORY_DOMAIN, legend_format: v => CATEGORY_LABELS[v] ?? v, tooltip: "Most prominent renter vulnerability characteristic", legend_layout: 'stack'},
      // { id: 37, display: true, type: "categorical", label: "Tertiary Vulnerability Category", domain: CATEGORY_DOMAIN, value: d => d.hcv3, color: v => chroma(CATEGORY_COLORS[v] || CATEGORY_FALLBACK).rgb(), format: d => CATEGORY_LABELS?.[d?.hcv3] ?? "N/A", legend: CATEGORY_DOMAIN, legend_format: v => CATEGORY_LABELS[v] ?? v, tooltip: "Most prominent renter vulnerability characteristic", legend_layout: 'stack'},
-   
+      {
+        id: 34,
+        display: true,
+        info_display: false,
+        type: "categorical",
+        label: "Primary Vulnerability Category",
+        domain: CATEGORY_DOMAIN,
+        value: d => d.lcv1,
+        color: v => chroma(CATEGORY_COLORS[v] || CATEGORY_FALLBACK).rgb(),
+        format: d => d?.lcv1 ?? "N/A",
+        legend: CATEGORY_DOMAIN,
+        legend_format: v => v,
+        tooltip: "Most prominent renter vulnerability characteristic",
+        legend_layout: 'stack'
+      }
     ]
   },
   { "name": "Dwelling Indicators",

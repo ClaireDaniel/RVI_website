@@ -6,36 +6,47 @@
 # ------------------------------------------------------------------------------
 # 1. ENVIRONMENT SETUP
 # ------------------------------------------------------------------------------
-user_lib_path <- "C:/Users/cdan0460/R/win-library/4.5"
-project_data_dir <- "//wsl.localhost/Ubuntu-24.04/home/cdan0460/dashboards-rental-vulnerability-index/data"
-y
+user_lib_path <- "/home/cdan0460/R/x86_64-pc-linux-gnu-library/4.3"
+
 # Ensure the target library folder exists before attempting installation
 dir.create(user_lib_path, recursive = TRUE)
 
-# Install core dependencies into the custom directory to avoid permission issues 
-# or conflicts with the default R library
-install.packages("tidyverse", lib = user_lib_path)
-install.packages("sf", lib = user_lib_path)
-install.packages("ggplot2", lib = user_lib_path)
+# Create the user library folder if needed
+dir.create(
+  user_lib_path,
+  recursive = TRUE,
+  showWarnings = FALSE
+)
 
-# Dynamically set the library path so R knows where to find the packages we just installed
-userlib <- file.path(Sys.getenv("USERPROFILE"), "R", "win-library/4.5")
-dir.create(userlib, recursive = TRUE, showWarnings = FALSE)
-.libPaths(c(userlib, .libPaths()))  # puts userlib first
+# Packages required
+packages <- c("fs", "tidyverse", "sf")
 
-# Load the libraries for data manipulation (tidyverse) and spatial analysis (sf)
+# Check which packages are already installed in this library
+installed <- rownames(
+  installed.packages(lib.loc = user_lib_path)
+)
+
+missing <- packages[!packages %in% installed]
+
+# Install only missing packages
+if (length(missing) > 0) {
+  install.packages(missing, lib = user_lib_path)
+} else {
+  message("All required packages are already installed.")
+}
+
+# Load packages explicitly from the user library
 library(tidyverse, lib.loc = user_lib_path)
 library(sf, lib.loc = user_lib_path)
 
-# Move the R session into the project folder so relative paths (like "combined.csv") work
-setwd(project_data_dir)
+
 
 # ------------------------------------------------------------------------------
 # 2. DATA PROCESSING
 # ------------------------------------------------------------------------------
 
 # Load the master CSV containing metrics for all years
-data <- read_csv("combined.csv")
+data <- read_csv("input/combined.csv")
 
 # --- Data Cleaning ---
 # 1. Select only the ID, location names, year-specific columns, and shared 'common' columns.
@@ -54,9 +65,9 @@ data_2021 <- data |> select(sa2_code, state, sa2_name, ends_with("_2021"), ends_
 # Note: We rename the different ABS ID column names (SA2_MAIN11, etc.) to 'sa2_code' 
 # so they can be joined with the attribute dataframes.
 
-geoms_2011 <- st_read("2011","2011") |> select(sa2_code = SA2_MAIN11)
-geoms_2016 <- st_read("2016","2016") |> select(sa2_code = SA2_MAIN16)
-geoms_2021 <- st_read("2021","2021") |> select(sa2_code = SA2_CODE21)
+geoms_2011 <- st_read("input/2011.shp") |> select(sa2_code = SA2_MAIN11)
+geoms_2016 <- st_read("input/2016.shp") |> select(sa2_code = SA2_MAIN16)
+geoms_2021 <- st_read("input/2021.shp") |> select(sa2_code = SA2_CODE21)
 
 # Bounding Box Generation:
 # For each geometry, we calculate the bounding box (min/max X and Y).
