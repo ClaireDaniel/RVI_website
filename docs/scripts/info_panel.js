@@ -126,21 +126,43 @@ async function draw_info_panel(postcodes) {
     if(d.value) {
       // 1. State Aggregate Column
       let state_agg = aggregated_info.find(a => a.header == d.header && a.state == STATE && a.year == YEAR);
+      
       if (state_agg) {
-        let state_cell = document.createElement('td');
-        const chartType = state_agg.chart || d.chart;
-        if (chartType) {
-          state_cell.setAttribute('class','chart-cell');
-          state_cell.setAttribute('style','max-width:150px; height:' + (chartType === 'line' ? '50px' : '75px') + ';');
-          let canvas = document.createElement('canvas');
-          canvas.setAttribute('class','chart');
-          state_cell.appendChild(canvas);
-          const vals = Array.isArray(state_agg.value) ? state_agg.value : (state_agg.value != null ? [state_agg.value] : []);
-          renderChart(canvas, { ...d, chart: chartType }, vals, state_agg.labels || d.labels || []);
-        } else {
-          state_cell.innerHTML = `<span>${state_agg.value}</span>`;
-        }
-        info_row.appendChild(state_cell);
+          let state_cell = document.createElement('td');
+          const chartType = state_agg.chart || d.chart;
+
+          if (chartType) {
+              state_cell.setAttribute('class', 'chart-cell');
+              state_cell.setAttribute(
+                  'style',
+                  'max-width:150px; height:' + (chartType === 'line' ? '50px' : '75px') + ';'
+              );
+
+              let canvas = document.createElement('canvas');
+              canvas.setAttribute('class', 'chart');
+              state_cell.appendChild(canvas);
+
+              let vals = [];
+
+              if (Array.isArray(state_agg.value)) {
+                  vals = state_agg.value.map(Number);
+              } else if (state_agg.value != null) {
+                  vals = [Number(state_agg.value)];
+              }
+
+              const labels = state_agg.labels || d.labels || [];
+
+              renderChart(
+                  canvas,
+                  { ...d, chart: chartType },
+                  vals,
+                  labels
+              );
+          } else {
+              state_cell.innerHTML = `<span>${state_agg.value}</span>`;
+          }
+
+          info_row.appendChild(state_cell);
       }
 
       // 2. Selected Local Area Columns
@@ -167,6 +189,40 @@ async function draw_info_panel(postcodes) {
     info_table.appendChild(info_row);
   }
 
+  function add_contributing_indicators_row() {
+    const info_row = document.createElement('tr');
+
+    // Row heading
+    const header_cell = document.createElement('td');
+    header_cell.innerHTML = `
+        <span class="short">Largest Contributing Indicators</span>
+    `;
+    info_row.appendChild(header_cell);
+
+    // State aggregate column — intentionally blank
+    const state_cell = document.createElement('td');
+    info_row.appendChild(state_cell);
+
+    // Selected SA2 columns
+    data.forEach(datum => {
+        const local_cell = document.createElement('td');
+
+        const indicators = [
+            datum.lcv1,
+            datum.lcv2,
+            datum.lcv3
+        ].filter(value => value && value !== 'NA');
+
+        local_cell.innerHTML = indicators
+          .map(value => `<div class="contributing-indicator">${value}</div>`)
+          .join('');
+
+        info_row.appendChild(local_cell);
+    });
+
+    info_table.appendChild(info_row);
+}
+
   // Filter the global DATA set for the current selection and year
   let data = DATA.filter(d => postcodes.indexOf(d.sa2_code) > -1 && d.year == YEAR);
   
@@ -178,12 +234,16 @@ async function draw_info_panel(postcodes) {
     // 2. Loop through the THEMES from index.js to build the rest of the table
     THEMES.forEach(theme => {
       // Add the Category Header (e.g., "Rental Indicators")
-      add_row({header: theme.name});
+      //add_row({header: theme.name});
 
       // Add each item in that theme
       theme.items.forEach(item => {
         // We only add it to the panel if it's marked for display 
         // (or you could add a new property like 'showInPanel: true')
+
+        // LCV indicators are handled separately below
+        if ([34, 36, 37].includes(item.id)) return;
+
         if (item.info_display) {
           add_row({
             header: item.label,
@@ -194,6 +254,12 @@ async function draw_info_panel(postcodes) {
             // Pass through any other properties the add_row function needs
           });
         }
+
+      // Insert contributing indicators immediately after RVI
+          if (item.id === 1) {
+              add_contributing_indicators_row();
+          }
+
       });
     });
   }

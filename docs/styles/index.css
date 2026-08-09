@@ -36,7 +36,7 @@ html, body, #app, #map-container {
 .containers { padding: 10px; }
 .side-panel-sections {
   font-size: 0.75em;
-  background: rgba(255, 255, 255);
+  background: rgba(255, 255, 255, 0.9);
   padding: 10px 15px;
   margin-bottom: 10px;
   border-radius: 3px;
@@ -140,10 +140,21 @@ summary { font-weight: bold; }
 /*******************************************************************/
 /* Info Panel                                                      */
 /*******************************************************************/
-#info-panel { flex-grow: 1; -ms-overflow-style: none; scrollbar-width: none; }
-#info-panel { overflow: scroll; min-height: 700px; }
-#info-panel > .side-panel-sections { overflow: scroll; min-height: 700px; }
-#info-panel::-webkit-scrollbar { display: none; }
+#info-panel {
+    flex-grow: 0;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+}
+
+#info-panel > .side-panel-sections {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+}
+
 [data-tooltip] { border-bottom: 1px dashed #000; cursor: help;}
 [data-tooltip]::after {
   display: none !important;
@@ -170,6 +181,11 @@ td, th { padding: 3px; text-align: center; white-space: pre-wrap; min-width: 70p
   opacity: 0;
   transition: opacity 150ms ease;
   white-space: pre-wrap;
+}
+
+.contributing-indicator {
+    margin-bottom: 5px;
+    line-height: 1.25;
 }
 
 /*******************************************************************/
@@ -205,4 +221,201 @@ td, th { padding: 3px; text-align: center; white-space: pre-wrap; min-width: 70p
   text-shadow: black 1px 1px;
   font-weight: lighter;
 }
+
+
+/*******************************************************************/
+/* Branding                                                        */
+/*******************************************************************/
+
+#branding {
+    background: transparent;
+}
+
+#branding-title {
+    background: rgba(255, 255, 255, 0.90);
+    margin-bottom: 10px;
+}
+
+#branding-instruction {
+    background: rgba(255, 243, 205, 0.90);
+    margin-bottom: 10px;
+}
+
+
+/* Logos */
+.branding-logos {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: none;
+}
+
+#branding-logos-box {
+    background: rgba(255, 255, 255);
+    margin-top: 10px;
+    padding: 12px 15px;
+    border-radius: 4px;
+}
+
+.branding-logos {
+    margin: 0;
+}
+
+.branding-partner {
+    margin: 0 0 15px 0;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: #444;
+}
+
+/* Compact partner/logo box on state pages only */
+#branding-logos-box.state-logos-box {
+    padding: 6px 8px;
+    margin-top: 6px;
+}
+
+/* Partner text */
+.state-logos-box .branding-partner {
+    margin: 0 0 5px 0;
+    font-size: 0.72rem;
+    line-height: 1.2;
+}
+
+/* Force all logos onto one line */
+.state-logos-box .branding-logos {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.state-logos-box .branding-logo {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 21%;
+    max-height: 30px;
+    object-fit: contain;
+    flex-shrink: 1;
+}
+
+
+/* Tab navigation */
+.branding-tabs {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    gap: 2px;
+    padding-top: 6px;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+/* Folder tabs */
+.branding-tab {
+    flex: 0 1 auto;
+    min-width: 0;
+    padding: 9px 8px 8px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-radius: 7px 7px 0 0;
+    background: rgba(232, 232, 232, 0.90);
+    cursor: pointer;
+    font-size: 0.82rem;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+#tab-instructions {
+    text-align: left;
+}
+
+/* Smaller screens */
+@media (max-width: 600px) {
+    .branding-tab {
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 0.75rem;
+    }
+
+    .branding-tabs {
+        gap: 1px;
+    }
+}
+
+/* Hover */
+.branding-tab:hover {
+    background: rgba(243, 243, 243, 0.90);
+}
+
+/* Selected tab */
+.branding-tab.active {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.90);
+    font-weight: bold;
+    padding-top: 11px;
+    padding-bottom: 9px;
+    margin-bottom: -1px;
+}
+
+/* Content box underneath */
+.branding-tab-content {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 0 0 4px 4px;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: #444;
+}
+
+/* Hide inactive content */
+.branding-tab-panel {
+    display: none;
+    position: relative;
+}
+
+.branding-tab-panel.active {
+    display: block;
+}
+
+/* Leave room for back arrow */
+.branding-tab-panel:not(#tab-main) {
+    padding-top: 25px;
+}
+
+/* Back arrow */
+.tab-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #555;
+}
+
+.tab-back:hover {
+    color: #000;
+}
+
+
+
+
+
+
+
+
 
