@@ -3,6 +3,25 @@
  * Uses MVTLayer for high-performance rendering of vector tiles.
  */
 
+function classColor(value, breaks, reverse = false) {
+  let colors = chroma.scale('OrRd').colors(breaks.length);
+
+  if (reverse) {
+    colors.reverse();
+  }
+
+  let classIndex = breaks.length - 1;
+
+  for (let i = 0; i < breaks.length - 1; i++) {
+    if (value < breaks[i + 1]) {
+      classIndex = i;
+      break;
+    }
+  }
+
+  return chroma(colors[classIndex]).rgb();
+}
+
 function layer_postcode() { 
 
   // Retrieve the current active theme's configuration
@@ -32,8 +51,19 @@ function layer_postcode() {
           return [180, 180, 180, 120];
         }
 
-        return theme.color(theme.value(p));
+        if (theme.type === 'categorical') {
+          return theme.color(theme.value(p));
+        }
+
+        return classColor(theme.value(p), theme.legend, theme.reverse);
       },
+
+        /*return chroma.scale('OrRd')
+          .classes(theme.legend)
+          (theme.value(p))
+          .rgb();*/
+
+       
 
       // Handle area selection on click
       onClick: info => {
@@ -56,7 +86,7 @@ function layer_postcode() {
       // This prevents the entire layer from re-rendering on every update
       updateTriggers: { 
         getFillColor: [YEAR, THEME],
-        getFilterValue: [YEAR],
+        getFilterValue: [YEAR, STATE],
         getLineColor: [SELECTED],
         getLineWidth: [SELECTED]
       }
