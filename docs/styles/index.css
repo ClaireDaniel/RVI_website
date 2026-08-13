@@ -193,11 +193,10 @@ td, th { padding: 3px; text-align: center; white-space: pre-wrap; min-width: 70p
 /*******************************************************************/
 #legend {
   display: none;
-  width: 20%;
   position: absolute;
   left: 0;
   bottom: 25px;
-  max-width: 150px;
+  width: fit-content;
   opacity: 0.9;
   margin: 10px;
   background: white;
