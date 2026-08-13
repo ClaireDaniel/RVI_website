@@ -40,7 +40,7 @@ function draw_branding(state) {
     tabs.setAttribute('class', 'branding-tabs');
 
    tabs.innerHTML = `
-    <button class="branding-tab" data-tab="about">About</button>
+    <button class="branding-tab ${!STATE ? 'active' : ''}" data-tab="about">About</button>
     <button class="branding-tab" data-tab="data">Data</button>
     <button class="branding-tab" data-tab="instructions">How to</button>
     <button class="branding-tab" data-tab="credits">Credits</button>
@@ -59,13 +59,14 @@ function draw_branding(state) {
     });
 
     tabContent.innerHTML = `
-        <div class="branding-tab-panel active" id="tab-main">
+        <div class="branding-tab-panel ${STATE ? 'active' : ''}" id="tab-main">
             <div id="branding-main">
                 <p>${main}</p>
             </div>
         </div>
 
-        <div class="branding-tab-panel" id="tab-about">
+        <div class="branding-tab-panel ${!STATE ? 'active' : ''}" id="tab-about">
+        
             <button class="tab-back" aria-label="Back to main">←</button>
             <div id="about-content">
                 ${about}
