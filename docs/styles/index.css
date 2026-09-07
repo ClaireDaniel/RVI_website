@@ -80,6 +80,11 @@ summary { font-weight: bold; }
   flex-wrap: wrap;
 }
 .branding-logo { max-height: 60px; margin: 5px 10px; }
+.branding-logo.logo-darwin-cl { max-height: 78px; }
+.branding-logo.logo-tu-tasmania { max-height: 78px; }
+.branding-logo.logo-cfrc { max-height: 78px; }
+.branding-logo.logo-unsw { max-height: 78px; }
+.branding-logo.logo-usyd { max-height: 78px; }
 #branding-home {
   position: absolute;
   left: 15px;
@@ -259,6 +264,10 @@ td, th { padding: 3px; text-align: center; white-space: pre-wrap; min-width: 70p
     margin: 0;
 }
 
+.branding-logos-secondary {
+    margin-top: 5px;
+}
+
 .branding-partner {
     margin: 0 0 15px 0;
     font-size: 0.88rem;
@@ -295,10 +304,9 @@ td, th { padding: 3px; text-align: center; white-space: pre-wrap; min-width: 70p
     display: block;
     width: auto;
     height: auto;
-    max-width: 21%;
-    max-height: 30px;
-    object-fit: contain;
+    max-height: 58px;
     flex-shrink: 1;
+    min-width: 0;
 }
 
 

@@ -208,7 +208,7 @@ let SETTINGS = {
   default: {
     view: {latitude: -28, longitude: 145.5, zoom: 3.5},
     title: 'Australian Rental Vulnerability Index',
-    main: "The <strong>The Rental Vulnerability Index (RVI)</strong> measures and maps indicators of vulnerability to rental housing problems.",
+    main: "<strong>The Rental Vulnerability Index (RVI)</strong> measures and maps indicators of vulnerability to rental housing problems.",
     about: "The RVI is a composite index that brings together several indicators, including rental stress, unemployment, disability and low education, that are associated with experience of rental housing problems. It scores, ranks and maps suburbs (SA2s) by the proportion of renters experiencing the vulnerability indicators, thereby indicating a need for tenant advice services.<br><br>Vulnerability in this sense is not inherent to persons; it reflects their position in social and economic relations. Vulnerable persons, on their own and with the assistance of advocates, can seek to resolve their housing problems and change things for the better.",
     data: "The RVI uses data from the ABS Census of Population and Housing <a href='https://www.abs.gov.au/census' target='_blank'>www.abs.gov.au/census</a>. Median rents data are from rental bonds data published by state and territory governments.<br><br>The data are indicators of rental vulnerability in two broad groups: 'housing indicators' and 'people indicators'. The indicators were selected based on evidence from housing research that shows their association with experience of housing problems. A principal component analysis was conducted to assess the contribution of each indicator to total vulnerability and to score and rank suburbs (SA2s) in each state and territory according to the proportion of renter households with the relevant indicators. Some SA2s with very small populations are excluded.",
     howTo: "Select a state or territory on the map to explore rental vulnerability, view different indicators and compare local areas.",
@@ -219,7 +219,9 @@ let SETTINGS = {
         'images/tenants-vic.png',
         'images/tu-tasmania.png',
         'images/darwin-cl.png',
-        'images/circle-green.png',
+        'images/circle-green.png'
+    ],
+    funderLogos: [
         'images/cfrc.png',
         'images/unsw.jpg',
         'images/usyd.jpg'
@@ -398,7 +400,7 @@ let THEMES = [
         info_display: true, 
         label: "Proportion Households Renting", 
         chart: 'doughnut', 
-        labels: ["Owner Occ.", "Rented", "Other", "Not Stated", "NA"], 
+        labels: ["Owner Occupier", "Renter", "Other", "Not Stated", "NA"],
         tooltip: "Proportion of households either renting or living in a house owned outright (or subject to a mortgage)" 
       },
     ]
@@ -463,7 +465,7 @@ let THEMES = [
         label: "Languages Other than English", 
         chart: 'doughnut', 
         labels: ["Spanish", "Arabic", "Hindi", "Punjabi", "Vietnamese", "Japanese", "Korean", "Mandarin", "Samoan", "Tagalog", "Other"], 
-        tooltip: "Main language used at home" 
+        tooltip: "Main language other than english used by renters at home" 
       },
     ]
   }

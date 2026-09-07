@@ -66,6 +66,11 @@ async function draw_info_panel(postcodes) {
             caretSize: 0,
             displayColors: d.chart !== 'line',
             callbacks: {
+              title: function (context) {
+                const label = context[0]?.label || '';
+                const words = label.split(' ');
+                return words.length > 1 ? words : label;
+              },
               label: function (context) {
                 let val = context.parsed;
                 if (typeof val === 'object' && val !== null) val = val.y !== undefined ? val.y : val.x;

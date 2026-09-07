@@ -53,9 +53,16 @@ function draw_branding(state) {
     tabContent.setAttribute('class', 'branding-tab-content');
 
     // Logos
+    const logoClass = url => url.split('/').pop().replace(/\.[^/.]+$/, '');
+
     let logos = '';
     state.logos.forEach((url, i) => {
-        logos += `<img class="branding-logo" src="${url}" alt="logo-${i + 1}">`;
+        logos += `<img class="branding-logo logo-${logoClass(url)}" src="${url}" alt="logo-${i + 1}">`;
+    });
+
+    let funderLogos = '';
+    (state.funderLogos || []).forEach((url, i) => {
+        funderLogos += `<img class="branding-logo logo-${logoClass(url)}" src="${url}" alt="funder-logo-${i + 1}">`;
     });
 
     tabContent.innerHTML = `
@@ -109,6 +116,11 @@ function draw_branding(state) {
         <div class="branding-logos">
             ${logos}
         </div>
+        ${funderLogos ? `
+        <div class="branding-logos branding-logos-secondary">
+            ${funderLogos}
+        </div>
+        ` : ''}
     `;
 
     branding.appendChild(logoBox);
