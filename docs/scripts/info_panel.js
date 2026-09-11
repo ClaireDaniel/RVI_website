@@ -197,10 +197,13 @@ async function draw_info_panel(postcodes) {
   function add_contributing_indicators_row() {
     const info_row = document.createElement('tr');
 
+    // Pull the tooltip text from index.js rather than duplicating it here
+    const theme_item = THEMES.map(a => a.items).flat().find(f => f.id === 34);
+
     // Row heading
     const header_cell = document.createElement('td');
     header_cell.innerHTML = `
-        <span class="short">Largest Contributing Indicators</span>
+        <span ${theme_item?.tooltip ? 'data-tooltip="'+theme_item.tooltip+'"' : ''} class="short">Largest Contributing Indicators</span>
     `;
     info_row.appendChild(header_cell);
 
